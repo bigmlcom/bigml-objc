@@ -14,7 +14,47 @@
 
 #import <Foundation/Foundation.h>
 #import "BMLEnums.h"
+#import "BMLResource.h"
+
+//@protocol BMLResource;
+//@class BMLResourceTypeIdentifier;
 
 @interface BMLAPIConnector : NSObject
+
+- (instancetype)initWithUsername:(NSString*)username
+                          apiKey:(NSString*)apiKey
+                            mode:(BMLMode)mode;
+
++ (BMLAPIConnector*)connectorWithUsername:(NSString*)username
+                                   apiKey:(NSString*)apiKey
+                                     mode:(BMLMode)mode;
+
+- (void)createResource:(BMLResourceTypeIdentifier*)type
+                  name:(NSString*)name
+               options:(NSDictionary*)options
+                  from:(id<BMLResource>)from
+            completion:(void(^)(id<BMLResource>, NSError*))completion;
+
+- (void)createResource:(BMLResourceTypeIdentifier*)type
+                  name:(NSString*)name
+               options:(NSDictionary*)options
+            completion:(void(^)(id<BMLResource>, NSError*))completion;
+
+- (void)listResources:(BMLResourceTypeIdentifier*)type
+              filters:(NSDictionary*)filters
+           completion:(void(^)(NSArray*, NSError*))completion;
+
+- (void)deleteResource:(BMLResourceTypeIdentifier*)type
+                  uuid:(BMLResourceUuid*)uuid
+            completion:(void(^)(NSError*))completion;
+
+- (void)updateResource:(BMLResourceTypeIdentifier*)type
+                  uuid:(BMLResourceUuid*)uuid
+                values:(NSDictionary*)values
+            completion:(void(^)(NSError*))completion;
+
+- (void)getResource:(BMLResourceTypeIdentifier*)type
+               uuid:(BMLResourceUuid*)uuid
+         completion:(void(^)(id<BMLResource>, NSError*))completion;
 
 @end

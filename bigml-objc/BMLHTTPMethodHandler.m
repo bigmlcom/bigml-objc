@@ -121,25 +121,23 @@
                      completionHandler:^(NSData* data, NSURLResponse* resp, NSError* error) {
                          
                          if (!error) {
-                             
-                             NSHTTPURLResponse* response = nil;
-                             if ([response isKindOfClass:[NSHTTPURLResponse class]])
-                                 response = (id)resp;
-                             
-                             if (![response isStrictlyValid]) {
-                                 
-                                 NSUInteger code = response.statusCode;
-                                 NSDictionary* status =
-                                 [NSJSONSerialization JSONObjectWithData:data
-                                                                 options:NSJSONReadingAllowFragments
-                                                                   error:&error];
-                                 if (!error)
-                                     error = [NSError errorWithStatus:status code:code];
-                                 
+                             if ([resp isKindOfClass:[NSHTTPURLResponse class]]) {
+
+                                 NSHTTPURLResponse* response = (id)resp;
+                                 if (![response isStrictlyValid]) {
+                                     
+                                     NSUInteger code = response.statusCode;
+                                     NSDictionary* status =
+                                     [NSJSONSerialization JSONObjectWithData:data
+                                                                     options:NSJSONReadingAllowFragments
+                                                                       error:&error];
+                                     if (!error)
+                                         error = [NSError errorWithStatus:status code:code];
+                                 }
                              } else {
                                  NSString* message =
                                  [NSString stringWithFormat:@"Bad response format for URL: %@",
-                                  response.URL.absoluteString];
+                                  resp.URL.absoluteString];
                                  error = [NSError errorWithInfo:message
                                                            code:-10001];
                              }
@@ -156,8 +154,8 @@
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPBody = data;
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    request.HTTPMethod = method;
+    [request setValue:_contentType forHTTPHeaderField:@"Content-Type"];
     
     return request;
 }
@@ -188,9 +186,9 @@
                                                              options:NSJSONReadingAllowFragments
                                                                error:error];
     if (*error == nil) {
-        NSUInteger code = [jsonDict[@"code"] intValue];
-        if (code != expectedCode)
-            *error = [NSError errorWithStatus:jsonDict[@"status"] code:code];
+        NSString* code = jsonDict[@"code"];
+        if (code && [code intValue] != expectedCode)
+            *error = [NSError errorWithStatus:jsonDict[@"status"] code:[code intValue]];
     } else {
         *error = [NSError errorWithInfo:@"Bad response format" code:-10001];
     }

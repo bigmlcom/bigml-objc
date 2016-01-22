@@ -14,22 +14,22 @@
 
 #import "BMLResourceTypeIdentifier.h"
 
-NSString* const BMLResourceTypeFile = @"file";
-NSString* const BMLResourceTypeProject = @"project";
-NSString* const BMLResourceTypeSource = @"source";
-NSString* const BMLResourceTypeDataset = @"dataset";
-NSString* const BMLResourceTypeModel = @"model";
-NSString* const BMLResourceTypeCluster = @"cluster";
-NSString* const BMLResourceTypeAnomaly = @"anomaly";
-NSString* const BMLResourceTypeEnsemble = @"ensemble";
-NSString* const BMLResourceTypeLogisticRegression = @"logisticRegression";
-NSString* const BMLResourceTypeAssociation = @"association";
-NSString* const BMLResourceTypeEvaluation = @"evaluation";
-NSString* const BMLResourceTypePrediction = @"prediction";
-NSString* const BMLResourceTypeWhizzmlScript = @"script";
-NSString* const BMLResourceTypeWhizzmlExecution = @"execution";
-NSString* const BMLResourceTypeWhizzmlSource = @"sourcecode";
-NSString* const BMLResourceTypeNotAResource = @"invalid";
+BMLResourceTypeIdentifier* const BMLResourceTypeFile = (BMLResourceTypeIdentifier*)@"file";
+BMLResourceTypeIdentifier* const BMLResourceTypeProject = (BMLResourceTypeIdentifier*)@"project";
+BMLResourceTypeIdentifier* const BMLResourceTypeSource = (BMLResourceTypeIdentifier*)@"source";
+BMLResourceTypeIdentifier* const BMLResourceTypeDataset = (BMLResourceTypeIdentifier*)@"dataset";
+BMLResourceTypeIdentifier* const BMLResourceTypeModel = (BMLResourceTypeIdentifier*)@"model";
+BMLResourceTypeIdentifier* const BMLResourceTypeCluster = (BMLResourceTypeIdentifier*)@"cluster";
+BMLResourceTypeIdentifier* const BMLResourceTypeAnomaly = (BMLResourceTypeIdentifier*)@"anomaly";
+BMLResourceTypeIdentifier* const BMLResourceTypeEnsemble = (BMLResourceTypeIdentifier*)@"ensemble";
+BMLResourceTypeIdentifier* const BMLResourceTypeLogisticRegression = (BMLResourceTypeIdentifier*)@"logisticRegression";
+BMLResourceTypeIdentifier* const BMLResourceTypeAssociation = (BMLResourceTypeIdentifier*)@"association";
+BMLResourceTypeIdentifier* const BMLResourceTypeEvaluation = (BMLResourceTypeIdentifier*)@"evaluation";
+BMLResourceTypeIdentifier* const BMLResourceTypePrediction = (BMLResourceTypeIdentifier*)@"prediction";
+BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlScript = (BMLResourceTypeIdentifier*)@"script";
+BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlExecution = (BMLResourceTypeIdentifier*)@"execution";
+BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlSource = (BMLResourceTypeIdentifier*)@"sourcecode";
+BMLResourceTypeIdentifier* const BMLResourceTypeNotAResource = (BMLResourceTypeIdentifier*)@"invalid";
 
 @implementation BMLResourceTypeIdentifier
 

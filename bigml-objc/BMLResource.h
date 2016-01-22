@@ -37,7 +37,7 @@ typedef NSString BMLResourceFullUuid;
                   definition:(NSDictionary*)definition;
 
 - (instancetype)initWithName:(NSString*)name
-                        fullUuid:(BMLResourceFullUuid*)fullUuid
+                    fullUuid:(BMLResourceFullUuid*)fullUuid
                   definition:(NSDictionary*)definition;
 
 @end

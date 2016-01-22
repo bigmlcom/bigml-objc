@@ -14,7 +14,6 @@
 
 #import "BMLAPIConnector.h"
 #import "BMLHTTPConnector.h"
-#import "BMLResource.h"
 #import "BMLResourceTypeIdentifier.h"
 #import "NSError+BMLError.h"
 
@@ -30,6 +29,13 @@ void delay(float delay, dispatch_block_t block) {
     NSString* _authToken;
     
     BMLHTTPConnector* _connector;
+}
+
++ (BMLAPIConnector*)connectorWithUsername:(NSString*)username
+                                   apiKey:(NSString*)apiKey
+                                     mode:(BMLMode)mode {
+    
+    return [[self alloc] initWithUsername:username apiKey:apiKey mode:mode];
 }
 
 - (instancetype)initWithUsername:(NSString*)username
@@ -253,7 +259,9 @@ void delay(float delay, dispatch_block_t block) {
                            uuid:(BMLResourceUuid*)uuid
                      completion:(void(^)(NSDictionary*, NSError*))completion {
     
-    NSError* e = [self withUri:type arguments:@{} runBlock:^(NSURL* url){
+    NSError* e = [self withUri:[NSString stringWithFormat:@"%@/%@", type, uuid]
+                     arguments:@{}
+                      runBlock:^(NSURL* url) {
         
         [_connector getURL:url
                 completion:^(NSDictionary* dict, NSError* error) {
@@ -271,6 +279,8 @@ void delay(float delay, dispatch_block_t block) {
                         error = [NSError errorWithInfo:@"Bad response format."
                                                   code:-10007];
                     }
+                    if (completion)
+                        completion(dict, error);
                 }];
     }];
     

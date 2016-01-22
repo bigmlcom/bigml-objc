@@ -103,7 +103,7 @@
         NSString* stringValue = [[NSString alloc] initWithData:fieldData
                                                       encoding:NSUTF8StringEncoding];
         if (stringValue) {
-            [bodyData appendStringWithFormat:@"\r\n--%@r\n", boundary];
+            [bodyData appendStringWithFormat:@"\r\n--%@\r\n", boundary];
             [bodyData appendStringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",
              key];
             [bodyData appendStringWithFormat:@"\r\n%@", value];
@@ -111,12 +111,12 @@
             NSAssert(NO, @"Could not convert body field: %@", value);
         }
     }
-    [bodyData appendStringWithFormat:@"\r\n--%@r\n", boundary];
+    [bodyData appendStringWithFormat:@"\r\n--%@\r\n", boundary];
     [bodyData appendStringWithFormat:
      @"Content-Disposition: form-data; name=\"userfile\"; filename=\"%@\"\r\n", filename];
     [bodyData appendStringWithFormat:@"Content-Type: application/octet-stream\r\n\r\n"];
     [bodyData appendData:[NSData dataWithContentsOfFile:filepath]];
-    [bodyData appendStringWithFormat:@"\r\n--%@r\n", boundary];
+    [bodyData appendStringWithFormat:@"\r\n--%@--\r\n", boundary];
 
     [_uploader runWithURL:url data:bodyData completion:completion];
 }

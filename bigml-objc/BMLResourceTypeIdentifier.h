@@ -14,22 +14,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString* const BMLResourceTypeFile;
-extern NSString* const BMLResourceTypeProject;
-extern NSString* const BMLResourceTypeSource;
-extern NSString* const BMLResourceTypeDataset;
-extern NSString* const BMLResourceTypeModel;
-extern NSString* const BMLResourceTypeCluster;
-extern NSString* const BMLResourceTypeAnomaly;
-extern NSString* const BMLResourceTypeEnsemble;
-extern NSString* const BMLResourceTypeLogisticRegression;
-extern NSString* const BMLResourceTypeAssociation;
-extern NSString* const BMLResourceTypeEvaluation;
-extern NSString* const BMLResourceTypePrediction;
-extern NSString* const BMLResourceTypeWhizzmlScript;
-extern NSString* const BMLResourceTypeWhizzmlExecution;
-extern NSString* const BMLResourceTypeWhizzmlSource;
-extern NSString* const BMLResourceTypeNotAResource;
+@class BMLResourceTypeIdentifier;
 
 @interface BMLResourceTypeIdentifier : NSString
 
@@ -39,3 +24,20 @@ extern NSString* const BMLResourceTypeNotAResource;
 - (NSString*)description;
 
 @end
+
+extern BMLResourceTypeIdentifier* const BMLResourceTypeFile;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeProject;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeSource;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeDataset;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeModel;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeCluster;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeAnomaly;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeEnsemble;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeLogisticRegression;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeAssociation;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeEvaluation;
+extern BMLResourceTypeIdentifier* const BMLResourceTypePrediction;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlScript;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlExecution;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlSource;
+extern BMLResourceTypeIdentifier* const BMLResourceTypeNotAResource;
