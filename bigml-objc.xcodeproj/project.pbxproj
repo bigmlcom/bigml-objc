@@ -24,6 +24,7 @@
 		497C69501C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */; };
 		497C69531C5137C900FCB6F5 /* BMLAPIConnector.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C69511C5137C900FCB6F5 /* BMLAPIConnector.h */; };
 		497C69541C5137C900FCB6F5 /* BMLAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */; };
+		497C69651C522D1400FCB6F5 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 497C69641C522D1400FCB6F5 /* credentials.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLHTTPMethodHandler.m; sourceTree = "<group>"; };
 		497C69511C5137C900FCB6F5 /* BMLAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLAPIConnector.h; sourceTree = "<group>"; };
 		497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLAPIConnector.m; sourceTree = "<group>"; };
+		497C69641C522D1400FCB6F5 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,10 +126,19 @@
 		4910F6161BFDD7750087E85A /* bigml-objcTests */ = {
 			isa = PBXGroup;
 			children = (
+				497C69641C522D1400FCB6F5 /* credentials.plist */,
+				497C69551C522B4000FCB6F5 /* data */,
 				4910F6171BFDD7750087E85A /* bigml_objcTests.m */,
 				4910F6191BFDD7750087E85A /* Info.plist */,
 			);
 			path = "bigml-objcTests";
+			sourceTree = "<group>";
+		};
+		497C69551C522B4000FCB6F5 /* data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				497C69651C522D1400FCB6F5 /* credentials.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
