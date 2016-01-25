@@ -61,7 +61,7 @@
                               handler:^(NSData* data, NSError* error) {
                                   
                                   NSDictionary* jsonDict = nil;
-                                  if (!error)
+                                  if (!error && data.length > 0)
                                       jsonDict = [self responseDictFromData:data
                                                                expectedCode:_expectedCode
                                                                       error:&error];
