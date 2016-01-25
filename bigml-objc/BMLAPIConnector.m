@@ -53,6 +53,11 @@ void delay(float delay, dispatch_block_t block) {
     return self;
 }
 
+- (NSString*)fullUuidFromType:(BMLResourceTypeIdentifier*)type
+                         uuid:(BMLResourceUuid*)uuid {
+    return [NSString stringWithFormat:@"%@/%@", type.stringValue, uuid];
+}
+
 - (NSString*)serverUrl {
     
     NSString* url = [[NSUserDefaults standardUserDefaults]
@@ -225,7 +230,9 @@ void delay(float delay, dispatch_block_t block) {
                   uuid:(BMLResourceUuid*)uuid
             completion:(void(^)(NSError*))completion {
     
-    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url){
+    NSError* e = [self withUri:[self fullUuidFromType:type uuid:uuid]
+                     arguments:@{}
+                      runBlock:^(NSURL* url) {
         
         [_connector deleteURL:url
                    completion:^(NSError* error) {
@@ -242,7 +249,9 @@ void delay(float delay, dispatch_block_t block) {
                 values:(NSDictionary*)values
             completion:(void(^)(NSError*))completion {
     
-    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url){
+    NSError* e = [self withUri:[self fullUuidFromType:type uuid:uuid]
+                     arguments:@{}
+                      runBlock:^(NSURL* url){
         
         [_connector putURL:url
                       body:values
@@ -259,7 +268,7 @@ void delay(float delay, dispatch_block_t block) {
                            uuid:(BMLResourceUuid*)uuid
                      completion:(void(^)(NSDictionary*, NSError*))completion {
     
-    NSError* e = [self withUri:[NSString stringWithFormat:@"%@/%@", type, uuid]
+    NSError* e = [self withUri:[self fullUuidFromType:type uuid:uuid]
                      arguments:@{}
                       runBlock:^(NSURL* url) {
         
