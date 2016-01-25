@@ -13,10 +13,15 @@
 // under the License.
 
 #import <Foundation/Foundation.h>
+#import "BMLResource.h"
 
-@class BMLResourceTypeIdentifier;
+//@class BMLResourceTypeIdentifier;
 
-@interface BMLResourceTypeIdentifier : NSString
+@interface BMLResourceTypeIdentifier : NSObject
+
++ (BMLResourceTypeIdentifier*)typeFromFullUuid:(BMLResourceFullUuid*)fullUuid;
++ (BMLResourceUuid*)uuidFromFullUuid:(BMLResourceFullUuid*)fullUuid;
++ (BMLResourceTypeIdentifier*)typeFromTypeString:(NSString*)type;
 
 - (instancetype)initWithStringLiteral:(NSString*)value;
 
@@ -25,19 +30,19 @@
 
 @end
 
-extern BMLResourceTypeIdentifier* const BMLResourceTypeFile;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeProject;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeSource;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeDataset;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeModel;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeCluster;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeAnomaly;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeEnsemble;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeLogisticRegression;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeAssociation;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeEvaluation;
-extern BMLResourceTypeIdentifier* const BMLResourceTypePrediction;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlScript;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlExecution;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlSource;
-extern BMLResourceTypeIdentifier* const BMLResourceTypeNotAResource;
+extern BMLResourceTypeIdentifier* BMLResourceTypeFile;
+extern BMLResourceTypeIdentifier* BMLResourceTypeProject;
+extern BMLResourceTypeIdentifier* BMLResourceTypeSource;
+extern BMLResourceTypeIdentifier* BMLResourceTypeDataset;
+extern BMLResourceTypeIdentifier* BMLResourceTypeModel;
+extern BMLResourceTypeIdentifier* BMLResourceTypeCluster;
+extern BMLResourceTypeIdentifier* BMLResourceTypeAnomaly;
+extern BMLResourceTypeIdentifier* BMLResourceTypeEnsemble;
+extern BMLResourceTypeIdentifier* BMLResourceTypeLogisticRegression;
+extern BMLResourceTypeIdentifier* BMLResourceTypeAssociation;
+extern BMLResourceTypeIdentifier* BMLResourceTypeEvaluation;
+extern BMLResourceTypeIdentifier* BMLResourceTypePrediction;
+extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlScript;
+extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlExecution;
+extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlSource;
+extern BMLResourceTypeIdentifier* BMLResourceTypeNotAResource;

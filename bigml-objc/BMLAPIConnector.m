@@ -116,7 +116,7 @@ void delay(float delay, dispatch_block_t block) {
                   from:(id<BMLResource>)from
             completion:(void(^)(id<BMLResource>, NSError*))completion {
     
-    NSError* e = [self withUri:type arguments:@{} runBlock:^(NSURL* url) {
+    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url) {
         
         if (from.type == BMLResourceTypeFile) {
             if ([[NSFileManager defaultManager] fileExistsAtPath:from.uuid]) {
@@ -140,12 +140,12 @@ void delay(float delay, dispatch_block_t block) {
             }
         } else {
             
-            NSMutableDictionary* body = [options mutableCopy];
+            NSMutableDictionary* body = [options mutableCopy] ?: [NSMutableDictionary new];
             [body setObject:name forKey:@"name"];
             if (from.type == type && type == BMLResourceTypeDataset) {
                 [body setObject:from.fullUuid forKey:@"origin_dataset"];
             } else if (from.type != BMLResourceTypeProject &&
-                       from.type == BMLResourceTypeWhizzmlSource) {
+                       from.type != BMLResourceTypeWhizzmlSource) {
                 [body setObject:from.fullUuid forKey:from.type.stringValue];
             }
             
@@ -169,7 +169,7 @@ void delay(float delay, dispatch_block_t block) {
                options:(NSDictionary*)options
             completion:(void(^)(id<BMLResource>, NSError*))completion {
     
-    NSError* e = [self withUri:type arguments:@{} runBlock:^(NSURL* url){
+    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url){
         
         NSMutableDictionary* body = [options mutableCopy];
         [body setObject:name forKey:@"name"];
@@ -192,7 +192,7 @@ void delay(float delay, dispatch_block_t block) {
               filters:(NSDictionary*)filters
            completion:(void(^)(NSArray*, NSError*))completion {
     
-    NSError* e = [self withUri:type arguments:@{} runBlock:^(NSURL* url){
+    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url){
         
         [_connector getURL:url
                 completion:^(NSDictionary* dict, NSError* error) {
@@ -225,7 +225,7 @@ void delay(float delay, dispatch_block_t block) {
                   uuid:(BMLResourceUuid*)uuid
             completion:(void(^)(NSError*))completion {
     
-    NSError* e = [self withUri:type arguments:@{} runBlock:^(NSURL* url){
+    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url){
         
         [_connector deleteURL:url
                    completion:^(NSError* error) {
@@ -242,7 +242,7 @@ void delay(float delay, dispatch_block_t block) {
                 values:(NSDictionary*)values
             completion:(void(^)(NSError*))completion {
     
-    NSError* e = [self withUri:type arguments:@{} runBlock:^(NSURL* url){
+    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url){
         
         [_connector putURL:url
                       body:values

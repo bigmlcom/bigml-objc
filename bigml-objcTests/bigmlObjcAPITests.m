@@ -75,9 +75,9 @@ static NSString* pathForResource(NSString* name) {
 
 - (id<BMLResource>)createDataSource:(NSString*)file options:(NSDictionary*)options {
     
+    id<BMLResource> __block result = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     NSString* filePath = pathForResource(file);
-    id<BMLResource> __block result = nil;
     BMLMinimalResource* resource =
     [[BMLMinimalResource alloc] initWithName:file
                                         type:BMLResourceTypeFile
@@ -89,6 +89,38 @@ static NSString* pathForResource(NSString* name) {
                           from:resource
                     completion:^(id<BMLResource> resource, NSError* error) {
                        
+                        if (options[BMLResourceTypeSource]) {
+                            
+                            [_connector updateResource:BMLResourceTypeSource
+                                                  uuid:resource.uuid
+                                               values:options[BMLResourceTypeSource]
+                                            completion:^(NSError* error) {
+                                                
+                                                XCTAssert(resource);
+                                                result = resource;
+                                                dispatch_semaphore_signal(semaphore);
+                                            }];
+                        } else {
+                            XCTAssert(resource);
+                            result = resource;
+                            dispatch_semaphore_signal(semaphore);
+                        }
+                    }];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return result;
+}
+
+- (id<BMLResource>)createDatasetFromDataSource:(id<BMLResource>)datasource
+                                       options:(NSDictionary*)options {
+    
+    id<BMLResource> __block result = nil;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    [_connector createResource:BMLResourceTypeDataset
+                          name:datasource.name
+                       options:options[BMLResourceTypeDataset]
+                          from:datasource
+                    completion:^(id<BMLResource> resource, NSError* error) {
+                        
                         XCTAssert(resource);
                         result = resource;
                         dispatch_semaphore_signal(semaphore);
@@ -97,9 +129,17 @@ static NSString* pathForResource(NSString* name) {
     return result;
 }
 
+- (id<BMLResource>)createDataset:(NSString*)file options:(NSDictionary*)options {
+    
+    id<BMLResource> datasource = [self createDataSource:file options:options];
+    id<BMLResource> dataset = [self createDatasetFromDataSource:datasource options:options];
+    return dataset;
+}
+
+
 - (void)testExample {
 
-    NSLog(@"RESULT: %@", [self createDataSource:@"iris.csv" options:nil]);
+    NSLog(@"RESULT: %@", [self createDataset:@"iris.csv" options:nil]);
 }
 
 @end

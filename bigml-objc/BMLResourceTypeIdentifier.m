@@ -14,38 +14,119 @@
 
 #import "BMLResourceTypeIdentifier.h"
 
-BMLResourceTypeIdentifier* const BMLResourceTypeFile = (BMLResourceTypeIdentifier*)@"file";
-BMLResourceTypeIdentifier* const BMLResourceTypeProject = (BMLResourceTypeIdentifier*)@"project";
-BMLResourceTypeIdentifier* const BMLResourceTypeSource = (BMLResourceTypeIdentifier*)@"source";
-BMLResourceTypeIdentifier* const BMLResourceTypeDataset = (BMLResourceTypeIdentifier*)@"dataset";
-BMLResourceTypeIdentifier* const BMLResourceTypeModel = (BMLResourceTypeIdentifier*)@"model";
-BMLResourceTypeIdentifier* const BMLResourceTypeCluster = (BMLResourceTypeIdentifier*)@"cluster";
-BMLResourceTypeIdentifier* const BMLResourceTypeAnomaly = (BMLResourceTypeIdentifier*)@"anomaly";
-BMLResourceTypeIdentifier* const BMLResourceTypeEnsemble = (BMLResourceTypeIdentifier*)@"ensemble";
-BMLResourceTypeIdentifier* const BMLResourceTypeLogisticRegression = (BMLResourceTypeIdentifier*)@"logisticRegression";
-BMLResourceTypeIdentifier* const BMLResourceTypeAssociation = (BMLResourceTypeIdentifier*)@"association";
-BMLResourceTypeIdentifier* const BMLResourceTypeEvaluation = (BMLResourceTypeIdentifier*)@"evaluation";
-BMLResourceTypeIdentifier* const BMLResourceTypePrediction = (BMLResourceTypeIdentifier*)@"prediction";
-BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlScript = (BMLResourceTypeIdentifier*)@"script";
-BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlExecution = (BMLResourceTypeIdentifier*)@"execution";
-BMLResourceTypeIdentifier* const BMLResourceTypeWhizzmlSource = (BMLResourceTypeIdentifier*)@"sourcecode";
-BMLResourceTypeIdentifier* const BMLResourceTypeNotAResource = (BMLResourceTypeIdentifier*)@"invalid";
+#define BML_ADD_TYPE(NAME, VALUE) \
+NAME = \
+[[BMLResourceTypeIdentifier alloc] initWithStringLiteral:(VALUE)]
 
-@implementation BMLResourceTypeIdentifier
+
+BMLResourceTypeIdentifier* BMLResourceTypeProject = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeFile = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeSource = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeDataset = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeModel = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeCluster = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeAnomaly = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeEnsemble = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeLogisticRegression = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeAssociation = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeEvaluation = nil;
+BMLResourceTypeIdentifier* BMLResourceTypePrediction = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlScript = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlExecution = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlSource = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
+
+@implementation BMLResourceTypeIdentifier {
+    
+    NSString* _typeIdentifier;
+}
+
++ (void)load {
+    if (self == [BMLResourceTypeIdentifier class]) {
+        BML_ADD_TYPE(BMLResourceTypeFile, @"file");
+        BML_ADD_TYPE(BMLResourceTypeProject, @"project");
+        BML_ADD_TYPE(BMLResourceTypeSource, @"source");
+        BML_ADD_TYPE(BMLResourceTypeDataset, @"dataset");
+        BML_ADD_TYPE(BMLResourceTypeModel, @"model");
+        BML_ADD_TYPE(BMLResourceTypeCluster, @"cluster");
+        BML_ADD_TYPE(BMLResourceTypeAnomaly, @"anomaly");
+        BML_ADD_TYPE(BMLResourceTypeEnsemble, @"ensemble");
+        BML_ADD_TYPE(BMLResourceTypeLogisticRegression, @"regression");
+        BML_ADD_TYPE(BMLResourceTypeAssociation, @"association");
+        BML_ADD_TYPE(BMLResourceTypeEvaluation, @"evaluation");
+        BML_ADD_TYPE(BMLResourceTypePrediction, @"prediction");
+        BML_ADD_TYPE(BMLResourceTypeWhizzmlScript, @"script");
+        BML_ADD_TYPE(BMLResourceTypeWhizzmlExecution, @"execution");
+        BML_ADD_TYPE(BMLResourceTypeWhizzmlSource, @"sourcecode");
+        BML_ADD_TYPE(BMLResourceTypeNotAResource, @"invalid");
+    }
+}
 
 - (instancetype)initWithStringLiteral:(NSString*)value {
     
-    return [super initWithString:value];
+    if (self = [super init]) {
+        _typeIdentifier = value;
+    }
+    return self;
 }
 
 - (NSString*)stringValue {
     
-    return self;
+    return _typeIdentifier;
 }
 
 - (NSString*)description {
     
-    return self;
+    return _typeIdentifier;
+}
+
++ (BMLResourceTypeIdentifier*)typeFromTypeString:(NSString*)type {
+    
+    if ([type isEqualToString:[BMLResourceTypeFile stringValue]])
+        return BMLResourceTypeFile;
+    if ([type isEqualToString:[BMLResourceTypeSource stringValue]])
+        return BMLResourceTypeSource;
+    if ([type isEqualToString:[BMLResourceTypeDataset stringValue]])
+        return BMLResourceTypeDataset;
+    if ([type isEqualToString:[BMLResourceTypeModel stringValue]])
+        return BMLResourceTypeModel;
+    if ([type isEqualToString:[BMLResourceTypeCluster stringValue]])
+        return BMLResourceTypeCluster;
+    if ([type isEqualToString:[BMLResourceTypePrediction stringValue]])
+        return BMLResourceTypePrediction;
+    if ([type isEqualToString:[BMLResourceTypeAnomaly stringValue]])
+        return BMLResourceTypeAnomaly;
+    if ([type isEqualToString:[BMLResourceTypeEvaluation stringValue]])
+        return BMLResourceTypeEvaluation;
+    if ([type isEqualToString:[BMLResourceTypeWhizzmlScript stringValue]])
+        return BMLResourceTypeWhizzmlScript;
+    if ([type isEqualToString:[BMLResourceTypeWhizzmlSource stringValue]])
+        return BMLResourceTypeWhizzmlSource;
+    if ([type isEqualToString:[BMLResourceTypeWhizzmlExecution stringValue]])
+        return BMLResourceTypeWhizzmlExecution;
+    if ([type isEqualToString:[BMLResourceTypeProject stringValue]])
+        return BMLResourceTypeProject;
+//    if ([type isEqualToString:[kConfigurationEntityType stringValue]])
+//        return kConfigurationEntityType;
+    NSAssert(NO, @"Type Id: Should not be here! (%@)", type);
+    return nil;
+}
+
++ (BMLResourceTypeIdentifier*)typeFromFullUuid:(BMLResourceFullUuid*)fullUuid {
+    
+    NSString* type = [[fullUuid componentsSeparatedByString:@"/"] firstObject];
+    return [self typeFromTypeString:type];
+}
+
++ (BMLResourceUuid*)uuidFromFullUuid:(BMLResourceFullUuid*)fullUuid {
+    
+    NSMutableArray* parts = [[fullUuid componentsSeparatedByString:@"/"] mutableCopy];
+    if ([parts count] == 2)
+        return [parts lastObject];
+    else if ([parts count] > 2) {
+        return [[parts subarrayWithRange:NSMakeRange(1, [parts count]-1)] componentsJoinedByString:@"/"];
+    }
+    return nil;
 }
 
 @end

@@ -39,7 +39,7 @@
 }
 
 - (BMLResourceFullUuid*)fullUuid {
-    return [BMLResourceTypeIdentifier stringWithFormat:@"%@/%@", _typeIdentifier, _uuid];
+    return [NSString stringWithFormat:@"%@/%@", _typeIdentifier, _uuid];
 }
 
 - (instancetype)initWithName:(NSString*)name
@@ -62,10 +62,9 @@
                     fullUuid:(BMLResourceFullUuid*)fullUuid
                   definition:(NSDictionary*)definition {
     
-    NSArray* components = [fullUuid componentsSeparatedByString:@"/"];
     return [self initWithName:name
-                         type:components.firstObject
-                         uuid:components.lastObject
+                         type:[BMLResourceTypeIdentifier typeFromFullUuid:fullUuid]
+                         uuid:[BMLResourceTypeIdentifier uuidFromFullUuid:fullUuid]
                    definition:definition];
 }
 
