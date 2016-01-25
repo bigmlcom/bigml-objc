@@ -1,145 +1,137 @@
 //
-//  bigml_objcTests.m
-//  bigml-objcTests
+//  bigmlObjcAPITests.m
+//  bigml-objc
 //
-//  Created by sergio on 19/11/15.
-//  Copyright © 2015 BigML Inc. All rights reserved.
+//  Created by sergio on 25/01/16.
+//  Copyright © 2016 BigML Inc. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
+#import "bigmlObjcBaseTests.h"
 
-#import "BMLAPIConnector.h"
-#import "BMLResource.h"
-#import "BMLResourceTypeIdentifier.h"
-
-static NSString* pathForResource(NSString* name) {
-    for (NSBundle* bundle in [NSBundle allBundles]) {
-        NSString* p = [bundle pathForResource:name ofType:nil];
-        if (p)
-            return p;
-    }
-    return nil;
-}
-
-@interface BMLTestCredentials : NSObject
+@interface bigmlObjcAPITests : bigmlObjcBaseTests
 
 @end
 
-@implementation BMLTestCredentials
+@implementation bigmlObjcAPITests
 
-+ (NSDictionary*)credentials {
-    return [[NSDictionary alloc]
-            initWithContentsOfFile:pathForResource(@"credentials.plist")];
-}
+- (void)testCreateRemoteDatasource {
 
-+ (NSString*)username {
-    return self.credentials[@"username"];
-}
-
-+ (NSString*)apiKey {
-    return self.credentials[@"apiKey"];
-}
-
-@end
-
-@interface bigmlObjcTests : XCTestCase
-
-@property (nonatomic, strong) BMLAPIConnector* connector;
-
-@end
-
-@implementation bigmlObjcTests
-
-- (void)setUp {
-    [super setUp];
-
-    self.connector = [BMLAPIConnector connectorWithUsername:[BMLTestCredentials username]
-                                                     apiKey:[BMLTestCredentials apiKey]
-                                                       mode:BMLModeProduction];
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)runTest:(NSString*)name test:(void(^)(XCTestExpectation*))test {
-    
-    XCTestExpectation* exp = [self expectationWithDescription:name];
-    test(exp);
-    [self waitForExpectationsWithTimeout:360 handler:^(NSError* error) {
-        if (error)
-            NSLog(@"Expect error: %@", error);
+    NSString* name = @"testCreateRemoteDatasource";
+    [self runTest:name test:^(XCTestExpectation* exp) {
+       
+        [self.connector createResource:BMLResourceTypeSource
+                                  name:name
+                               options:@{@"remote" : @"s3://bigml-public/csv/iris.csv"}
+                            completion:^(id<BMLResource> resource, NSError* error) {
+                                
+                                XCTAssert(resource != nil && error == nil);
+                                XCTAssert([self deleteResource:resource] == nil);
+                                [exp fulfill];
+                            }];
     }];
 }
 
-- (id<BMLResource>)createDataSource:(NSString*)file options:(NSDictionary*)options {
+- (void)testCreateAnomaly {
     
-    id<BMLResource> __block result = nil;
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    NSString* filePath = pathForResource(file);
-    BMLMinimalResource* resource =
-    [[BMLMinimalResource alloc] initWithName:file
-                                        type:BMLResourceTypeFile
-                                        uuid:filePath
-                                  definition:nil];
-    [_connector createResource:BMLResourceTypeSource
-                          name:file
-                       options:options[BMLResourceTypeSource]
-                          from:resource
-                    completion:^(id<BMLResource> resource, NSError* error) {
-                       
-                        if (options[BMLResourceTypeSource]) {
-                            
-                            [_connector updateResource:BMLResourceTypeSource
-                                                  uuid:resource.uuid
-                                               values:options[BMLResourceTypeSource]
-                                            completion:^(NSError* error) {
-                                                
-                                                XCTAssert(resource);
-                                                result = resource;
-                                                dispatch_semaphore_signal(semaphore);
-                                            }];
-                        } else {
-                            XCTAssert(resource);
-                            result = resource;
-                            dispatch_semaphore_signal(semaphore);
-                        }
-                    }];
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    return result;
+    NSString* name = @"testCreateAnomaly";
+    [self runTest:name test:^(XCTestExpectation* exp) {
+        
+        [self.connector createResource:BMLResourceTypeAnomaly
+                                  name:name
+                               options:nil
+                                  from:self.aDataset
+                            completion:^(id<BMLResource> resource, NSError* error) {
+                                
+                                XCTAssert(resource != nil && error == nil);
+                                XCTAssert([self deleteResource:resource] == nil);
+                                [exp fulfill];
+                            }];
+    }];
 }
 
-- (id<BMLResource>)createDatasetFromDataSource:(id<BMLResource>)datasource
-                                       options:(NSDictionary*)options {
+- (void)testCreateDatasourceWithOption1 {
     
-    id<BMLResource> __block result = nil;
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    [_connector createResource:BMLResourceTypeDataset
-                          name:datasource.name
-                       options:options[BMLResourceTypeDataset]
-                          from:datasource
-                    completion:^(id<BMLResource> resource, NSError* error) {
-                        
-                        XCTAssert(resource);
-                        result = resource;
-                        dispatch_semaphore_signal(semaphore);
-                    }];
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    return result;
-}
-
-- (id<BMLResource>)createDataset:(NSString*)file options:(NSDictionary*)options {
+    id<BMLResource> resource = [self createDatasource:@"iris.csv" options:
+                                @{ @"source_parser": @{ @"header" : @NO,
+                                                        @"missing_tokens" : @[@"x"]},
+                                   @"term_analysis" : @{@"enabled" : @YES}}];
     
-    id<BMLResource> datasource = [self createDataSource:file options:options];
-    id<BMLResource> dataset = [self createDatasetFromDataSource:datasource options:options];
-    return dataset;
+    XCTAssert(resource);
+    XCTAssert([self deleteResource:resource] == nil);
 }
 
-
-- (void)testExample {
-
-    NSLog(@"RESULT: %@", [self createDataset:@"iris.csv" options:nil]);
+- (void)testCreateDatasourceWithOption2 {
+    
+    id<BMLResource> resource = [self createDatasource:@"spam.csv" options:
+                                @{ @"term_analysis" : @{@"case_sensitive" : @YES,
+                                                        @"enabled" : @YES,
+                                                        @"stem_words" : @NO}}];
+    XCTAssert(resource);
+    XCTAssert([self deleteResource:resource] == nil);
 }
+
+- (void)testCreateDatasourceWithOption3 {
+    
+    id<BMLResource> resource = [self createDatasource:@"spam.csv" options:nil];
+    XCTAssert(resource);
+    
+    NSString* name = @"testCreateAnomaly";
+    [self runTest:name test:^(XCTestExpectation* exp) {
+        
+        [self.connector updateResource:resource.type
+                                  uuid:resource.uuid
+                                values: @{ @"fields" : @{
+                                                   @"000001" : @{
+                                                           @"optype" : @"text",
+                                                           @"term_analysis" : @{
+                                                                   @"case_sensitive" : @YES,
+                                                                   @"stem_words" : @YES,
+                                                                   @"use_stopwords" : @NO,
+                                                                   @"language" : @"en"}}}}
+                            completion:^(NSError* error) {
+                                
+                                XCTAssert(error == nil);
+                                XCTAssert([self deleteResource:resource] == nil);
+                                [exp fulfill];
+                            }];
+    }];
+}
+
+- (void)testCloneDataset {
+    
+    NSString* name = @"testCloneDataset";
+    [self runTest:name test:^(XCTestExpectation* exp) {
+        
+        [self.connector createResource:BMLResourceTypeDataset
+                                  name:name
+                               options:nil
+                                  from:self.aDataset
+                            completion:^(id<BMLResource> resource, NSError* error) {
+                                
+                                XCTAssert(resource != nil && error == nil);
+                                XCTAssert([self deleteResource:resource] == nil);
+                                [exp fulfill];
+                            }];
+    }];
+}
+
+- (void)testCreateResourceFail {
+    
+    NSString* name = @"testCreateResourceFail";
+    [self runTest:name test:^(XCTestExpectation* exp) {
+        
+        [self.connector createResource:BMLResourceTypeModel
+                                  name:name
+                               options:nil
+                                  from:self.aSource
+                            completion:^(id<BMLResource> resource, NSError* error) {
+                                
+                                XCTAssert(resource == nil && error != nil);
+                                [exp fulfill];
+                            }];
+    }];
+}
+
 
 @end

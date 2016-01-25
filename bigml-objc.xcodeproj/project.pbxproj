@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4910F60C1BFDD7750087E85A /* bigml-objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4910F60B1BFDD7750087E85A /* bigml-objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4910F6131BFDD7750087E85A /* bigmlObjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4910F6081BFDD7750087E85A /* bigmlObjc.framework */; };
-		4910F6181BFDD7750087E85A /* bigmlObjcAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910F6171BFDD7750087E85A /* bigmlObjcAPITests.m */; };
+		4910F6181BFDD7750087E85A /* bigmlObjcBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */; };
 		497C69391C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C69371C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h */; };
 		497C693A1C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */; };
 		497C693D1C4FAC3100FCB6F5 /* BMLResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C693B1C4FAC3100FCB6F5 /* BMLResource.h */; };
@@ -31,6 +31,7 @@
 		497C696F1C522DD900FCB6F5 /* diab.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C69691C522DD900FCB6F5 /* diab.csv */; };
 		497C69701C522DD900FCB6F5 /* iris.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C696A1C522DD900FCB6F5 /* iris.csv */; };
 		497C69711C522DD900FCB6F5 /* wines.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C696B1C522DD900FCB6F5 /* wines.csv */; };
+		497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +49,7 @@
 		4910F60B1BFDD7750087E85A /* bigml-objc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bigml-objc.h"; sourceTree = "<group>"; };
 		4910F60D1BFDD7750087E85A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4910F6121BFDD7750087E85A /* bigmlObjcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bigmlObjcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4910F6171BFDD7750087E85A /* bigmlObjcAPITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAPITests.m; sourceTree = "<group>"; };
+		4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcBaseTests.m; sourceTree = "<group>"; };
 		4910F6191BFDD7750087E85A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		497C69361C4FA77000FCB6F5 /* BMLEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMLEnums.h; sourceTree = "<group>"; };
 		497C69371C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLResourceTypeIdentifier.h; sourceTree = "<group>"; };
@@ -72,6 +73,8 @@
 		497C69691C522DD900FCB6F5 /* diab.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diab.csv; sourceTree = "<group>"; };
 		497C696A1C522DD900FCB6F5 /* iris.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.csv; sourceTree = "<group>"; };
 		497C696B1C522DD900FCB6F5 /* wines.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wines.csv; sourceTree = "<group>"; };
+		497C6AF71C56482A00FCB6F5 /* bigmlObjcBaseTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bigmlObjcBaseTests.h; sourceTree = "<group>"; };
+		497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAPITests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,8 +143,10 @@
 			children = (
 				497C69641C522D1400FCB6F5 /* credentials.plist */,
 				497C69551C522B4000FCB6F5 /* data */,
-				4910F6171BFDD7750087E85A /* bigmlObjcAPITests.m */,
+				497C6AF71C56482A00FCB6F5 /* bigmlObjcBaseTests.h */,
+				4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */,
 				4910F6191BFDD7750087E85A /* Info.plist */,
+				497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */,
 			);
 			path = "bigml-objcTests";
 			sourceTree = "<group>";
@@ -294,7 +299,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4910F6181BFDD7750087E85A /* bigmlObjcAPITests.m in Sources */,
+				497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */,
+				4910F6181BFDD7750087E85A /* bigmlObjcBaseTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
