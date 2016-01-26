@@ -121,6 +121,7 @@ void delay(float delay, dispatch_block_t block) {
                   from:(id<BMLResource>)from
             completion:(void(^)(id<BMLResource>, NSError*))completion {
     
+    NSAssert(type != nil, @"Wrong type passed to createResource:");
     NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url) {
         
         if (from.type == BMLResourceTypeFile) {
@@ -210,7 +211,7 @@ void delay(float delay, dispatch_block_t block) {
                                 [resources addObject:
                                  [[BMLMinimalResource alloc] initWithName:resource[@"name"]
                                                                  fullUuid:fullUuid
-                                                               definition:dict]];
+                                                               definition:resource]];
                             } else {
                                 error = [NSError errorWithInfo:@"Incomplete results"
                                                           code:-10105];
