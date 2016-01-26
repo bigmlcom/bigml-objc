@@ -46,3 +46,4 @@ extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlScript;
 extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlExecution;
 extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlSource;
 extern BMLResourceTypeIdentifier* BMLResourceTypeNotAResource;
+extern BMLResourceTypeIdentifier* BMLResourceTypeConfiguration;
