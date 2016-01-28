@@ -198,7 +198,7 @@ void delay(float delay, dispatch_block_t block) {
               filters:(NSDictionary*)filters
            completion:(void(^)(NSArray*, NSError*))completion {
     
-    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url){
+    NSError* e = [self withUri:type.stringValue arguments:filters runBlock:^(NSURL* url){
         
         [_connector getURL:url
                 completion:^(NSDictionary* dict, NSError* error) {
