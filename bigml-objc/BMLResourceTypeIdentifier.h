@@ -13,7 +13,7 @@
 // under the License.
 
 #import <Foundation/Foundation.h>
-#import "BMLResource.h"
+#import "BMLResourceProtocol.h"
 
 //@class BMLResourceTypeIdentifier;
 

@@ -14,7 +14,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BMLEnums.h"
-#import "BMLResource.h"
+#import "BMLResourceProtocol.h"
 
 //@protocol BMLResource;
 //@class BMLResourceTypeIdentifier;

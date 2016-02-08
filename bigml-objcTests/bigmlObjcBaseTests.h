@@ -15,7 +15,7 @@
 #import <XCTest/XCTest.h>
 
 #import "BMLAPIConnector.h"
-#import "BMLResource.h"
+#import "BMLResourceProtocol.h"
 #import "BMLResourceTypeIdentifier.h"
 
 @interface bigmlObjcBaseTests : XCTestCase

@@ -7,13 +7,53 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4910F60C1BFDD7750087E85A /* bigml-objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4910F60B1BFDD7750087E85A /* bigml-objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4910F60C1BFDD7750087E85A /* bigmlObjc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4910F60B1BFDD7750087E85A /* bigmlObjc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4910F6131BFDD7750087E85A /* bigmlObjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4910F6081BFDD7750087E85A /* bigmlObjc.framework */; };
 		4910F6181BFDD7750087E85A /* bigmlObjcBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */; };
+		4917013B1C66457700D5D389 /* Anomaly.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701251C66457700D5D389 /* Anomaly.h */; };
+		4917013C1C66457700D5D389 /* Anomaly.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701261C66457700D5D389 /* Anomaly.m */; };
+		4917013D1C66457700D5D389 /* FieldResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701271C66457700D5D389 /* FieldResource.h */; };
+		4917013E1C66457700D5D389 /* FieldResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701281C66457700D5D389 /* FieldResource.m */; };
+		4917013F1C66457700D5D389 /* MultiModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701291C66457700D5D389 /* MultiModel.h */; };
+		491701401C66457700D5D389 /* MultiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012A1C66457700D5D389 /* MultiModel.m */; };
+		491701411C66457700D5D389 /* MultiVote.h in Headers */ = {isa = PBXBuildFile; fileRef = 4917012B1C66457700D5D389 /* MultiVote.h */; };
+		491701421C66457700D5D389 /* MultiVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012C1C66457700D5D389 /* MultiVote.m */; };
+		491701431C66457700D5D389 /* Predicates.h in Headers */ = {isa = PBXBuildFile; fileRef = 4917012D1C66457700D5D389 /* Predicates.h */; };
+		491701441C66457700D5D389 /* Predicates.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012E1C66457700D5D389 /* Predicates.m */; };
+		491701451C66457700D5D389 /* PredictionCentroid.h in Headers */ = {isa = PBXBuildFile; fileRef = 4917012F1C66457700D5D389 /* PredictionCentroid.h */; };
+		491701461C66457700D5D389 /* PredictionCentroid.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701301C66457700D5D389 /* PredictionCentroid.m */; };
+		491701471C66457700D5D389 /* PredictionTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701311C66457700D5D389 /* PredictionTree.h */; };
+		491701481C66457700D5D389 /* PredictionTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701321C66457700D5D389 /* PredictionTree.m */; };
+		491701491C66457700D5D389 /* PredictiveCluster.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701331C66457700D5D389 /* PredictiveCluster.h */; };
+		4917014A1C66457700D5D389 /* PredictiveCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701341C66457700D5D389 /* PredictiveCluster.m */; };
+		4917014B1C66457700D5D389 /* PredictiveEnsemble.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701351C66457700D5D389 /* PredictiveEnsemble.h */; };
+		4917014C1C66457700D5D389 /* PredictiveEnsemble.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701361C66457700D5D389 /* PredictiveEnsemble.m */; };
+		4917014D1C66457700D5D389 /* PredictiveModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701371C66457700D5D389 /* PredictiveModel.h */; };
+		4917014E1C66457700D5D389 /* PredictiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701381C66457700D5D389 /* PredictiveModel.m */; };
+		4917014F1C66457700D5D389 /* TreePrediction.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701391C66457700D5D389 /* TreePrediction.h */; };
+		491701501C66457700D5D389 /* TreePrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917013A1C66457700D5D389 /* TreePrediction.m */; };
+		491701571C68996B00D5D389 /* BMLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701551C68996B00D5D389 /* BMLUtils.h */; };
+		491701581C68996B00D5D389 /* BMLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701561C68996B00D5D389 /* BMLUtils.m */; };
+		4917015A1C68999900D5D389 /* BMLLocalPredictions.h in Headers */ = {isa = PBXBuildFile; fileRef = 491701591C68999900D5D389 /* BMLLocalPredictions.h */; };
+		4917016B1C689B5300D5D389 /* baseball.ensemble in Resources */ = {isa = PBXBuildFile; fileRef = 4917015C1C689B5300D5D389 /* baseball.ensemble */; };
+		4917016C1C689B5300D5D389 /* diab.csv in Resources */ = {isa = PBXBuildFile; fileRef = 4917015D1C689B5300D5D389 /* diab.csv */; };
+		4917016D1C689B5300D5D389 /* iris.csv in Resources */ = {isa = PBXBuildFile; fileRef = 4917015E1C689B5300D5D389 /* iris.csv */; };
+		4917016E1C689B5300D5D389 /* iris.ensemble in Resources */ = {isa = PBXBuildFile; fileRef = 4917015F1C689B5300D5D389 /* iris.ensemble */; };
+		4917016F1C689B5300D5D389 /* iris.model in Resources */ = {isa = PBXBuildFile; fileRef = 491701601C689B5300D5D389 /* iris.model */; };
+		491701701C689B5300D5D389 /* iris.pml in Resources */ = {isa = PBXBuildFile; fileRef = 491701611C689B5300D5D389 /* iris.pml */; };
+		491701711C689B5300D5D389 /* pythonTests.py in Resources */ = {isa = PBXBuildFile; fileRef = 491701621C689B5300D5D389 /* pythonTests.py */; };
+		491701721C689B5300D5D389 /* salaries.csv in Resources */ = {isa = PBXBuildFile; fileRef = 491701631C689B5300D5D389 /* salaries.csv */; };
+		491701731C689B5300D5D389 /* spam-text.cluster in Resources */ = {isa = PBXBuildFile; fileRef = 491701641C689B5300D5D389 /* spam-text.cluster */; };
+		491701741C689B5300D5D389 /* spam.cluster in Resources */ = {isa = PBXBuildFile; fileRef = 491701651C689B5300D5D389 /* spam.cluster */; };
+		491701751C689B5300D5D389 /* spam.model in Resources */ = {isa = PBXBuildFile; fileRef = 491701661C689B5300D5D389 /* spam.model */; };
+		491701761C689B5300D5D389 /* spam.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 491701671C689B5300D5D389 /* spam.tsv */; };
+		491701771C689B5300D5D389 /* testAnomaly.json in Resources */ = {isa = PBXBuildFile; fileRef = 491701681C689B5300D5D389 /* testAnomaly.json */; };
+		491701781C689B5400D5D389 /* testCluster.json in Resources */ = {isa = PBXBuildFile; fileRef = 491701691C689B5300D5D389 /* testCluster.json */; };
+		491701791C689B5400D5D389 /* wines.csv in Resources */ = {isa = PBXBuildFile; fileRef = 4917016A1C689B5300D5D389 /* wines.csv */; };
 		497C69391C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C69371C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h */; };
 		497C693A1C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */; };
-		497C693D1C4FAC3100FCB6F5 /* BMLResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C693B1C4FAC3100FCB6F5 /* BMLResource.h */; };
-		497C693E1C4FAC3100FCB6F5 /* BMLResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C693C1C4FAC3100FCB6F5 /* BMLResource.m */; };
+		497C693D1C4FAC3100FCB6F5 /* BMLResourceProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C693B1C4FAC3100FCB6F5 /* BMLResourceProtocol.h */; };
+		497C693E1C4FAC3100FCB6F5 /* BMLResourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C693C1C4FAC3100FCB6F5 /* BMLResourceProtocol.m */; };
 		497C69411C4FB19800FCB6F5 /* BMLHTTPConnector.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C693F1C4FB19800FCB6F5 /* BMLHTTPConnector.h */; };
 		497C69421C4FB19800FCB6F5 /* BMLHTTPConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */; };
 		497C69451C4FBA1A00FCB6F5 /* NSError+BMLError.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C69431C4FBA1A00FCB6F5 /* NSError+BMLError.h */; };
@@ -25,12 +65,6 @@
 		497C69531C5137C900FCB6F5 /* BMLAPIConnector.h in Headers */ = {isa = PBXBuildFile; fileRef = 497C69511C5137C900FCB6F5 /* BMLAPIConnector.h */; };
 		497C69541C5137C900FCB6F5 /* BMLAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */; };
 		497C69651C522D1400FCB6F5 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 497C69641C522D1400FCB6F5 /* credentials.plist */; };
-		497C696C1C522DD900FCB6F5 /* movies.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C69661C522DD900FCB6F5 /* movies.csv */; };
-		497C696D1C522DD900FCB6F5 /* salaries.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C69671C522DD900FCB6F5 /* salaries.csv */; };
-		497C696E1C522DD900FCB6F5 /* spam.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C69681C522DD900FCB6F5 /* spam.csv */; };
-		497C696F1C522DD900FCB6F5 /* diab.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C69691C522DD900FCB6F5 /* diab.csv */; };
-		497C69701C522DD900FCB6F5 /* iris.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C696A1C522DD900FCB6F5 /* iris.csv */; };
-		497C69711C522DD900FCB6F5 /* wines.csv in Resources */ = {isa = PBXBuildFile; fileRef = 497C696B1C522DD900FCB6F5 /* wines.csv */; };
 		497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */; };
 /* End PBXBuildFile section */
 
@@ -46,16 +80,56 @@
 
 /* Begin PBXFileReference section */
 		4910F6081BFDD7750087E85A /* bigmlObjc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = bigmlObjc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4910F60B1BFDD7750087E85A /* bigml-objc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bigml-objc.h"; sourceTree = "<group>"; };
+		4910F60B1BFDD7750087E85A /* bigmlObjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bigmlObjc.h; sourceTree = "<group>"; };
 		4910F60D1BFDD7750087E85A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4910F6121BFDD7750087E85A /* bigmlObjcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bigmlObjcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcBaseTests.m; sourceTree = "<group>"; };
 		4910F6191BFDD7750087E85A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		491701251C66457700D5D389 /* Anomaly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Anomaly.h; path = algorithms/Anomaly.h; sourceTree = "<group>"; };
+		491701261C66457700D5D389 /* Anomaly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Anomaly.m; path = algorithms/Anomaly.m; sourceTree = "<group>"; };
+		491701271C66457700D5D389 /* FieldResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldResource.h; path = algorithms/FieldResource.h; sourceTree = "<group>"; };
+		491701281C66457700D5D389 /* FieldResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldResource.m; path = algorithms/FieldResource.m; sourceTree = "<group>"; };
+		491701291C66457700D5D389 /* MultiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiModel.h; path = algorithms/MultiModel.h; sourceTree = "<group>"; };
+		4917012A1C66457700D5D389 /* MultiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultiModel.m; path = algorithms/MultiModel.m; sourceTree = "<group>"; };
+		4917012B1C66457700D5D389 /* MultiVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiVote.h; path = algorithms/MultiVote.h; sourceTree = "<group>"; };
+		4917012C1C66457700D5D389 /* MultiVote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultiVote.m; path = algorithms/MultiVote.m; sourceTree = "<group>"; };
+		4917012D1C66457700D5D389 /* Predicates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Predicates.h; path = algorithms/Predicates.h; sourceTree = "<group>"; };
+		4917012E1C66457700D5D389 /* Predicates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Predicates.m; path = algorithms/Predicates.m; sourceTree = "<group>"; };
+		4917012F1C66457700D5D389 /* PredictionCentroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PredictionCentroid.h; path = algorithms/PredictionCentroid.h; sourceTree = "<group>"; };
+		491701301C66457700D5D389 /* PredictionCentroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PredictionCentroid.m; path = algorithms/PredictionCentroid.m; sourceTree = "<group>"; };
+		491701311C66457700D5D389 /* PredictionTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PredictionTree.h; path = algorithms/PredictionTree.h; sourceTree = "<group>"; };
+		491701321C66457700D5D389 /* PredictionTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PredictionTree.m; path = algorithms/PredictionTree.m; sourceTree = "<group>"; };
+		491701331C66457700D5D389 /* PredictiveCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PredictiveCluster.h; path = algorithms/PredictiveCluster.h; sourceTree = "<group>"; };
+		491701341C66457700D5D389 /* PredictiveCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PredictiveCluster.m; path = algorithms/PredictiveCluster.m; sourceTree = "<group>"; };
+		491701351C66457700D5D389 /* PredictiveEnsemble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PredictiveEnsemble.h; path = algorithms/PredictiveEnsemble.h; sourceTree = "<group>"; };
+		491701361C66457700D5D389 /* PredictiveEnsemble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PredictiveEnsemble.m; path = algorithms/PredictiveEnsemble.m; sourceTree = "<group>"; };
+		491701371C66457700D5D389 /* PredictiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PredictiveModel.h; path = algorithms/PredictiveModel.h; sourceTree = "<group>"; };
+		491701381C66457700D5D389 /* PredictiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PredictiveModel.m; path = algorithms/PredictiveModel.m; sourceTree = "<group>"; };
+		491701391C66457700D5D389 /* TreePrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreePrediction.h; path = algorithms/TreePrediction.h; sourceTree = "<group>"; };
+		4917013A1C66457700D5D389 /* TreePrediction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreePrediction.m; path = algorithms/TreePrediction.m; sourceTree = "<group>"; };
+		491701551C68996B00D5D389 /* BMLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLUtils.h; sourceTree = "<group>"; };
+		491701561C68996B00D5D389 /* BMLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLUtils.m; sourceTree = "<group>"; };
+		491701591C68999900D5D389 /* BMLLocalPredictions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLLocalPredictions.h; sourceTree = "<group>"; };
+		4917015C1C689B5300D5D389 /* baseball.ensemble */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = baseball.ensemble; sourceTree = "<group>"; };
+		4917015D1C689B5300D5D389 /* diab.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diab.csv; sourceTree = "<group>"; };
+		4917015E1C689B5300D5D389 /* iris.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.csv; sourceTree = "<group>"; };
+		4917015F1C689B5300D5D389 /* iris.ensemble */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.ensemble; sourceTree = "<group>"; };
+		491701601C689B5300D5D389 /* iris.model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.model; sourceTree = "<group>"; };
+		491701611C689B5300D5D389 /* iris.pml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.pml; sourceTree = "<group>"; };
+		491701621C689B5300D5D389 /* pythonTests.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = pythonTests.py; sourceTree = "<group>"; };
+		491701631C689B5300D5D389 /* salaries.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = salaries.csv; sourceTree = "<group>"; };
+		491701641C689B5300D5D389 /* spam-text.cluster */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "spam-text.cluster"; sourceTree = "<group>"; };
+		491701651C689B5300D5D389 /* spam.cluster */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spam.cluster; sourceTree = "<group>"; };
+		491701661C689B5300D5D389 /* spam.model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spam.model; sourceTree = "<group>"; };
+		491701671C689B5300D5D389 /* spam.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spam.tsv; sourceTree = "<group>"; };
+		491701681C689B5300D5D389 /* testAnomaly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testAnomaly.json; sourceTree = "<group>"; };
+		491701691C689B5300D5D389 /* testCluster.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testCluster.json; sourceTree = "<group>"; };
+		4917016A1C689B5300D5D389 /* wines.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wines.csv; sourceTree = "<group>"; };
 		497C69361C4FA77000FCB6F5 /* BMLEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMLEnums.h; sourceTree = "<group>"; };
 		497C69371C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLResourceTypeIdentifier.h; sourceTree = "<group>"; };
 		497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLResourceTypeIdentifier.m; sourceTree = "<group>"; };
-		497C693B1C4FAC3100FCB6F5 /* BMLResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLResource.h; sourceTree = "<group>"; };
-		497C693C1C4FAC3100FCB6F5 /* BMLResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLResource.m; sourceTree = "<group>"; };
+		497C693B1C4FAC3100FCB6F5 /* BMLResourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLResourceProtocol.h; sourceTree = "<group>"; };
+		497C693C1C4FAC3100FCB6F5 /* BMLResourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLResourceProtocol.m; sourceTree = "<group>"; };
 		497C693F1C4FB19800FCB6F5 /* BMLHTTPConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLHTTPConnector.h; sourceTree = "<group>"; };
 		497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLHTTPConnector.m; sourceTree = "<group>"; };
 		497C69431C4FBA1A00FCB6F5 /* NSError+BMLError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BMLError.h"; sourceTree = "<group>"; };
@@ -67,12 +141,6 @@
 		497C69511C5137C900FCB6F5 /* BMLAPIConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLAPIConnector.h; sourceTree = "<group>"; };
 		497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLAPIConnector.m; sourceTree = "<group>"; };
 		497C69641C522D1400FCB6F5 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
-		497C69661C522DD900FCB6F5 /* movies.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = movies.csv; sourceTree = "<group>"; };
-		497C69671C522DD900FCB6F5 /* salaries.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = salaries.csv; sourceTree = "<group>"; };
-		497C69681C522DD900FCB6F5 /* spam.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spam.csv; sourceTree = "<group>"; };
-		497C69691C522DD900FCB6F5 /* diab.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diab.csv; sourceTree = "<group>"; };
-		497C696A1C522DD900FCB6F5 /* iris.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iris.csv; sourceTree = "<group>"; };
-		497C696B1C522DD900FCB6F5 /* wines.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wines.csv; sourceTree = "<group>"; };
 		497C6AF71C56482A00FCB6F5 /* bigmlObjcBaseTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bigmlObjcBaseTests.h; sourceTree = "<group>"; };
 		497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAPITests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,23 +185,20 @@
 		4910F60A1BFDD7750087E85A /* bigml-objc */ = {
 			isa = PBXGroup;
 			children = (
-				4910F60B1BFDD7750087E85A /* bigml-objc.h */,
-				4910F60D1BFDD7750087E85A /* Info.plist */,
-				497C69361C4FA77000FCB6F5 /* BMLEnums.h */,
-				497C69431C4FBA1A00FCB6F5 /* NSError+BMLError.h */,
-				497C69441C4FBA1A00FCB6F5 /* NSError+BMLError.m */,
-				497C69371C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h */,
+				491701871C689DA400D5D389 /* API */,
+				491701241C6644F100D5D389 /* Algorithms */,
+				491701861C689D6E00D5D389 /* Categories */,
+				497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */,
 				497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */,
-				497C693B1C4FAC3100FCB6F5 /* BMLResource.h */,
-				497C693C1C4FAC3100FCB6F5 /* BMLResource.m */,
+				497C693C1C4FAC3100FCB6F5 /* BMLResourceProtocol.m */,
+				491701551C68996B00D5D389 /* BMLUtils.h */,
+				491701561C68996B00D5D389 /* BMLUtils.m */,
 				497C694D1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.h */,
 				497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */,
 				497C693F1C4FB19800FCB6F5 /* BMLHTTPConnector.h */,
 				497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */,
-				497C69471C4FFA4F00FCB6F5 /* NSMutableData+BMLData.h */,
-				497C69481C4FFA4F00FCB6F5 /* NSMutableData+BMLData.m */,
-				497C69511C5137C900FCB6F5 /* BMLAPIConnector.h */,
-				497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */,
+				4910F60D1BFDD7750087E85A /* Info.plist */,
+				4910F60B1BFDD7750087E85A /* bigmlObjc.h */,
 			);
 			path = "bigml-objc";
 			sourceTree = "<group>";
@@ -141,27 +206,88 @@
 		4910F6161BFDD7750087E85A /* bigml-objcTests */ = {
 			isa = PBXGroup;
 			children = (
+				4917015B1C689B5300D5D389 /* data */,
 				497C69641C522D1400FCB6F5 /* credentials.plist */,
-				497C69551C522B4000FCB6F5 /* data */,
 				497C6AF71C56482A00FCB6F5 /* bigmlObjcBaseTests.h */,
 				4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */,
-				4910F6191BFDD7750087E85A /* Info.plist */,
 				497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */,
+				4910F6191BFDD7750087E85A /* Info.plist */,
 			);
 			path = "bigml-objcTests";
 			sourceTree = "<group>";
 		};
-		497C69551C522B4000FCB6F5 /* data */ = {
+		491701241C6644F100D5D389 /* Algorithms */ = {
 			isa = PBXGroup;
 			children = (
-				497C69661C522DD900FCB6F5 /* movies.csv */,
-				497C69671C522DD900FCB6F5 /* salaries.csv */,
-				497C69681C522DD900FCB6F5 /* spam.csv */,
-				497C69691C522DD900FCB6F5 /* diab.csv */,
-				497C696A1C522DD900FCB6F5 /* iris.csv */,
-				497C696B1C522DD900FCB6F5 /* wines.csv */,
+				491701251C66457700D5D389 /* Anomaly.h */,
+				491701261C66457700D5D389 /* Anomaly.m */,
+				491701271C66457700D5D389 /* FieldResource.h */,
+				491701281C66457700D5D389 /* FieldResource.m */,
+				491701291C66457700D5D389 /* MultiModel.h */,
+				4917012A1C66457700D5D389 /* MultiModel.m */,
+				4917012B1C66457700D5D389 /* MultiVote.h */,
+				4917012C1C66457700D5D389 /* MultiVote.m */,
+				4917012D1C66457700D5D389 /* Predicates.h */,
+				4917012E1C66457700D5D389 /* Predicates.m */,
+				4917012F1C66457700D5D389 /* PredictionCentroid.h */,
+				491701301C66457700D5D389 /* PredictionCentroid.m */,
+				491701311C66457700D5D389 /* PredictionTree.h */,
+				491701321C66457700D5D389 /* PredictionTree.m */,
+				491701331C66457700D5D389 /* PredictiveCluster.h */,
+				491701341C66457700D5D389 /* PredictiveCluster.m */,
+				491701351C66457700D5D389 /* PredictiveEnsemble.h */,
+				491701361C66457700D5D389 /* PredictiveEnsemble.m */,
+				491701371C66457700D5D389 /* PredictiveModel.h */,
+				491701381C66457700D5D389 /* PredictiveModel.m */,
+				491701391C66457700D5D389 /* TreePrediction.h */,
+				4917013A1C66457700D5D389 /* TreePrediction.m */,
 			);
-			name = data;
+			name = Algorithms;
+			sourceTree = "<group>";
+		};
+		4917015B1C689B5300D5D389 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				4917015C1C689B5300D5D389 /* baseball.ensemble */,
+				4917015D1C689B5300D5D389 /* diab.csv */,
+				4917015E1C689B5300D5D389 /* iris.csv */,
+				4917015F1C689B5300D5D389 /* iris.ensemble */,
+				491701601C689B5300D5D389 /* iris.model */,
+				491701611C689B5300D5D389 /* iris.pml */,
+				491701621C689B5300D5D389 /* pythonTests.py */,
+				491701631C689B5300D5D389 /* salaries.csv */,
+				491701641C689B5300D5D389 /* spam-text.cluster */,
+				491701651C689B5300D5D389 /* spam.cluster */,
+				491701661C689B5300D5D389 /* spam.model */,
+				491701671C689B5300D5D389 /* spam.tsv */,
+				491701681C689B5300D5D389 /* testAnomaly.json */,
+				491701691C689B5300D5D389 /* testCluster.json */,
+				4917016A1C689B5300D5D389 /* wines.csv */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		491701861C689D6E00D5D389 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				497C69431C4FBA1A00FCB6F5 /* NSError+BMLError.h */,
+				497C69441C4FBA1A00FCB6F5 /* NSError+BMLError.m */,
+				497C69471C4FFA4F00FCB6F5 /* NSMutableData+BMLData.h */,
+				497C69481C4FFA4F00FCB6F5 /* NSMutableData+BMLData.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		491701871C689DA400D5D389 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				497C69361C4FA77000FCB6F5 /* BMLEnums.h */,
+				491701591C68999900D5D389 /* BMLLocalPredictions.h */,
+				497C69511C5137C900FCB6F5 /* BMLAPIConnector.h */,
+				497C69371C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h */,
+				497C693B1C4FAC3100FCB6F5 /* BMLResourceProtocol.h */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,14 +297,27 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4917013F1C66457700D5D389 /* MultiModel.h in Headers */,
+				4917013B1C66457700D5D389 /* Anomaly.h in Headers */,
 				497C694F1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.h in Headers */,
-				4910F60C1BFDD7750087E85A /* bigml-objc.h in Headers */,
+				491701451C66457700D5D389 /* PredictionCentroid.h in Headers */,
+				4917014B1C66457700D5D389 /* PredictiveEnsemble.h in Headers */,
+				4910F60C1BFDD7750087E85A /* bigmlObjc.h in Headers */,
 				497C69451C4FBA1A00FCB6F5 /* NSError+BMLError.h in Headers */,
 				497C69491C4FFA4F00FCB6F5 /* NSMutableData+BMLData.h in Headers */,
+				491701571C68996B00D5D389 /* BMLUtils.h in Headers */,
+				4917015A1C68999900D5D389 /* BMLLocalPredictions.h in Headers */,
 				497C69391C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h in Headers */,
+				4917014D1C66457700D5D389 /* PredictiveModel.h in Headers */,
 				497C69411C4FB19800FCB6F5 /* BMLHTTPConnector.h in Headers */,
-				497C693D1C4FAC3100FCB6F5 /* BMLResource.h in Headers */,
+				497C693D1C4FAC3100FCB6F5 /* BMLResourceProtocol.h in Headers */,
+				491701491C66457700D5D389 /* PredictiveCluster.h in Headers */,
+				491701471C66457700D5D389 /* PredictionTree.h in Headers */,
+				4917014F1C66457700D5D389 /* TreePrediction.h in Headers */,
 				497C69531C5137C900FCB6F5 /* BMLAPIConnector.h in Headers */,
+				491701431C66457700D5D389 /* Predicates.h in Headers */,
+				491701411C66457700D5D389 /* MultiVote.h in Headers */,
+				4917013D1C66457700D5D389 /* FieldResource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,13 +407,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				497C69711C522DD900FCB6F5 /* wines.csv in Resources */,
-				497C696D1C522DD900FCB6F5 /* salaries.csv in Resources */,
+				4917016B1C689B5300D5D389 /* baseball.ensemble in Resources */,
+				491701771C689B5300D5D389 /* testAnomaly.json in Resources */,
+				491701741C689B5300D5D389 /* spam.cluster in Resources */,
+				491701701C689B5300D5D389 /* iris.pml in Resources */,
+				491701731C689B5300D5D389 /* spam-text.cluster in Resources */,
+				491701711C689B5300D5D389 /* pythonTests.py in Resources */,
+				4917016D1C689B5300D5D389 /* iris.csv in Resources */,
+				491701751C689B5300D5D389 /* spam.model in Resources */,
+				4917016E1C689B5300D5D389 /* iris.ensemble in Resources */,
+				491701791C689B5400D5D389 /* wines.csv in Resources */,
+				491701761C689B5300D5D389 /* spam.tsv in Resources */,
 				497C69651C522D1400FCB6F5 /* credentials.plist in Resources */,
-				497C696F1C522DD900FCB6F5 /* diab.csv in Resources */,
-				497C696C1C522DD900FCB6F5 /* movies.csv in Resources */,
-				497C696E1C522DD900FCB6F5 /* spam.csv in Resources */,
-				497C69701C522DD900FCB6F5 /* iris.csv in Resources */,
+				491701721C689B5300D5D389 /* salaries.csv in Resources */,
+				4917016F1C689B5300D5D389 /* iris.model in Resources */,
+				4917016C1C689B5300D5D389 /* diab.csv in Resources */,
+				491701781C689B5400D5D389 /* testCluster.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,13 +433,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4917014E1C66457700D5D389 /* PredictiveModel.m in Sources */,
 				497C69461C4FBA1A00FCB6F5 /* NSError+BMLError.m in Sources */,
 				497C69421C4FB19800FCB6F5 /* BMLHTTPConnector.m in Sources */,
 				497C694A1C4FFA4F00FCB6F5 /* NSMutableData+BMLData.m in Sources */,
 				497C69541C5137C900FCB6F5 /* BMLAPIConnector.m in Sources */,
 				497C693A1C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m in Sources */,
-				497C693E1C4FAC3100FCB6F5 /* BMLResource.m in Sources */,
+				491701401C66457700D5D389 /* MultiModel.m in Sources */,
+				4917013C1C66457700D5D389 /* Anomaly.m in Sources */,
+				491701461C66457700D5D389 /* PredictionCentroid.m in Sources */,
+				491701441C66457700D5D389 /* Predicates.m in Sources */,
+				4917014C1C66457700D5D389 /* PredictiveEnsemble.m in Sources */,
+				4917013E1C66457700D5D389 /* FieldResource.m in Sources */,
+				491701481C66457700D5D389 /* PredictionTree.m in Sources */,
+				497C693E1C4FAC3100FCB6F5 /* BMLResourceProtocol.m in Sources */,
 				497C69501C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m in Sources */,
+				491701421C66457700D5D389 /* MultiVote.m in Sources */,
+				491701501C66457700D5D389 /* TreePrediction.m in Sources */,
+				491701581C68996B00D5D389 /* BMLUtils.m in Sources */,
+				4917014A1C66457700D5D389 /* PredictiveCluster.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
