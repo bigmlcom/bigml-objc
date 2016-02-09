@@ -119,7 +119,6 @@
     
     [[self.session dataTaskWithRequest:request
                      completionHandler:^(NSData* data, NSURLResponse* resp, NSError* error) {
-                         
                          if (!error) {
                              if ([resp isKindOfClass:[NSHTTPURLResponse class]]) {
 

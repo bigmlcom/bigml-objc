@@ -334,7 +334,8 @@ void delay(float delay, dispatch_block_t block) {
                                  uuid:resource.uuid
                            completion:^(NSDictionary* dict, NSError* error) {
 
-                               if (!error) {
+                               //-- the API may return 500 and still provide info about the error
+                               if (!error || dict[@"status"]) {
                                    NSDictionary* status = dict[@"status"];
                                    if (status[@"code"]) {
                                        int statusCode = [status[@"code"] shortValue];
