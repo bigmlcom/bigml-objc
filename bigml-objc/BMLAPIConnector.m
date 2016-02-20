@@ -237,7 +237,8 @@ void delay(float delay, dispatch_block_t block) {
         
         [_connector deleteURL:url
                    completion:^(NSError* error) {
-                       completion(error);
+                       if (completion)
+                           completion(error);
                    }];
     }];
     
@@ -276,18 +277,20 @@ void delay(float delay, dispatch_block_t block) {
         [_connector getURL:url
                 completion:^(NSDictionary* dict, NSError* error) {
                     
-                    if (dict[@"code"]) {
-                        int code = [dict[@"code"] intValue];
-                        if (code != 200 &&
-                            !(code == 500 && dict[@"resource_uri"] != nil)) {
-                            
-                            NSString* msg =
-                            [NSString stringWithFormat:@"No data retrieved. Code: %d", code];
-                            error = [NSError errorWithInfo:msg code:-10150];
+                    if (!error) {
+                        if (dict[@"code"]) {
+                            int code = [dict[@"code"] intValue];
+                            if (code != 200 &&
+                                !(code == 500 && dict[@"resource_uri"] != nil)) {
+                                
+                                NSString* msg =
+                                [NSString stringWithFormat:@"No data retrieved. Code: %d", code];
+                                error = [NSError errorWithInfo:msg code:-10150];
+                            }
+                        } else {
+                            error = [NSError errorWithInfo:@"Bad response format."
+                                                      code:-10007];
                         }
-                    } else {
-                        error = [NSError errorWithInfo:@"Bad response format."
-                                                  code:-10007];
                     }
                     if (completion)
                         completion(dict, error);
