@@ -81,7 +81,7 @@ void delay(float delay, dispatch_block_t block) {
                                  modeSelector,
                                  uri,
                                  _authToken,
-                                 args]];
+                                 [args stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 }
 
 - (NSError*)withUri:(NSString*)uri
