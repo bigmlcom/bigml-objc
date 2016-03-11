@@ -27,25 +27,32 @@ void delay(float delay, dispatch_block_t block) {
     
     BMLMode _mode;
     NSString* _authToken;
+    NSString* _version;
     
     BMLHTTPConnector* _connector;
 }
 
 + (BMLAPIConnector*)connectorWithUsername:(NSString*)username
                                    apiKey:(NSString*)apiKey
-                                     mode:(BMLMode)mode {
+                                     mode:(BMLMode)mode
+                                  version:(NSString*)version {
     
-    return [[self alloc] initWithUsername:username apiKey:apiKey mode:mode];
+    return [[self alloc] initWithUsername:username
+                                   apiKey:apiKey
+                                     mode:mode
+                                  version:version ?: @"andromeda"];
 }
 
 - (instancetype)initWithUsername:(NSString*)username
                           apiKey:(NSString*)apiKey
-                            mode:(BMLMode)mode {
+                            mode:(BMLMode)mode
+                         version:(NSString*)version {
     
     if (self = [super init]) {
         
         _connector = [BMLHTTPConnector new];
         _mode = mode;
+        _version = version ?: @"andromeda";
         _authToken = [NSString stringWithFormat:@"username=%@;api_key=%@;",
                       username,
                       apiKey];
@@ -60,8 +67,7 @@ void delay(float delay, dispatch_block_t block) {
 
 - (NSString*)serverUrl {
     
-    NSString* url = [[NSUserDefaults standardUserDefaults]
-                     stringForKey:@"bigMLAPIServerUrl"];
+    NSString* url = [[NSUserDefaults standardUserDefaults] stringForKey:@"bigMLAPIServerUrl"];
     return url ?: @"https://bigml.io";
 }
 
@@ -76,9 +82,10 @@ void delay(float delay, dispatch_block_t block) {
     NSString* modeSelector = (_mode == BMLModeDevelopment) ? @"dev/" : @"";
     NSString* serverUrl = self.serverUrl;
     return [NSURL URLWithString:[NSString stringWithFormat:
-                                 @"%@/%@andromeda/%@?%@%@",
+                                 @"%@/%@%@/%@?%@%@",
                                  serverUrl,
                                  modeSelector,
+                                 _version,
                                  uri,
                                  _authToken,
                                  [args stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
@@ -198,7 +205,7 @@ void delay(float delay, dispatch_block_t block) {
               filters:(NSDictionary*)filters
            completion:(void(^)(NSArray*, NSError*))completion {
     
-    NSError* e = [self withUri:type.stringValue arguments:filters runBlock:^(NSURL* url){
+    NSError* e = [self withUri:type.stringValue arguments:filters runBlock:^(NSURL* url) {
         
         [_connector getURL:url
                 completion:^(NSDictionary* dict, NSError* error) {
@@ -206,7 +213,11 @@ void delay(float delay, dispatch_block_t block) {
                     NSMutableArray* resources = [NSMutableArray new];
                     if (!error) {
                         for (NSDictionary* resource in dict[@"objects"]) {
-                            NSString* fullUuid = resource[@"resource"];
+                            NSString* fullUuid = resource[@"resource"] ?: resource[@"resource_uri"];
+                            NSArray* components = [fullUuid componentsSeparatedByString:@"/"];
+                            fullUuid =
+                            [[components subarrayWithRange:NSMakeRange(components.count - 2, 2)]
+                             componentsJoinedByString:@"/"];
                             if (fullUuid) {
                                 [resources addObject:
                                  [[BMLMinimalResource alloc] initWithName:resource[@"name"]

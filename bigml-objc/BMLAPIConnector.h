@@ -20,11 +20,13 @@
 
 - (instancetype)initWithUsername:(NSString*)username
                           apiKey:(NSString*)apiKey
-                            mode:(BMLMode)mode;
+                            mode:(BMLMode)mode
+                         version:(NSString*)version;
 
 + (BMLAPIConnector*)connectorWithUsername:(NSString*)username
                                    apiKey:(NSString*)apiKey
-                                     mode:(BMLMode)mode;
+                                     mode:(BMLMode)mode
+                                  version:(NSString*)version;
 
 - (void)createResource:(BMLResourceTypeIdentifier*)type
                   name:(NSString*)name

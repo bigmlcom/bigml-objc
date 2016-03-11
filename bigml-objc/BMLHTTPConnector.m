@@ -13,7 +13,6 @@
 // under the License.
 
 #import "BMLHTTPConnector.h"
-//#import "NSError+BMLError.h"
 #import "NSMutableData+BMLData.h"
 #import "BMLHTTPMethodHandler.h"
 
@@ -42,9 +41,11 @@
                                                   expectedCode:202];
         _deleter = [[BMLHTTPMethodHandler alloc] initWithMethod:@"DELETE"
                                                   expectedCode:204];
-        _uploader = [[BMLHTTPMethodHandler alloc] initWithMethod:@"POST"
-                                                  expectedCode:201
-                                                     contentType:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", _boundary]];
+        _uploader =
+        [[BMLHTTPMethodHandler alloc]
+         initWithMethod:@"POST"
+         expectedCode:201
+         contentType:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", _boundary]];
     }
     return self;
 }
