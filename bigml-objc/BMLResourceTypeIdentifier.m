@@ -110,8 +110,14 @@ BMLResourceTypeIdentifier* BMLResourceTypeConfiguration = nil;
         return BMLResourceTypeProject;
     if ([type isEqualToString:[BMLResourceTypeConfiguration stringValue]])
         return BMLResourceTypeConfiguration;
-    NSAssert(NO, @"Type Id: Should not be here! (%@)", type);
+    NSLog(@"Type Id: Should not be here! (%@)", type);
     return nil;
+}
+
++ (BOOL)isValidFullUuid:(id)obj {
+
+    return ([obj isKindOfClass:[NSString class]] &&
+            [self typeFromTypeString:[obj componentsSeparatedByString:@"/"].firstObject]);
 }
 
 + (BMLResourceTypeIdentifier*)typeFromFullUuid:(BMLResourceFullUuid*)fullUuid {

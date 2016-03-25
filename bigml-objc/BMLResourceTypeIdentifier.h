@@ -19,6 +19,8 @@
 
 @interface BMLResourceTypeIdentifier : NSObject
 
++ (BOOL)isValidFullUuid:(NSString*)string;
+
 + (BMLResourceTypeIdentifier*)typeFromFullUuid:(BMLResourceFullUuid*)fullUuid;
 + (BMLResourceUuid*)uuidFromFullUuid:(BMLResourceFullUuid*)fullUuid;
 + (BMLResourceTypeIdentifier*)typeFromTypeString:(NSString*)type;
