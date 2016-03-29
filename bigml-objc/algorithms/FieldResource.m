@@ -1,4 +1,4 @@
-// Copyright 2014-2015 BigML
+// Copyright 2014-2016 BigML
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may
 // not use this file except in compliance with the License. You may obtain
@@ -50,13 +50,13 @@
     
     if (self = [super init]) {
         
-        for (NSString* fieldName in fields.allKeys) {
-            NSMutableDictionary* field = fields[fieldName];
-            NSAssert(field, @"Missing field %@", fieldName);
-            NSDictionary* modelField = fields[fieldName];
-            [field setObject:modelField[@"summary"] forKey:@"summary"];
-            [field setObject:modelField[@"name"] forKey:@"name"];
-        }
+//        for (NSString* fieldName in fields.allKeys) {
+//            NSMutableDictionary* field = fields[fieldName];
+//            NSAssert(field, @"Missing field %@", fieldName);
+//            NSDictionary* modelField = fields[fieldName];
+//            [field setObject:modelField[@"summary"] forKey:@"summary"];
+//            [field setObject:modelField[@"name"] forKey:@"name"];
+//        }
         
         _fields = fields;
         _objectiveFieldId = objectiveFieldId;

@@ -117,34 +117,35 @@
 - (void)dataWithRequest:(NSURLRequest*)request
              completion:(void(^)(NSData* data, NSError* error))completion {
     
-    [[self.session dataTaskWithRequest:request
-                     completionHandler:^(NSData* data, NSURLResponse* resp, NSError* error) {
-                         if (!error) {
-                             if ([resp isKindOfClass:[NSHTTPURLResponse class]]) {
-
-                                 NSHTTPURLResponse* response = (id)resp;
-                                 if (![response isStrictlyValid]) {
-                                     
-                                     NSUInteger code = response.statusCode;
-                                     NSDictionary* status =
-                                     [NSJSONSerialization JSONObjectWithData:data
-                                                                     options:NSJSONReadingAllowFragments
-                                                                       error:&error];
-                                     if (!error)
-                                         error = [NSError errorWithStatus:status code:code];
-                                 }
-                             } else {
-                                 NSString* message =
-                                 [NSString stringWithFormat:@"Bad response format for URL: %@",
-                                  resp.URL.absoluteString];
-                                 error = [NSError errorWithInfo:message
-                                                           code:-10001];
-                             }
-                         }
-                         if (completion)
-                             completion(data, error);
-                         
-                     }] resume];
+    [[self.session
+      dataTaskWithRequest:request
+      completionHandler:^(NSData* data, NSURLResponse* resp, NSError* error) {
+          if (!error) {
+              if ([resp isKindOfClass:[NSHTTPURLResponse class]]) {
+                  
+                  NSHTTPURLResponse* response = (id)resp;
+                  if (![response isStrictlyValid]) {
+                      
+                      NSUInteger code = response.statusCode;
+                      NSDictionary* status = [NSJSONSerialization
+                                              JSONObjectWithData:data
+                                              options:NSJSONReadingAllowFragments
+                                              error:&error];
+                      if (!error)
+                          error = [NSError errorWithStatus:status code:code];
+                  }
+              } else {
+                  NSString* message =
+                  [NSString stringWithFormat:@"Bad response format for URL: %@",
+                   resp.URL.absoluteString];
+                  error = [NSError errorWithInfo:message
+                                            code:-10001];
+              }
+          }
+          if (completion)
+              completion(data, error);
+          
+      }] resume];
 }
 
 - (NSMutableURLRequest*)requestWithMethod:(NSString*)method
@@ -181,9 +182,12 @@
                          expectedCode:(NSUInteger)expectedCode
                                 error:(NSError**)error {
     
-    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                                             options:NSJSONReadingAllowFragments
-                                                               error:error];
+    NSDictionary* jsonDict =
+    [NSJSONSerialization
+     JSONObjectWithData:data
+     options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
+     error:error];
+    
     if (*error == nil) {
         NSString* code = jsonDict[@"code"];
         if (code && [code intValue] != expectedCode)

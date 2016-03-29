@@ -1,4 +1,4 @@
-// Copyright 2014-2015 BigML
+// Copyright 2014-2016 BigML
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may
 // not use this file except in compliance with the License. You may obtain
@@ -18,7 +18,7 @@
 
 #define zDistributionDefault 1.96
 
-@implementation ML4iOSUtils
+@implementation BMLUtils
 
 /**
  * We convert the Array to a dictionary for ease of manipulation

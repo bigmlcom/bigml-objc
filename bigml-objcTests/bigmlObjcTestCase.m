@@ -12,21 +12,22 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-#import <Foundation/Foundation.h>
+#import "bigmlObjcTestCase.h"
+#import "bigmlObjcTester.h"
 
-@interface FieldResource : NSObject
+@interface bigmlObjcTestCase ()
 
-@property (nonatomic, strong) NSDictionary* fields;
-@property (nonatomic, readonly) NSDictionary* fieldIdByName;
-@property (nonatomic, readonly) NSDictionary* fieldNameById;
+@property (nonatomic, strong) bigmlObjcTester* apiLibrary;
 
-- (instancetype)initWithFields:(NSDictionary*)fields;
+@end
 
-- (instancetype)initWithFields:(NSDictionary*)fields
-              objectiveFieldId:(NSString*)objectiveFieldId
-                        locale:(NSString*)locale
-                 missingTokens:(NSArray*)missingTokens;
+@implementation bigmlObjcTestCase
 
-- (NSDictionary*)filteredInputData:(NSDictionary*)inputData byName:(BOOL)byName;
+- (void)setUp {
+    [super setUp];
+    
+    self.apiLibrary = [bigmlObjcTester new];
+    self.apiLibrary.csvFileName = @"iris.csv";
+}
 
 @end

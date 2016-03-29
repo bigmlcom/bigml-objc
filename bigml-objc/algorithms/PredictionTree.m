@@ -1,4 +1,4 @@
-// Copyright 2014-2015 BigML
+// Copyright 2014-2016 BigML
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may
 // not use this file except in compliance with the License. You may obtain
@@ -300,7 +300,7 @@ typedef PredictionTree TreeHolder;
  */
 - (BOOL)isOneBranch:(NSArray*)nodes inputData:(NSDictionary*)inputData {
   
-    BOOL missing = [inputData.allKeys containsObject:[ML4iOSUtils splitNodes:nodes]];
+    BOOL missing = [inputData.allKeys containsObject:[BMLUtils splitNodes:nodes]];
     return missing || [self missingBranch:nodes] || [self noneValue:nodes];
 }
 
@@ -330,7 +330,7 @@ typedef PredictionTree TreeHolder;
     NSMutableDictionary* finalDistribution = [NSMutableDictionary new];
     if (_children.count == 0) {
         *lastNode = self;
-        return [ML4iOSUtils dictionaryFromDistributionArray:_distribution];
+        return [BMLUtils dictionaryFromDistributionArray:_distribution];
     }
     if ([self isOneBranch:_children inputData:inputData]) {
         for (PredictionTree* child in _children) {
@@ -350,7 +350,7 @@ typedef PredictionTree TreeHolder;
         // missing value found, the unique path stops
         missingFound = YES;
         for (PredictionTree* child in _children) {
-            finalDistribution = [ML4iOSUtils
+            finalDistribution = [BMLUtils
                                  mergeDistribution:finalDistribution
                                  andDistribution:[child predictProportional:inputData
                                                                    lastNode:lastNode
@@ -436,33 +436,33 @@ typedef PredictionTree TreeHolder;
                     NSAssert(NO, @"Got more than one instances in single-node case");
             }
             //-- when there's more instances, sort elements by their mean
-            NSArray* distribution = [ML4iOSUtils arrayFromDistributionDictionary:finalDistribution];
+            NSArray* distribution = [BMLUtils arrayFromDistributionDictionary:finalDistribution];
             NSString* distributionUnit = (distribution.count > BINS_LIMIT) ? @"bins" : @"counts";
-            distribution = [ML4iOSUtils mergeBins:distribution limit:BINS_LIMIT];
+            distribution = [BMLUtils mergeBins:distribution limit:BINS_LIMIT];
             long totalInstances = [self totalInstances:distribution];
-            double mean = [ML4iOSUtils meanOfDistribution:distribution];
-            double confidence = [ML4iOSUtils regressionErrorWithVariance:
-                                 [ML4iOSUtils varianceOfDistribution:distribution mean:mean]
+            double mean = [BMLUtils meanOfDistribution:distribution];
+            double confidence = [BMLUtils regressionErrorWithVariance:
+                                 [BMLUtils varianceOfDistribution:distribution mean:mean]
                                                    instances:totalInstances
                                                           rz:DEFAULT_RZ];
             return [TreePrediction
                     treePrediction:@(mean)
                     confidence:confidence
                     count:totalInstances
-                    median:[ML4iOSUtils medianOfDistribution:distribution instances:totalInstances]
+                    median:[BMLUtils medianOfDistribution:distribution instances:totalInstances]
                     path:path
                     distribution:distribution
                     distributionUnit:distributionUnit
                     children:lastNode.children];
         } else {
             
-            NSArray* distribution = [ML4iOSUtils arrayFromDistributionDictionary:finalDistribution];
+            NSArray* distribution = [BMLUtils arrayFromDistributionDictionary:finalDistribution];
             long totalInstances = [self totalInstances:distribution];
             NSAssert([_distributionUnit isEqualToString:@"categories"],
                      @"Bad distributionUnit");
 
             return [TreePrediction treePrediction:[distribution.firstObject firstObject]
-                                       confidence:[ML4iOSUtils wsConfidence:[distribution.firstObject firstObject]
+                                       confidence:[BMLUtils wsConfidence:[distribution.firstObject firstObject]
                                                         distribution:finalDistribution]
                                             count:totalInstances
                                            median:NAN

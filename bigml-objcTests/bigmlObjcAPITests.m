@@ -67,43 +67,6 @@
     XCTAssert([self deleteResource:resource] == nil);
 }
 
-- (void)testCreateDatasourceWithOption2 {
-    
-    id<BMLResource> resource = [self createDatasource:@"spam.csv" options:
-                                @{ @"term_analysis" : @{@"case_sensitive" : @YES,
-                                                        @"enabled" : @YES,
-                                                        @"stem_words" : @NO}}];
-    XCTAssert(resource);
-    XCTAssert([self deleteResource:resource] == nil);
-}
-
-- (void)testCreateDatasourceWithOption3 {
-    
-    id<BMLResource> resource = [self createDatasource:@"spam.csv" options:nil];
-    XCTAssert(resource);
-    
-    NSString* name = @"testCreateAnomaly";
-    [self runTest:name test:^(XCTestExpectation* exp) {
-        
-        [self.connector updateResource:resource.type
-                                  uuid:resource.uuid
-                                values: @{ @"fields" : @{
-                                                   @"000001" : @{
-                                                           @"optype" : @"text",
-                                                           @"term_analysis" : @{
-                                                                   @"case_sensitive" : @YES,
-                                                                   @"stem_words" : @YES,
-                                                                   @"use_stopwords" : @NO,
-                                                                   @"language" : @"en"}}}}
-                            completion:^(NSError* error) {
-                                
-                                XCTAssert(error == nil);
-                                XCTAssert([self deleteResource:resource] == nil);
-                                [exp fulfill];
-                            }];
-    }];
-}
-
 - (void)testCloneDataset {
     
     NSString* name = @"testCloneDataset";

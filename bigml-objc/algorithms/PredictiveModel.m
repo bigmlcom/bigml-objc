@@ -1,4 +1,4 @@
-// Copyright 2014-2015 BigML
+// Copyright 2014-2016 BigML
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may
 // not use this file except in compliance with the License. You may obtain
@@ -17,7 +17,7 @@
 #import "Predicates.h"
 #import "BMLUtils.h"
 
-#define ML4iOS_DEFAULT_LOCALE @"en.US"
+#define BML_DEFAULT_LOCALE @"en.US"
 
 @implementation PredictiveModel {
     
@@ -62,7 +62,7 @@
     else
         objectiveField = objectiveFields;
     
-    locale = jsonModel[@"locale"] ?: ML4iOS_DEFAULT_LOCALE;
+    locale = jsonModel[@"locale"] ?: BML_DEFAULT_LOCALE;
     
     if (self = [super initWithFields:fields
                     objectiveFieldId:objectiveField
@@ -114,14 +114,14 @@
     NSAssert(arguments, @"Prediction arguments missing.");
     NSMutableArray* output = [NSMutableArray new];
     
-    arguments = [ML4iOSUtils cast:[self filteredInputData:arguments byName:byName]
+    arguments = [BMLUtils cast:[self filteredInputData:arguments byName:byName]
                            fields:self.fields];
     
     TreePrediction* prediction = [_tree predict:arguments
                                            path:nil
                                        strategy:strategy];
     NSArray* distribution = [prediction distribution];
-    NSDictionary* distributionDictionary = [ML4iOSUtils dictionaryFromDistributionArray:distribution];
+    NSDictionary* distributionDictionary = [BMLUtils dictionaryFromDistributionArray:distribution];
     long instances = prediction.count;
     if (multiple != 0 && ![_tree isRegression]) {
         for (NSInteger i = 0; i < MIN(distribution.count, multiple); ++i) {
@@ -129,7 +129,7 @@
             NSArray* distributionElement = distribution[i];
             id category = distributionElement.firstObject;
             double confidence =
-            [ML4iOSUtils wsConfidence:category
+            [BMLUtils wsConfidence:category
                          distribution:distributionDictionary];
             [output addObject:@{ @"prediction" : category,
                                  @"confidence" : @([self roundedConfidence:confidence]),

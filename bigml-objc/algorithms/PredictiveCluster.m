@@ -1,4 +1,4 @@
-// Copyright 2014-2015 BigML
+// Copyright 2014-2016 BigML
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may
 // not use this file except in compliance with the License. You may obtain
@@ -46,11 +46,13 @@ to generate centroid predictions locally.
                               arguments:(NSDictionary*)args
                                 options:(NSDictionary*)options {
     
+    BOOL byName = [options[@"byName"] ?: @(NO) boolValue];
     NSDictionary* fields = jsonCluster[@"clusters"][@"fields"];
     NSMutableDictionary* inputData = [NSMutableDictionary dictionaryWithCapacity:[fields allKeys].count];
     for (NSString* key in [fields allKeys]) {
-        if (args[fields[key][@"name"]]) {
-            [inputData setObject:args[fields[key][@"name"]] forKey:key];
+        NSString* fieldId = byName ? fields[key][@"name"] : key;
+        if (args[fieldId]) {
+            [inputData setObject:args[fieldId] forKey:fieldId];
         } else {
             NSAssert(NO, @"All input fields should be provided to calculate a centroid");
         }

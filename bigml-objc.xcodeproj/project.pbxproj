@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4903E0A81CAAC15F00F6499D /* BMLLocalPredictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0AF1CAAC63000F6499D /* bigmlObjcAnomalyScoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0B01CAAC63400F6499D /* bigmlObjcClusterPredictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0B11CAAC63900F6499D /* bigmlObjcModelPredictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0AB1CAAC61900F6499D /* bigmlObjcModelPredictionTests.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0B41CAAC69600F6499D /* bigmlObjcTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4903E0B21CAAC69600F6499D /* bigmlObjcTestCase.h */; settings = {ASSET_TAGS = (); }; };
+		4903E0B81CAAC6DB00F6499D /* bigmlObjcTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 4903E0B61CAAC6DB00F6499D /* bigmlObjcTester.h */; settings = {ASSET_TAGS = (); }; };
+		4903E0BA1CAAC73700F6499D /* bigmlObjcTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0B31CAAC69600F6499D /* bigmlObjcTestCase.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0BB1CAAC73700F6499D /* bigmlObjcTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0B71CAAC6DB00F6499D /* bigmlObjcTester.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0BE1CAACA1D00F6499D /* bigmlObjcTestCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0BD1CAACA1D00F6499D /* bigmlObjcTestCredentials.m */; settings = {ASSET_TAGS = (); }; };
 		4910F60C1BFDD7750087E85A /* bigmlObjc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4910F60B1BFDD7750087E85A /* bigmlObjc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4910F6131BFDD7750087E85A /* bigmlObjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4910F6081BFDD7750087E85A /* bigmlObjc.framework */; };
 		4910F6181BFDD7750087E85A /* bigmlObjcBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */; };
@@ -79,6 +88,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLLocalPredictions.m; sourceTree = "<group>"; };
+		4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAnomalyScoreTests.m; sourceTree = "<group>"; };
+		4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcClusterPredictionTests.m; sourceTree = "<group>"; };
+		4903E0AB1CAAC61900F6499D /* bigmlObjcModelPredictionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcModelPredictionTests.m; sourceTree = "<group>"; };
+		4903E0B21CAAC69600F6499D /* bigmlObjcTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bigmlObjcTestCase.h; sourceTree = "<group>"; };
+		4903E0B31CAAC69600F6499D /* bigmlObjcTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTestCase.m; sourceTree = "<group>"; };
+		4903E0B61CAAC6DB00F6499D /* bigmlObjcTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bigmlObjcTester.h; sourceTree = "<group>"; };
+		4903E0B71CAAC6DB00F6499D /* bigmlObjcTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTester.m; sourceTree = "<group>"; };
+		4903E0BC1CAACA1D00F6499D /* bigmlObjcTestCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bigmlObjcTestCredentials.h; sourceTree = "<group>"; };
+		4903E0BD1CAACA1D00F6499D /* bigmlObjcTestCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTestCredentials.m; sourceTree = "<group>"; };
 		4910F6081BFDD7750087E85A /* bigmlObjc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = bigmlObjc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4910F60B1BFDD7750087E85A /* bigmlObjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bigmlObjc.h; sourceTree = "<group>"; };
 		4910F60D1BFDD7750087E85A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -197,6 +216,7 @@
 				497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */,
 				497C693F1C4FB19800FCB6F5 /* BMLHTTPConnector.h */,
 				497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */,
+				4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */,
 				4910F60D1BFDD7750087E85A /* Info.plist */,
 				4910F60B1BFDD7750087E85A /* bigmlObjc.h */,
 			);
@@ -208,10 +228,19 @@
 			children = (
 				4917015B1C689B5300D5D389 /* data */,
 				497C69641C522D1400FCB6F5 /* credentials.plist */,
+				4903E0B21CAAC69600F6499D /* bigmlObjcTestCase.h */,
+				4903E0B31CAAC69600F6499D /* bigmlObjcTestCase.m */,
+				4903E0B61CAAC6DB00F6499D /* bigmlObjcTester.h */,
+				4903E0B71CAAC6DB00F6499D /* bigmlObjcTester.m */,
 				497C6AF71C56482A00FCB6F5 /* bigmlObjcBaseTests.h */,
 				4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */,
 				497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */,
+				4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */,
+				4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */,
+				4903E0AB1CAAC61900F6499D /* bigmlObjcModelPredictionTests.m */,
 				4910F6191BFDD7750087E85A /* Info.plist */,
+				4903E0BC1CAACA1D00F6499D /* bigmlObjcTestCredentials.h */,
+				4903E0BD1CAACA1D00F6499D /* bigmlObjcTestCredentials.m */,
 			);
 			path = "bigml-objcTests";
 			sourceTree = "<group>";
@@ -305,12 +334,14 @@
 				4910F60C1BFDD7750087E85A /* bigmlObjc.h in Headers */,
 				497C69451C4FBA1A00FCB6F5 /* NSError+BMLError.h in Headers */,
 				497C69491C4FFA4F00FCB6F5 /* NSMutableData+BMLData.h in Headers */,
+				4903E0B41CAAC69600F6499D /* bigmlObjcTestCase.h in Headers */,
 				491701571C68996B00D5D389 /* BMLUtils.h in Headers */,
 				4917015A1C68999900D5D389 /* BMLLocalPredictions.h in Headers */,
 				497C69391C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h in Headers */,
 				4917014D1C66457700D5D389 /* PredictiveModel.h in Headers */,
 				497C69411C4FB19800FCB6F5 /* BMLHTTPConnector.h in Headers */,
 				497C693D1C4FAC3100FCB6F5 /* BMLResourceProtocol.h in Headers */,
+				4903E0B81CAAC6DB00F6499D /* bigmlObjcTester.h in Headers */,
 				491701491C66457700D5D389 /* PredictiveCluster.h in Headers */,
 				491701471C66457700D5D389 /* PredictionTree.h in Headers */,
 				4917014F1C66457700D5D389 /* TreePrediction.h in Headers */,
@@ -443,6 +474,7 @@
 				4917013C1C66457700D5D389 /* Anomaly.m in Sources */,
 				491701461C66457700D5D389 /* PredictionCentroid.m in Sources */,
 				491701441C66457700D5D389 /* Predicates.m in Sources */,
+				4903E0A81CAAC15F00F6499D /* BMLLocalPredictions.m in Sources */,
 				4917014C1C66457700D5D389 /* PredictiveEnsemble.m in Sources */,
 				4917013E1C66457700D5D389 /* FieldResource.m in Sources */,
 				491701481C66457700D5D389 /* PredictionTree.m in Sources */,
@@ -459,8 +491,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4903E0B11CAAC63900F6499D /* bigmlObjcModelPredictionTests.m in Sources */,
+				4903E0AF1CAAC63000F6499D /* bigmlObjcAnomalyScoreTests.m in Sources */,
+				4903E0B01CAAC63400F6499D /* bigmlObjcClusterPredictionTests.m in Sources */,
 				497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */,
+				4903E0BE1CAACA1D00F6499D /* bigmlObjcTestCredentials.m in Sources */,
+				4903E0BB1CAAC73700F6499D /* bigmlObjcTester.m in Sources */,
 				4910F6181BFDD7750087E85A /* bigmlObjcBaseTests.m in Sources */,
+				4903E0BA1CAAC73700F6499D /* bigmlObjcTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

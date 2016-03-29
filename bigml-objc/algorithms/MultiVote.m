@@ -1,4 +1,4 @@
-// Copyright 2014-2015 BigML
+// Copyright 2014-2016 BigML
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may
 // not use this file except in compliance with the License. You may obtain
@@ -171,15 +171,15 @@ static NSString* const kNullCategory = @"kNullCategory";
         
         NSDictionary* distribution = p[@"distribution"];
         if ([distribution isKindOfClass:[NSArray class]]) {
-            distribution = [ML4iOSUtils dictionaryFromDistributionArray:(id)distribution];
+            distribution = [BMLUtils dictionaryFromDistributionArray:(id)distribution];
         }
-        joinedDist = [ML4iOSUtils mergeDistribution:joinedDist andDistribution:distribution];
+        joinedDist = [BMLUtils mergeDistribution:joinedDist andDistribution:distribution];
         if ([distributionUnit isEqualToString:@"counts"] && joinedDist.count > BINS_LIMIT) {
             distributionUnit = @"bins";
         }
-        joinedDist = [ML4iOSUtils mergeBinsDictionary:joinedDist limit:BINS_LIMIT];
+        joinedDist = [BMLUtils mergeBinsDictionary:joinedDist limit:BINS_LIMIT];
     }
-    [prediction setObject:[ML4iOSUtils arrayFromDistributionDictionary:joinedDist] forKey:@"distribution"];
+    [prediction setObject:[BMLUtils arrayFromDistributionDictionary:joinedDist] forKey:@"distribution"];
     [prediction setObject:distributionUnit forKey:@"distributionUnit"];
     
     return prediction;
@@ -542,7 +542,7 @@ static NSString* const kNullCategory = @"kNullCategory";
         NSArray* distributionInfo = [self combineDistribution:weightLabel];
         NSInteger count = [distributionInfo[1] intValue];
         NSDictionary* distribution = distributionInfo[0];
-        double combinedConfidence = [ML4iOSUtils wsConfidence:predictionName
+        double combinedConfidence = [BMLUtils wsConfidence:predictionName
                                                  distribution:distribution
                                                         count:count];
         [result setObject:@(combinedConfidence) forKey:@"confidence"];

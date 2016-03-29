@@ -14,41 +14,12 @@
 
 #import <XCTest/XCTest.h>
 #import "bigmlObjcBaseTests.h"
+#import "bigmlObjcTestCredentials.h"
 
 static id<BMLResource> _aSource = nil;
 static id<BMLResource> _aDataset = nil;
 static id<BMLResource> _altDataset = nil;
 static dispatch_once_t _dispatchToken = 0;
-
-static NSString* pathForResource(NSString* name) {
-    for (NSBundle* bundle in [NSBundle allBundles]) {
-        NSString* p = [bundle pathForResource:name ofType:nil];
-        if (p)
-            return p;
-    }
-    return nil;
-}
-
-@interface BMLTestCredentials : NSObject
-
-@end
-
-@implementation BMLTestCredentials
-
-+ (NSDictionary*)credentials {
-    return [[NSDictionary alloc]
-            initWithContentsOfFile:pathForResource(@"credentials.plist")];
-}
-
-+ (NSString*)username {
-    return self.credentials[@"username"];
-}
-
-+ (NSString*)apiKey {
-    return self.credentials[@"apiKey"];
-}
-
-@end
 
 @implementation bigmlObjcBaseTests
 
@@ -71,8 +42,8 @@ static NSString* pathForResource(NSString* name) {
 - (void)setUp {
     [super setUp];
 
-    self.connector = [BMLAPIConnector connectorWithUsername:[BMLTestCredentials username]
-                                                     apiKey:[BMLTestCredentials apiKey]
+    self.connector = [BMLAPIConnector connectorWithUsername:[bigmlObjcTestCredentials username]
+                                                     apiKey:[bigmlObjcTestCredentials apiKey]
                                                        mode:BMLModeProduction];
     
     dispatch_once(&_dispatchToken, ^{
@@ -115,7 +86,6 @@ static NSString* pathForResource(NSString* name) {
                                                values:options[BMLResourceTypeSource]
                                             completion:^(NSError* error) {
                                                 
-                                                XCTAssert(resource);
                                                 result = resource;
                                                 dispatch_semaphore_signal(semaphore);
                                             }];
@@ -123,7 +93,6 @@ static NSString* pathForResource(NSString* name) {
                             
                             result = resource;
                             dispatch_semaphore_signal(semaphore);
-                            XCTAssert(resource);
                         }
                     }];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);

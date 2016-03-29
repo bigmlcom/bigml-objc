@@ -16,9 +16,6 @@
 #import "BMLEnums.h"
 #import "BMLResourceProtocol.h"
 
-//@protocol BMLResource;
-//@class BMLResourceTypeIdentifier;
-
 @interface BMLAPIConnector : NSObject
 
 - (instancetype)initWithUsername:(NSString*)username
