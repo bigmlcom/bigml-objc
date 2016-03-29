@@ -1,0 +1,399 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4903E0EE1CAB098A00F6499D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0ED1CAB098A00F6499D /* main.m */; };
+		4903E0F11CAB098A00F6499D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0F01CAB098A00F6499D /* AppDelegate.m */; };
+		4903E0F41CAB098A00F6499D /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0F31CAB098A00F6499D /* MasterViewController.m */; };
+		4903E0F71CAB098A00F6499D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0F61CAB098A00F6499D /* DetailViewController.m */; };
+		4903E0FA1CAB098A00F6499D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4903E0F81CAB098A00F6499D /* Main.storyboard */; };
+		4903E0FC1CAB098A00F6499D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4903E0FB1CAB098A00F6499D /* Assets.xcassets */; };
+		4903E0FF1CAB098A00F6499D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4903E0FD1CAB098A00F6499D /* LaunchScreen.storyboard */; };
+		4903E1141CAB09C800F6499D /* libbigmlObjcTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4903E1111CAB09AD00F6499D /* libbigmlObjcTouch.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4903E10C1CAB09AD00F6499D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4903E1061CAB09AD00F6499D /* bigml-objc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4910F6081BFDD7750087E85A;
+			remoteInfo = bigmlObjc;
+		};
+		4903E10E1CAB09AD00F6499D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4903E1061CAB09AD00F6499D /* bigml-objc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4910F6121BFDD7750087E85A;
+			remoteInfo = bigmlObjcTests;
+		};
+		4903E1101CAB09AD00F6499D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4903E1061CAB09AD00F6499D /* bigml-objc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4903E0C31CAB085900F6499D;
+			remoteInfo = bigmlObjcTouch;
+		};
+		4903E1121CAB09C100F6499D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4903E1061CAB09AD00F6499D /* bigml-objc.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4903E0C21CAB085900F6499D;
+			remoteInfo = bigmlObjcTouch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4903E0E91CAB098A00F6499D /* Bigml-iOS-Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bigml-iOS-Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4903E0ED1CAB098A00F6499D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4903E0EF1CAB098A00F6499D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4903E0F01CAB098A00F6499D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4903E0F21CAB098A00F6499D /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		4903E0F31CAB098A00F6499D /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		4903E0F51CAB098A00F6499D /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		4903E0F61CAB098A00F6499D /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		4903E0F91CAB098A00F6499D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4903E0FB1CAB098A00F6499D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4903E0FE1CAB098A00F6499D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4903E1001CAB098A00F6499D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4903E1061CAB09AD00F6499D /* bigml-objc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "bigml-objc.xcodeproj"; path = "../bigml-objc.xcodeproj"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4903E0E61CAB098A00F6499D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4903E1141CAB09C800F6499D /* libbigmlObjcTouch.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4903E0E01CAB098A00F6499D = {
+			isa = PBXGroup;
+			children = (
+				4903E1061CAB09AD00F6499D /* bigml-objc.xcodeproj */,
+				4903E0EB1CAB098A00F6499D /* Bigml-iOS-Sample */,
+				4903E0EA1CAB098A00F6499D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4903E0EA1CAB098A00F6499D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4903E0E91CAB098A00F6499D /* Bigml-iOS-Sample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4903E0EB1CAB098A00F6499D /* Bigml-iOS-Sample */ = {
+			isa = PBXGroup;
+			children = (
+				4903E0EF1CAB098A00F6499D /* AppDelegate.h */,
+				4903E0F01CAB098A00F6499D /* AppDelegate.m */,
+				4903E0F21CAB098A00F6499D /* MasterViewController.h */,
+				4903E0F31CAB098A00F6499D /* MasterViewController.m */,
+				4903E0F51CAB098A00F6499D /* DetailViewController.h */,
+				4903E0F61CAB098A00F6499D /* DetailViewController.m */,
+				4903E0F81CAB098A00F6499D /* Main.storyboard */,
+				4903E0FB1CAB098A00F6499D /* Assets.xcassets */,
+				4903E0FD1CAB098A00F6499D /* LaunchScreen.storyboard */,
+				4903E1001CAB098A00F6499D /* Info.plist */,
+				4903E0EC1CAB098A00F6499D /* Supporting Files */,
+			);
+			path = "Bigml-iOS-Sample";
+			sourceTree = "<group>";
+		};
+		4903E0EC1CAB098A00F6499D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4903E0ED1CAB098A00F6499D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4903E1071CAB09AD00F6499D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4903E10D1CAB09AD00F6499D /* bigmlObjc.framework */,
+				4903E10F1CAB09AD00F6499D /* bigmlObjcTests.xctest */,
+				4903E1111CAB09AD00F6499D /* libbigmlObjcTouch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4903E0E81CAB098A00F6499D /* Bigml-iOS-Sample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4903E1031CAB098A00F6499D /* Build configuration list for PBXNativeTarget "Bigml-iOS-Sample" */;
+			buildPhases = (
+				4903E0E51CAB098A00F6499D /* Sources */,
+				4903E0E61CAB098A00F6499D /* Frameworks */,
+				4903E0E71CAB098A00F6499D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4903E1131CAB09C100F6499D /* PBXTargetDependency */,
+			);
+			name = "Bigml-iOS-Sample";
+			productName = "Bigml-iOS-Sample";
+			productReference = 4903E0E91CAB098A00F6499D /* Bigml-iOS-Sample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4903E0E11CAB098A00F6499D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "BigML,  Inc.";
+				TargetAttributes = {
+					4903E0E81CAB098A00F6499D = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 4903E0E41CAB098A00F6499D /* Build configuration list for PBXProject "Bigml-iOS-Sample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4903E0E01CAB098A00F6499D;
+			productRefGroup = 4903E0EA1CAB098A00F6499D /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4903E1071CAB09AD00F6499D /* Products */;
+					ProjectRef = 4903E1061CAB09AD00F6499D /* bigml-objc.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				4903E0E81CAB098A00F6499D /* Bigml-iOS-Sample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4903E10D1CAB09AD00F6499D /* bigmlObjc.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = bigmlObjc.framework;
+			remoteRef = 4903E10C1CAB09AD00F6499D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4903E10F1CAB09AD00F6499D /* bigmlObjcTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = bigmlObjcTests.xctest;
+			remoteRef = 4903E10E1CAB09AD00F6499D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4903E1111CAB09AD00F6499D /* libbigmlObjcTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libbigmlObjcTouch.a;
+			remoteRef = 4903E1101CAB09AD00F6499D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4903E0E71CAB098A00F6499D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4903E0FF1CAB098A00F6499D /* LaunchScreen.storyboard in Resources */,
+				4903E0FC1CAB098A00F6499D /* Assets.xcassets in Resources */,
+				4903E0FA1CAB098A00F6499D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4903E0E51CAB098A00F6499D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4903E0F11CAB098A00F6499D /* AppDelegate.m in Sources */,
+				4903E0F41CAB098A00F6499D /* MasterViewController.m in Sources */,
+				4903E0EE1CAB098A00F6499D /* main.m in Sources */,
+				4903E0F71CAB098A00F6499D /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4903E1131CAB09C100F6499D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = bigmlObjcTouch;
+			targetProxy = 4903E1121CAB09C100F6499D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4903E0F81CAB098A00F6499D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4903E0F91CAB098A00F6499D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4903E0FD1CAB098A00F6499D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4903E0FE1CAB098A00F6499D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4903E1011CAB098A00F6499D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4903E1021CAB098A00F6499D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4903E1041CAB098A00F6499D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = "../bigml-objc/";
+				INFOPLIST_FILE = "Bigml-iOS-Sample/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bigml.Bigml-iOS-Sample";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4903E1051CAB098A00F6499D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = "../bigml-objc/";
+				INFOPLIST_FILE = "Bigml-iOS-Sample/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bigml.Bigml-iOS-Sample";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4903E0E41CAB098A00F6499D /* Build configuration list for PBXProject "Bigml-iOS-Sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4903E1011CAB098A00F6499D /* Debug */,
+				4903E1021CAB098A00F6499D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4903E1031CAB098A00F6499D /* Build configuration list for PBXNativeTarget "Bigml-iOS-Sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4903E1041CAB098A00F6499D /* Debug */,
+				4903E1051CAB098A00F6499D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4903E0E11CAB098A00F6499D /* Project object */;
+}
