@@ -12,18 +12,14 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-#import <Cocoa/Cocoa.h>
-
 //! Project version number for bigml-objc.
 FOUNDATION_EXPORT double bigml_objcVersionNumber;
 
 //! Project version string for bigml-objc.
 FOUNDATION_EXPORT const unsigned char bigml_objcVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <bigml_objc/PublicHeader.h>
-
-#import <bigml_objc/BMLEnums.h>
-#import <bigml_objc/ResourceTypeIdentifier.h>
-#import <bigml_objc/ResourceProtocol.h>
-#import <bigml_objc/BMLAPIConnector.h>
-#import <bigml_objc/BMLLocalPredictions.h>
+#import <BMLEnums.h>
+#import <BMLResourceTypeIdentifier.h>
+#import <BMLResourceProtocol.h>
+#import <BMLAPIConnector.h>
+#import <BMLLocalPredictions.h>

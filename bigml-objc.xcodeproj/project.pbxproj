@@ -16,6 +16,26 @@
 		4903E0BA1CAAC73700F6499D /* bigmlObjcTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0B31CAAC69600F6499D /* bigmlObjcTestCase.m */; settings = {ASSET_TAGS = (); }; };
 		4903E0BB1CAAC73700F6499D /* bigmlObjcTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0B71CAAC6DB00F6499D /* bigmlObjcTester.m */; settings = {ASSET_TAGS = (); }; };
 		4903E0BE1CAACA1D00F6499D /* bigmlObjcTestCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0BD1CAACA1D00F6499D /* bigmlObjcTestCredentials.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0CC1CAB092000F6499D /* BMLAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0CD1CAB092000F6499D /* BMLResourceTypeIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0CE1CAB092000F6499D /* BMLResourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C693C1C4FAC3100FCB6F5 /* BMLResourceProtocol.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0CF1CAB092000F6499D /* BMLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701561C68996B00D5D389 /* BMLUtils.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D01CAB092000F6499D /* BMLHTTPMethodHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D11CAB092000F6499D /* BMLHTTPConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D21CAB092000F6499D /* BMLLocalPredictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D31CAB092700F6499D /* NSError+BMLError.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69441C4FBA1A00FCB6F5 /* NSError+BMLError.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D41CAB092700F6499D /* NSMutableData+BMLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69481C4FFA4F00FCB6F5 /* NSMutableData+BMLData.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D51CAB093400F6499D /* Anomaly.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701261C66457700D5D389 /* Anomaly.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D61CAB093400F6499D /* FieldResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701281C66457700D5D389 /* FieldResource.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D71CAB093400F6499D /* MultiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012A1C66457700D5D389 /* MultiModel.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D81CAB093400F6499D /* MultiVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012C1C66457700D5D389 /* MultiVote.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0D91CAB093400F6499D /* Predicates.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012E1C66457700D5D389 /* Predicates.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0DA1CAB093400F6499D /* PredictionCentroid.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701301C66457700D5D389 /* PredictionCentroid.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0DB1CAB093400F6499D /* PredictionTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701321C66457700D5D389 /* PredictionTree.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0DC1CAB093500F6499D /* PredictiveCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701341C66457700D5D389 /* PredictiveCluster.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0DD1CAB093500F6499D /* PredictiveEnsemble.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701361C66457700D5D389 /* PredictiveEnsemble.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0DE1CAB093500F6499D /* PredictiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701381C66457700D5D389 /* PredictiveModel.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0DF1CAB093500F6499D /* TreePrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917013A1C66457700D5D389 /* TreePrediction.m */; settings = {ASSET_TAGS = (); }; };
 		4910F60C1BFDD7750087E85A /* bigmlObjc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4910F60B1BFDD7750087E85A /* bigmlObjc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4910F6131BFDD7750087E85A /* bigmlObjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4910F6081BFDD7750087E85A /* bigmlObjc.framework */; };
 		4910F6181BFDD7750087E85A /* bigmlObjcBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */; };
@@ -87,6 +107,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4903E0C11CAB085900F6499D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLLocalPredictions.m; sourceTree = "<group>"; };
 		4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAnomalyScoreTests.m; sourceTree = "<group>"; };
@@ -98,6 +130,7 @@
 		4903E0B71CAAC6DB00F6499D /* bigmlObjcTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTester.m; sourceTree = "<group>"; };
 		4903E0BC1CAACA1D00F6499D /* bigmlObjcTestCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bigmlObjcTestCredentials.h; sourceTree = "<group>"; };
 		4903E0BD1CAACA1D00F6499D /* bigmlObjcTestCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTestCredentials.m; sourceTree = "<group>"; };
+		4903E0C31CAB085900F6499D /* libbigmlObjcTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbigmlObjcTouch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4910F6081BFDD7750087E85A /* bigmlObjc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = bigmlObjc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4910F60B1BFDD7750087E85A /* bigmlObjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bigmlObjc.h; sourceTree = "<group>"; };
 		4910F60D1BFDD7750087E85A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -165,6 +198,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4903E0C01CAB085900F6499D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4910F6041BFDD7750087E85A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -197,6 +237,7 @@
 			children = (
 				4910F6081BFDD7750087E85A /* bigmlObjc.framework */,
 				4910F6121BFDD7750087E85A /* bigmlObjcTests.xctest */,
+				4903E0C31CAB085900F6499D /* libbigmlObjcTouch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -355,6 +396,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4903E0C21CAB085900F6499D /* bigmlObjcTouch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4903E0C91CAB085900F6499D /* Build configuration list for PBXNativeTarget "bigmlObjcTouch" */;
+			buildPhases = (
+				4903E0BF1CAB085900F6499D /* Sources */,
+				4903E0C01CAB085900F6499D /* Frameworks */,
+				4903E0C11CAB085900F6499D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bigmlObjcTouch;
+			productName = bigmlObjcTouch;
+			productReference = 4903E0C31CAB085900F6499D /* libbigmlObjcTouch.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		4910F6071BFDD7750087E85A /* bigmlObjc */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4910F61C1BFDD7750087E85A /* Build configuration list for PBXNativeTarget "bigmlObjc" */;
@@ -400,6 +458,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "BigML Inc.";
 				TargetAttributes = {
+					4903E0C21CAB085900F6499D = {
+						CreatedOnToolsVersion = 7.0;
+					};
 					4910F6071BFDD7750087E85A = {
 						CreatedOnToolsVersion = 7.0;
 					};
@@ -422,6 +483,7 @@
 			targets = (
 				4910F6071BFDD7750087E85A /* bigmlObjc */,
 				4910F6111BFDD7750087E85A /* bigmlObjcTests */,
+				4903E0C21CAB085900F6499D /* bigmlObjcTouch */,
 			);
 		};
 /* End PBXProject section */
@@ -460,6 +522,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4903E0BF1CAB085900F6499D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4903E0D31CAB092700F6499D /* NSError+BMLError.m in Sources */,
+				4903E0D91CAB093400F6499D /* Predicates.m in Sources */,
+				4903E0DC1CAB093500F6499D /* PredictiveCluster.m in Sources */,
+				4903E0CD1CAB092000F6499D /* BMLResourceTypeIdentifier.m in Sources */,
+				4903E0DA1CAB093400F6499D /* PredictionCentroid.m in Sources */,
+				4903E0D81CAB093400F6499D /* MultiVote.m in Sources */,
+				4903E0CF1CAB092000F6499D /* BMLUtils.m in Sources */,
+				4903E0D71CAB093400F6499D /* MultiModel.m in Sources */,
+				4903E0CC1CAB092000F6499D /* BMLAPIConnector.m in Sources */,
+				4903E0DD1CAB093500F6499D /* PredictiveEnsemble.m in Sources */,
+				4903E0D11CAB092000F6499D /* BMLHTTPConnector.m in Sources */,
+				4903E0D51CAB093400F6499D /* Anomaly.m in Sources */,
+				4903E0DF1CAB093500F6499D /* TreePrediction.m in Sources */,
+				4903E0D41CAB092700F6499D /* NSMutableData+BMLData.m in Sources */,
+				4903E0D61CAB093400F6499D /* FieldResource.m in Sources */,
+				4903E0DB1CAB093400F6499D /* PredictionTree.m in Sources */,
+				4903E0DE1CAB093500F6499D /* PredictiveModel.m in Sources */,
+				4903E0CE1CAB092000F6499D /* BMLResourceProtocol.m in Sources */,
+				4903E0D21CAB092000F6499D /* BMLLocalPredictions.m in Sources */,
+				4903E0D01CAB092000F6499D /* BMLHTTPMethodHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4910F6031BFDD7750087E85A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -513,6 +602,29 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		4903E0CA1CAB085900F6499D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4903E0CB1CAB085900F6499D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		4910F61A1BFDD7750087E85A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -657,6 +769,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4903E0C91CAB085900F6499D /* Build configuration list for PBXNativeTarget "bigmlObjcTouch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4903E0CA1CAB085900F6499D /* Debug */,
+				4903E0CB1CAB085900F6499D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4910F6021BFDD7750087E85A /* Build configuration list for PBXProject "bigml-objc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
