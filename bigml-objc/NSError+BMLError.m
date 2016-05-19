@@ -17,12 +17,6 @@
 @implementation NSError(BMLError)
 
 + (NSError*)errorWithInfo:(NSString*)errorString
-                     code:(NSInteger)code {
-    
-    return [self errorWithInfo:errorString code:code extendedInfo:@{}];
-}
-
-+ (NSError*)errorWithInfo:(NSString*)errorString
                      code:(NSInteger)code
              extendedInfo:(NSDictionary*)extendedInfo {
     
@@ -34,11 +28,38 @@
                            userInfo:userInfo];
 }
 
++ (NSError*)errorWithInfo:(NSString*)errorString
+                     code:(NSInteger)code {
+    
+    return [self errorWithInfo:errorString code:code extendedInfo:@{}];
+}
+
++ (NSDictionary*)dictFromRequest:(NSURLRequest*)request {
+
+    NSDictionary*(^dictFromRequestHeaders)(NSURLRequest*) = ^NSDictionary*(NSURLRequest* r) {
+        NSMutableDictionary* headers = [NSMutableDictionary new];
+        for (NSString* header in request.allHTTPHeaderFields) {
+            headers[header] = [request valueForHTTPHeaderField:header];
+        }
+        return headers;
+    };
+    
+    return @{ @"Method" : [request HTTPMethod],
+              @"URL" : request.URL.absoluteString,
+              @"Headers" : dictFromRequestHeaders(request),
+              @"Body" : [[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding]
+              };
+}
+
 + (NSError*)errorWithStatus:(NSDictionary*)status
-                       code:(NSInteger)code {
+                       code:(NSInteger)code
+                 forRequest:(NSURLRequest*)request{
     
     NSString* info = status[@"message"] ?: @"Could not complete operation";
-    NSDictionary* extendedInfo = status[@"extra"] ?: @{};
+    NSMutableDictionary* extendedInfo = [status[@"extra"] ?: @{} mutableCopy];
+    if (request) {
+        extendedInfo[@"request"] = [self dictFromRequest:request];
+    }
     return [NSError errorWithInfo:info code:code extendedInfo:extendedInfo];
 }
 

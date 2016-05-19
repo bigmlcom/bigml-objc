@@ -355,7 +355,7 @@ void delay(float delay, dispatch_block_t block) {
                                        int statusCode = [status[@"code"] shortValue];
                                        if (statusCode < BMLResourceStatusWaiting) {
                                            if (status[@"error"]) {
-                                               error = [NSError errorWithStatus:status
+                                               error = [NSError errorWithInfo:status[@"message"]
                                                                            code:[status[@"error"] intValue]];
                                            }
                                            resource.status = BMLResourceStatusFailed;

@@ -19,13 +19,14 @@ static NSString* const BMLExtendedErrorDescriptionKey = @"BMLExtendedErrorDescri
 @interface NSError(BMLError)
 
 + (NSError*)errorWithInfo:(NSString*)errorString
-                     code:(NSInteger)code;
-
-+ (NSError*)errorWithInfo:(NSString*)errorString
                      code:(NSInteger)code
              extendedInfo:(NSDictionary*)extendedInfo;
 
++ (NSError*)errorWithInfo:(NSString*)errorString
+                     code:(NSInteger)code;
+
 + (NSError*)errorWithStatus:(NSDictionary*)status
-                       code:(NSInteger)code;
+                       code:(NSInteger)code
+                 forRequest:(NSURLRequest*)request;
 
 @end

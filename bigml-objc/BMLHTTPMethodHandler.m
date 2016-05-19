@@ -65,6 +65,7 @@
                                       jsonDict = [self responseDictFromData:data
                                                                expectedCode:_expectedCode
                                                                       error:&error];
+
                                   if (completion)
                                       completion(jsonDict, error);
                               }];
@@ -119,33 +120,35 @@
     
     [[self.session
       dataTaskWithRequest:request
-      completionHandler:^(NSData* data, NSURLResponse* resp, NSError* error) {
-          if (!error) {
-              if ([resp isKindOfClass:[NSHTTPURLResponse class]]) {
-                  
-                  NSHTTPURLResponse* response = (id)resp;
-                  if (![response isStrictlyValid]) {
-                      
-                      NSUInteger code = response.statusCode;
+                     completionHandler:^(NSData* data, NSURLResponse* resp, NSError* error) {
+                         if (!error) {
+                             if ([resp isKindOfClass:[NSHTTPURLResponse class]]) {
+
+                                 NSHTTPURLResponse* response = (id)resp;
+                                 if (![response isStrictlyValid]) {
+                                     
+                                     NSUInteger code = response.statusCode;
                       NSDictionary* status = [NSJSONSerialization
                                               JSONObjectWithData:data
-                                              options:NSJSONReadingAllowFragments
-                                              error:&error];
-                      if (!error)
-                          error = [NSError errorWithStatus:status code:code];
-                  }
-              } else {
-                  NSString* message =
-                  [NSString stringWithFormat:@"Bad response format for URL: %@",
-                   resp.URL.absoluteString];
-                  error = [NSError errorWithInfo:message
-                                            code:-10001];
-              }
-          }
-          if (completion)
-              completion(data, error);
-          
-      }] resume];
+                                                                     options:NSJSONReadingAllowFragments
+                                                                       error:&error];
+                                     if (!error)
+                                         error = [NSError errorWithStatus:status
+                                                                     code:code
+                                                               forRequest:nil];
+                                 }
+                             } else {
+                                 NSString* message =
+                                 [NSString stringWithFormat:@"Bad response format for URL: %@",
+                                  resp.URL.absoluteString];
+                                 error = [NSError errorWithInfo:message
+                                                           code:-10001];
+                             }
+                         }
+                         if (completion)
+                             completion(data, error);
+                         
+                     }] resume];
 }
 
 - (NSMutableURLRequest*)requestWithMethod:(NSString*)method
@@ -186,12 +189,14 @@
     [NSJSONSerialization
      JSONObjectWithData:data
      options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
-     error:error];
+                                                               error:error];
     
     if (*error == nil) {
         NSString* code = jsonDict[@"code"];
         if (code && [code intValue] != expectedCode)
-            *error = [NSError errorWithStatus:jsonDict[@"status"] code:[code intValue]];
+            *error = [NSError errorWithStatus:jsonDict[@"status"]
+                                         code:[code intValue]
+                                   forRequest:nil];
     } else {
         *error = [NSError errorWithInfo:@"Bad response format" code:-10001];
     }
