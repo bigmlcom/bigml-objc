@@ -30,7 +30,8 @@
     
     if (self = [super initWithUsername:[bigmlObjcTestCredentials username]
                                 apiKey:[bigmlObjcTestCredentials apiKey]
-                                  mode:BMLModeDevelopment]) {
+                                  mode:BMLModeDevelopment
+                               version:nil]) {
     }
     return self;
 }

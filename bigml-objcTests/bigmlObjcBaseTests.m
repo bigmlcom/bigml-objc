@@ -44,7 +44,8 @@ static dispatch_once_t _dispatchToken = 0;
 
     self.connector = [BMLAPIConnector connectorWithUsername:[bigmlObjcTestCredentials username]
                                                      apiKey:[bigmlObjcTestCredentials apiKey]
-                                                       mode:BMLModeProduction];
+                                                       mode:BMLModeProduction
+                                                    version:nil];
     
     dispatch_once(&_dispatchToken, ^{
         _aSource = [self createDatasource:@"iris.csv" options:nil];
