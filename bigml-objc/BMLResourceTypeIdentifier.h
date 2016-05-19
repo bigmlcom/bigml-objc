@@ -32,8 +32,9 @@
 
 @end
 
-extern BMLResourceTypeIdentifier* BMLResourceTypeFile;
 extern BMLResourceTypeIdentifier* BMLResourceTypeProject;
+extern BMLResourceTypeIdentifier* BMLResourceTypeFile;
+extern BMLResourceTypeIdentifier* BMLResourceTypeResource;
 extern BMLResourceTypeIdentifier* BMLResourceTypeSource;
 extern BMLResourceTypeIdentifier* BMLResourceTypeDataset;
 extern BMLResourceTypeIdentifier* BMLResourceTypeModel;

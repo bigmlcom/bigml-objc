@@ -21,6 +21,7 @@ NAME = \
 
 BMLResourceTypeIdentifier* BMLResourceTypeProject = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeFile = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeResource = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeSource = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeDataset = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeModel = nil;
@@ -44,8 +45,9 @@ BMLResourceTypeIdentifier* BMLResourceTypeConfiguration = nil;
 
 + (void)load {
     if (self == [BMLResourceTypeIdentifier class]) {
-        BML_ADD_TYPE(BMLResourceTypeFile, @"file");
         BML_ADD_TYPE(BMLResourceTypeProject, @"project");
+        BML_ADD_TYPE(BMLResourceTypeFile, @"file");
+        BML_ADD_TYPE(BMLResourceTypeResource, @"resource");
         BML_ADD_TYPE(BMLResourceTypeSource, @"source");
         BML_ADD_TYPE(BMLResourceTypeDataset, @"dataset");
         BML_ADD_TYPE(BMLResourceTypeModel, @"model");
@@ -86,6 +88,8 @@ BMLResourceTypeIdentifier* BMLResourceTypeConfiguration = nil;
     
     if ([type isEqualToString:[BMLResourceTypeFile stringValue]])
         return BMLResourceTypeFile;
+    if ([type isEqualToString:[BMLResourceTypeResource stringValue]])
+        return BMLResourceTypeResource;
     if ([type isEqualToString:[BMLResourceTypeSource stringValue]])
         return BMLResourceTypeSource;
     if ([type isEqualToString:[BMLResourceTypeDataset stringValue]])
