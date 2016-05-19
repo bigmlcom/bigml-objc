@@ -70,6 +70,11 @@
 /// The NSString corresponding to this resource type. Used for debugging.
 - (NSString*)description;
 
+/**
+ * Low-level constructor. Should not be used.
+ */
+- (instancetype)initWithStringLiteral:(NSString*)value;
+
 @end
 
 extern BMLResourceTypeIdentifier* BMLResourceTypeProject;
