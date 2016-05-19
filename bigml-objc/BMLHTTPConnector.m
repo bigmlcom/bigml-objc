@@ -98,11 +98,14 @@
     for (NSString* key in body.allKeys) {
         NSObject* value = body[key];
         NSError* error = nil;
-        NSData* fieldData = [NSJSONSerialization dataWithJSONObject:value
-                                                            options:0
-                                                              error:&error];
-        NSString* stringValue = [[NSString alloc] initWithData:fieldData
-                                                      encoding:NSUTF8StringEncoding];
+        NSString* stringValue = (id)value;
+        if ([NSJSONSerialization isValidJSONObject:value]) {
+             NSData* fieldData = [NSJSONSerialization dataWithJSONObject:value
+                                                                 options:0
+                                                                   error:&error];
+            stringValue = [[NSString alloc] initWithData:fieldData
+                                                encoding:NSUTF8StringEncoding];
+        }
         if (stringValue) {
             [bodyData appendStringWithFormat:@"\r\n--%@\r\n", boundary];
             [bodyData appendStringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",
