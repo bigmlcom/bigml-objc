@@ -20,28 +20,60 @@ typedef NSString BMLResourceFullUuid;
 
 @class BMLResourceTypeIdentifier;
 
+/**
+ * This protocol represents a generic BigML resource.
+ */
 @protocol BMLResource <NSObject>
 
+/// the json body of the resource. See BigML REST API doc (https://tropo.dev.bigml.com/developers/)
 @property (nonatomic, strong) NSDictionary* jsonDefinition;
+
+/// the current status of the resource
 @property (nonatomic) BMLResourceStatus status;
+
+/// the resource progress, a float between 0 and 1
 @property (nonatomic) float progress;
 
+/// the resource name
 - (NSString*)name;
+
+/// the resource type
 - (BMLResourceTypeIdentifier*)type;
+
+/// the resource UUID
 - (BMLResourceUuid*)uuid;
+
+/// the resource full UUID
 - (BMLResourceFullUuid*)fullUuid;
 
+@end
+
+@interface BMLMinimalResource : NSObject <BMLResource>
+
+/**
+ * Creates a BMLResource.
+ * @param name The name to associate to the resource.
+ * @param type the type of the resource to create.
+ * @param uuid The UUID of the resource.
+ * @param definition The JSON boby describing the resource.
+ *  See BigML REST API doc (https://tropo.dev.bigml.com/developers/)
+ * @returns An instance of BMLResource.
+ */
 - (instancetype)initWithName:(NSString*)name
                         type:(BMLResourceTypeIdentifier*)type
                         uuid:(BMLResourceUuid*)uuid
                   definition:(NSDictionary*)definition;
 
+/**
+ * Creates a BMLResource.
+ * @param name The name to associate to the resource.
+ * @param fullUuid The full UUID of the resource to create.
+ * @param definition The JSON boby describing the resource.
+ *  See BigML REST API doc (https://tropo.dev.bigml.com/developers/)
+ * @returns An instance of BMLResource.
+ */
 - (instancetype)initWithName:(NSString*)name
                     fullUuid:(BMLResourceFullUuid*)fullUuid
                   definition:(NSDictionary*)definition;
-
-@end
-
-@interface BMLMinimalResource : NSObject <BMLResource>
 
 @end

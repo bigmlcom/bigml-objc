@@ -14,6 +14,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * A convenience class to use BigML algorithms for local predictions.
+**/
 @interface BMLLocalPredictions : NSObject
 
 /**

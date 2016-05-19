@@ -69,6 +69,10 @@ typedef enum BMLResourceStatus {
     
 } BMLResourceStatus;
 
+/**
+ * BigML mode, either production or development.
+ *
+ */
 typedef enum BMLMode {
     
     BMLModeDevelopment,

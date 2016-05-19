@@ -36,7 +36,6 @@ BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlScript = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlExecution = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlSource = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
-BMLResourceTypeIdentifier* BMLResourceTypeConfiguration = nil;
 
 @implementation BMLResourceTypeIdentifier {
     
@@ -62,7 +61,6 @@ BMLResourceTypeIdentifier* BMLResourceTypeConfiguration = nil;
         BML_ADD_TYPE(BMLResourceTypeWhizzmlExecution, @"execution");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlSource, @"sourcecode");
         BML_ADD_TYPE(BMLResourceTypeNotAResource, @"invalid");
-        BML_ADD_TYPE(BMLResourceTypeConfiguration, @"configuration");
     }
 }
 
@@ -112,8 +110,6 @@ BMLResourceTypeIdentifier* BMLResourceTypeConfiguration = nil;
         return BMLResourceTypeWhizzmlExecution;
     if ([type isEqualToString:[BMLResourceTypeProject stringValue]])
         return BMLResourceTypeProject;
-    if ([type isEqualToString:[BMLResourceTypeConfiguration stringValue]])
-        return BMLResourceTypeConfiguration;
     NSLog(@"Type Id: Should not be here! (%@)", type);
     return nil;
 }

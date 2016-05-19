@@ -7,35 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4903E0A81CAAC15F00F6499D /* BMLLocalPredictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0AF1CAAC63000F6499D /* bigmlObjcAnomalyScoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0B01CAAC63400F6499D /* bigmlObjcClusterPredictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0B11CAAC63900F6499D /* bigmlObjcModelPredictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0AB1CAAC61900F6499D /* bigmlObjcModelPredictionTests.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0B41CAAC69600F6499D /* bigmlObjcTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4903E0B21CAAC69600F6499D /* bigmlObjcTestCase.h */; settings = {ASSET_TAGS = (); }; };
-		4903E0B81CAAC6DB00F6499D /* bigmlObjcTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 4903E0B61CAAC6DB00F6499D /* bigmlObjcTester.h */; settings = {ASSET_TAGS = (); }; };
-		4903E0BA1CAAC73700F6499D /* bigmlObjcTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0B31CAAC69600F6499D /* bigmlObjcTestCase.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0BB1CAAC73700F6499D /* bigmlObjcTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0B71CAAC6DB00F6499D /* bigmlObjcTester.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0BE1CAACA1D00F6499D /* bigmlObjcTestCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0BD1CAACA1D00F6499D /* bigmlObjcTestCredentials.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0CC1CAB092000F6499D /* BMLAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0CD1CAB092000F6499D /* BMLResourceTypeIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0CE1CAB092000F6499D /* BMLResourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C693C1C4FAC3100FCB6F5 /* BMLResourceProtocol.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0CF1CAB092000F6499D /* BMLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701561C68996B00D5D389 /* BMLUtils.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D01CAB092000F6499D /* BMLHTTPMethodHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D11CAB092000F6499D /* BMLHTTPConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D21CAB092000F6499D /* BMLLocalPredictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D31CAB092700F6499D /* NSError+BMLError.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69441C4FBA1A00FCB6F5 /* NSError+BMLError.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D41CAB092700F6499D /* NSMutableData+BMLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69481C4FFA4F00FCB6F5 /* NSMutableData+BMLData.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D51CAB093400F6499D /* Anomaly.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701261C66457700D5D389 /* Anomaly.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D61CAB093400F6499D /* FieldResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701281C66457700D5D389 /* FieldResource.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D71CAB093400F6499D /* MultiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012A1C66457700D5D389 /* MultiModel.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D81CAB093400F6499D /* MultiVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012C1C66457700D5D389 /* MultiVote.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0D91CAB093400F6499D /* Predicates.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012E1C66457700D5D389 /* Predicates.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0DA1CAB093400F6499D /* PredictionCentroid.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701301C66457700D5D389 /* PredictionCentroid.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0DB1CAB093400F6499D /* PredictionTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701321C66457700D5D389 /* PredictionTree.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0DC1CAB093500F6499D /* PredictiveCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701341C66457700D5D389 /* PredictiveCluster.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0DD1CAB093500F6499D /* PredictiveEnsemble.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701361C66457700D5D389 /* PredictiveEnsemble.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0DE1CAB093500F6499D /* PredictiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701381C66457700D5D389 /* PredictiveModel.m */; settings = {ASSET_TAGS = (); }; };
-		4903E0DF1CAB093500F6499D /* TreePrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917013A1C66457700D5D389 /* TreePrediction.m */; settings = {ASSET_TAGS = (); }; };
+		4903E0A81CAAC15F00F6499D /* BMLLocalPredictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */; };
+		4903E0AF1CAAC63000F6499D /* bigmlObjcAnomalyScoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */; };
+		4903E0B01CAAC63400F6499D /* bigmlObjcClusterPredictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */; };
+		4903E0B11CAAC63900F6499D /* bigmlObjcModelPredictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0AB1CAAC61900F6499D /* bigmlObjcModelPredictionTests.m */; };
+		4903E0B41CAAC69600F6499D /* bigmlObjcTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4903E0B21CAAC69600F6499D /* bigmlObjcTestCase.h */; };
+		4903E0B81CAAC6DB00F6499D /* bigmlObjcTester.h in Headers */ = {isa = PBXBuildFile; fileRef = 4903E0B61CAAC6DB00F6499D /* bigmlObjcTester.h */; };
+		4903E0BA1CAAC73700F6499D /* bigmlObjcTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0B31CAAC69600F6499D /* bigmlObjcTestCase.m */; };
+		4903E0BB1CAAC73700F6499D /* bigmlObjcTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0B71CAAC6DB00F6499D /* bigmlObjcTester.m */; };
+		4903E0BE1CAACA1D00F6499D /* bigmlObjcTestCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0BD1CAACA1D00F6499D /* bigmlObjcTestCredentials.m */; };
+		4903E0CC1CAB092000F6499D /* BMLAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */; };
+		4903E0CD1CAB092000F6499D /* BMLResourceTypeIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */; };
+		4903E0CE1CAB092000F6499D /* BMLResourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C693C1C4FAC3100FCB6F5 /* BMLResourceProtocol.m */; };
+		4903E0CF1CAB092000F6499D /* BMLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701561C68996B00D5D389 /* BMLUtils.m */; };
+		4903E0D01CAB092000F6499D /* BMLHTTPMethodHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */; };
+		4903E0D11CAB092000F6499D /* BMLHTTPConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */; };
+		4903E0D21CAB092000F6499D /* BMLLocalPredictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */; };
+		4903E0D31CAB092700F6499D /* NSError+BMLError.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69441C4FBA1A00FCB6F5 /* NSError+BMLError.m */; };
+		4903E0D41CAB092700F6499D /* NSMutableData+BMLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69481C4FFA4F00FCB6F5 /* NSMutableData+BMLData.m */; };
+		4903E0D51CAB093400F6499D /* Anomaly.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701261C66457700D5D389 /* Anomaly.m */; };
+		4903E0D61CAB093400F6499D /* FieldResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701281C66457700D5D389 /* FieldResource.m */; };
+		4903E0D71CAB093400F6499D /* MultiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012A1C66457700D5D389 /* MultiModel.m */; };
+		4903E0D81CAB093400F6499D /* MultiVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012C1C66457700D5D389 /* MultiVote.m */; };
+		4903E0D91CAB093400F6499D /* Predicates.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917012E1C66457700D5D389 /* Predicates.m */; };
+		4903E0DA1CAB093400F6499D /* PredictionCentroid.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701301C66457700D5D389 /* PredictionCentroid.m */; };
+		4903E0DB1CAB093400F6499D /* PredictionTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701321C66457700D5D389 /* PredictionTree.m */; };
+		4903E0DC1CAB093500F6499D /* PredictiveCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701341C66457700D5D389 /* PredictiveCluster.m */; };
+		4903E0DD1CAB093500F6499D /* PredictiveEnsemble.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701361C66457700D5D389 /* PredictiveEnsemble.m */; };
+		4903E0DE1CAB093500F6499D /* PredictiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 491701381C66457700D5D389 /* PredictiveModel.m */; };
+		4903E0DF1CAB093500F6499D /* TreePrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917013A1C66457700D5D389 /* TreePrediction.m */; };
 		4910F60C1BFDD7750087E85A /* bigmlObjc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4910F60B1BFDD7750087E85A /* bigmlObjc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4910F6131BFDD7750087E85A /* bigmlObjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4910F6081BFDD7750087E85A /* bigmlObjc.framework */; };
 		4910F6181BFDD7750087E85A /* bigmlObjcBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */; };
@@ -248,16 +248,7 @@
 				491701871C689DA400D5D389 /* API */,
 				491701241C6644F100D5D389 /* Algorithms */,
 				491701861C689D6E00D5D389 /* Categories */,
-				497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */,
-				497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */,
-				497C693C1C4FAC3100FCB6F5 /* BMLResourceProtocol.m */,
-				491701551C68996B00D5D389 /* BMLUtils.h */,
-				491701561C68996B00D5D389 /* BMLUtils.m */,
-				497C694D1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.h */,
-				497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */,
-				497C693F1C4FB19800FCB6F5 /* BMLHTTPConnector.h */,
-				497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */,
-				4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */,
+				4962892B1CEC79FD00D821D4 /* API Classes */,
 				4910F60D1BFDD7750087E85A /* Info.plist */,
 				4910F60B1BFDD7750087E85A /* bigmlObjc.h */,
 			);
@@ -358,6 +349,23 @@
 				497C693B1C4FAC3100FCB6F5 /* BMLResourceProtocol.h */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		4962892B1CEC79FD00D821D4 /* API Classes */ = {
+			isa = PBXGroup;
+			children = (
+				497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */,
+				497C69381C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m */,
+				497C693C1C4FAC3100FCB6F5 /* BMLResourceProtocol.m */,
+				491701551C68996B00D5D389 /* BMLUtils.h */,
+				491701561C68996B00D5D389 /* BMLUtils.m */,
+				497C694D1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.h */,
+				497C694E1C512CBD00FCB6F5 /* BMLHTTPMethodHandler.m */,
+				497C693F1C4FB19800FCB6F5 /* BMLHTTPConnector.h */,
+				497C69401C4FB19800FCB6F5 /* BMLHTTPConnector.m */,
+				4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */,
+			);
+			name = "API Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -776,6 +784,7 @@
 				4903E0CB1CAB085900F6499D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4910F6021BFDD7750087E85A /* Build configuration list for PBXProject "bigml-objc" */ = {
 			isa = XCConfigurationList;
