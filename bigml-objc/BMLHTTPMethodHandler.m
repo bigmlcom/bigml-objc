@@ -128,12 +128,12 @@
                                  if (![response isStrictlyValid]) {
                                      
                                      NSUInteger code = response.statusCode;
-                      NSDictionary* status = [NSJSONSerialization
-                                              JSONObjectWithData:data
-                                                                     options:NSJSONReadingAllowFragments
-                                                                       error:&error];
+                                     NSDictionary* status = [NSJSONSerialization
+                                                             JSONObjectWithData:data
+                                                             options:NSJSONReadingAllowFragments
+                                                             error:&error];
                                      if (!error)
-                                         error = [NSError errorWithStatus:status
+                                         error = [NSError errorWithStatus:status[@"status"] ?: status
                                                                      code:code
                                                                forRequest:nil];
                                  }

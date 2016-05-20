@@ -56,7 +56,7 @@
                  forRequest:(NSURLRequest*)request{
     
     NSString* info = status[@"message"] ?: @"Could not complete operation";
-    NSMutableDictionary* extendedInfo = [status[@"extra"] ?: @{} mutableCopy];
+    NSMutableDictionary* extendedInfo = [status[@"extra"] ?: status ?: @{} mutableCopy];
     if (request) {
         extendedInfo[@"request"] = [self dictFromRequest:request];
     }
