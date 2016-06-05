@@ -85,9 +85,6 @@ environment, which is meant for you to experiment free of charge:
 
 
 
-ERROR: Replacement string not found for init_options
-
-
 Quick Start
 -----------
 
@@ -129,8 +126,8 @@ You can easily generate a prediction following these steps::
                                         uuid:@"./tests/data/iris.csv"
                                   definition:nil];
 
-// All requests are asynchronous and have a completion block
-[_api createResource:BMLResourceTypeSource
+    // All requests are asynchronous and have a completion block
+    [_api createResource:BMLResourceTypeSource
                           name:file
                        options:nil
                           from:resource
