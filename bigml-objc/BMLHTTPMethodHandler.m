@@ -185,18 +185,36 @@
                          expectedCode:(NSUInteger)expectedCode
                                 error:(NSError**)error {
     
-    NSDictionary* jsonDict =
+    NSDictionary* jsonDict = nil;
+    
+    id jsonObject =
     [NSJSONSerialization
      JSONObjectWithData:data
      options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
-                                                               error:error];
+     error:error];
     
     if (*error == nil) {
-        NSString* code = jsonDict[@"code"];
-        if (code && [code intValue] != expectedCode)
-            *error = [NSError errorWithStatus:jsonDict[@"status"]
-                                         code:[code intValue]
-                                   forRequest:nil];
+        
+        if ([jsonObject isKindOfClass:[NSDictionary class]]) {
+            jsonDict = jsonObject;
+            NSString* code = jsonDict[@"code"];
+            if (code && [code intValue] != expectedCode)
+                *error = [NSError errorWithStatus:jsonDict[@"status"]
+                                             code:[code intValue]
+                                       forRequest:nil];
+        } else if([jsonObject isKindOfClass:[NSArray class]]) {
+            
+            NSMutableArray* keys = [NSMutableArray array];
+            for (NSUInteger i = 0; i < [jsonObject count]; i++) {
+                [keys addObject:@(i)];
+            }
+            jsonDict = [NSDictionary dictionaryWithObjects:jsonObject
+                                                   forKeys:keys];
+            
+        } else {
+            *error = [NSError errorWithInfo:@"Bad response format" code:-10002];
+        }
+        
     } else {
         *error = [NSError errorWithInfo:@"Bad response format" code:-10001];
     }
