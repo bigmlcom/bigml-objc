@@ -28,6 +28,7 @@ void delay(float delay, dispatch_block_t block) {
     BMLMode _mode;
     NSString* _authToken;
     NSString* _version;
+    NSString* _serverUrl;
     
     BMLHTTPConnector* _connector;
 }
@@ -35,23 +36,27 @@ void delay(float delay, dispatch_block_t block) {
 + (BMLAPIConnector*)connectorWithUsername:(NSString*)username
                                    apiKey:(NSString*)apiKey
                                      mode:(BMLMode)mode
+                                   server:serverUrl
                                   version:(NSString*)version {
     
     return [[self alloc] initWithUsername:username
                                    apiKey:apiKey
                                      mode:mode
+                                   server:serverUrl
                                   version:version ?: @"andromeda"];
 }
 
 - (instancetype)initWithUsername:(NSString*)username
                           apiKey:(NSString*)apiKey
                             mode:(BMLMode)mode
+                          server:serverUrl
                          version:(NSString*)version {
     
     if (self = [super init]) {
         
         _connector = [BMLHTTPConnector new];
         _mode = mode;
+        _serverUrl = serverUrl;
         _version = version ?: @"andromeda";
         _authToken = [NSString stringWithFormat:@"username=%@;api_key=%@;",
                       username,
@@ -66,9 +71,7 @@ void delay(float delay, dispatch_block_t block) {
 }
 
 - (NSString*)serverUrl {
-    
-    NSString* url = [[NSUserDefaults standardUserDefaults] stringForKey:@"bigMLAPIServerUrl"];
-    return url ?: @"https://bigml.io";
+    return _serverUrl ?: @"https://bigml.io";
 }
 
 - (NSURL*)authenticatedUrlFromUri:(NSString*)uri

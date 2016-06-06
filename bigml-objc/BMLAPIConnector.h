@@ -32,11 +32,14 @@
  * @param username The username associated to your BigML account.
  * @param apiKey A valid apiKey.
  * @param mode Either BMLModeDevelopment or BMLModeProduction.
+ * @param server The REST server to use, e.g., https://bigml-vpc.io, or nil for default.
+ * @param version The API version to use; pass nil for default (currently andromeda)
  * @return an instance of BMLAPIConnector.
  */
 - (instancetype)initWithUsername:(NSString*)username
                           apiKey:(NSString*)apiKey
                             mode:(BMLMode)mode
+                          server:(NSString*)serverUrl
                          version:(NSString*)version;
 
 /**
@@ -44,11 +47,14 @@
  * @param username The username associated to your BigML account.
  * @param apiKey A valid apiKey.
  * @param mode Either BMLModeDevelopment or BMLModeProduction.
+ * @param server The REST server to use, e.g., https://bigml-vpc.io, or nil for default.
+ * @param version The API version to use; pass nil for default (currently andromeda)
  * @return an instance of BMLAPIConnector.
  */
 + (BMLAPIConnector*)connectorWithUsername:(NSString*)username
                                    apiKey:(NSString*)apiKey
                                      mode:(BMLMode)mode
+                                   server:(NSString*)serverUrl
                                   version:(NSString*)version;
 
 /**
