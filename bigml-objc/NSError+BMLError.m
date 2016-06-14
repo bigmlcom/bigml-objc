@@ -53,7 +53,7 @@
 
 + (NSError*)errorWithStatus:(NSDictionary*)status
                        code:(NSInteger)code
-                 forRequest:(NSURLRequest*)request{
+                 forRequest:(NSURLRequest*)request {
     
     NSString* info = status[@"message"] ?: @"Could not complete operation";
     NSMutableDictionary* extendedInfo = [status[@"extra"] ?: status ?: @{} mutableCopy];
