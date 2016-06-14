@@ -57,6 +57,9 @@
     
     NSString* info = status[@"message"] ?: @"Could not complete operation";
     NSMutableDictionary* extendedInfo = [status[@"extra"] ?: status ?: @{} mutableCopy];
+    if (![extendedInfo isKindOfClass:[NSDictionary class]]) {
+        extendedInfo = [@{@"extra" : extendedInfo} mutableCopy];
+    }
     if (request) {
         extendedInfo[@"request"] = [self dictFromRequest:request];
     }
