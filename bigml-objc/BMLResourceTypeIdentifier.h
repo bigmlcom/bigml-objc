@@ -93,4 +93,5 @@ extern BMLResourceTypeIdentifier* BMLResourceTypePrediction;
 extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlScript;
 extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlExecution;
 extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlSource;
+extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlLibrary;
 extern BMLResourceTypeIdentifier* BMLResourceTypeNotAResource;
