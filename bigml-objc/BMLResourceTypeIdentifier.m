@@ -62,7 +62,7 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
         BML_ADD_TYPE(BMLResourceTypeWhizzmlExecution, @"execution");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlSource, @"sourcecode");
         BML_ADD_TYPE(BMLResourceTypeNotAResource, @"invalid");
-        BML_ADD_TYPE(BMLResourceTypeNotAResource, @"library");
+        BML_ADD_TYPE(BMLResourceTypeWhizzmlLibrary, @"library");
     }
 }
 
@@ -114,7 +114,7 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
         return BMLResourceTypeWhizzmlLibrary;
     if ([type isEqualToString:[BMLResourceTypeProject stringValue]])
         return BMLResourceTypeProject;
-    NSLog(@"Type Id: Should not be here! (%@)", type);
+//    NSLog(@"Type Id: Should not be here! (%@)", type);
     return nil;
 }
 
