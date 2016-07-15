@@ -60,6 +60,28 @@
 /**
  * Creates a remote resource on BigML.
  * @param type The type of the resource you want to create.
+ See the BMLResourceTypeIdentifier class for a list of allowed types.
+ * @param name The name of the resource.
+ * @param options An NSDictionary containing the options. Check BigML REST API
+ *  documentation (https://tropo.dev.bigml.com/developers) to learn about
+ *  available options.
+ * @param from The resource to use to create the requested resource.
+ * @param completion A completion block to handle the async response. The
+ *  completion block has two arguments: the created resource and an NSError.
+ * @param uuid A  block that will be called with the resource UUID asap.
+ *  The block has one argument: the resource full UUID.
+ */
+- (void)createResource:(BMLResourceTypeIdentifier*)type
+                  name:(NSString*)name
+               options:(NSDictionary*)options
+                  from:(id<BMLResource>)from
+            completion:(void(^)(id<BMLResource>, NSError*))completion
+                  uuid:(void(^)(BMLResourceFullUuid*))uuid;
+
+
+/**
+ * Creates a remote resource on BigML.
+ * @param type The type of the resource you want to create.
         See the BMLResourceTypeIdentifier class for a list of allowed types.
  * @param name The name of the resource.
  * @param options An NSDictionary containing the options. Check BigML REST API

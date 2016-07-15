@@ -129,7 +129,8 @@ void delay(float delay, dispatch_block_t block) {
                   name:(NSString*)name
                options:(NSDictionary*)options
                   from:(id<BMLResource>)from
-            completion:(void(^)(id<BMLResource>, NSError*))completion {
+            completion:(void(^)(id<BMLResource>, NSError*))completion
+                  uuid:(void(^)(BMLResourceFullUuid*))uuid {
     
     NSAssert(type != nil, @"Wrong type passed to createResource:");
     NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url) {
@@ -143,6 +144,8 @@ void delay(float delay, dispatch_block_t block) {
                                  body:options
                            completion:^(NSDictionary* dict, NSError* error) {
                                
+                               if (uuid)
+                                   uuid(dict[@"resource"]);
                                [self createResourceCompletionBlock:dict
                                                              error:error
                                                         completion:completion];
@@ -157,7 +160,8 @@ void delay(float delay, dispatch_block_t block) {
         } else {
             
             NSMutableDictionary* body = [options mutableCopy] ?: [NSMutableDictionary new];
-            [body setObject:name forKey:@"name"];
+            if (name)
+                [body setObject:name forKey:@"name"];
             if (from.type == type && type == BMLResourceTypeDataset) {
                 [body setObject:from.fullUuid forKey:@"origin_dataset"];
             } else if (from.type != BMLResourceTypeProject &&
@@ -169,6 +173,8 @@ void delay(float delay, dispatch_block_t block) {
                            body:body
                      completion:^(NSDictionary* result, NSError* error) {
                          
+                         if (uuid)
+                             uuid(result[@"resource"]);
                          [self createResourceCompletionBlock:result
                                                        error:error
                                                   completion:completion];
@@ -178,6 +184,15 @@ void delay(float delay, dispatch_block_t block) {
     
     if (e && completion)
         completion(nil, e);
+}
+
+- (void)createResource:(BMLResourceTypeIdentifier*)type
+                  name:(NSString*)name
+               options:(NSDictionary*)options
+                  from:(id<BMLResource>)from
+            completion:(void(^)(id<BMLResource>, NSError*))completion {
+    
+    [self createResource:type name:name options:options from:from completion:completion uuid:nil];
 }
 
 - (void)createResource:(BMLResourceTypeIdentifier*)type
