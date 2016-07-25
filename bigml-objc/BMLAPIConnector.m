@@ -144,7 +144,7 @@ void delay(float delay, dispatch_block_t block) {
                                  body:options
                            completion:^(NSDictionary* dict, NSError* error) {
                                
-                               if (uuid)
+                               if (!error && uuid)
                                    uuid(dict[@"resource"]);
                                [self createResourceCompletionBlock:dict
                                                              error:error
@@ -173,7 +173,7 @@ void delay(float delay, dispatch_block_t block) {
                            body:body
                      completion:^(NSDictionary* result, NSError* error) {
                          
-                         if (uuid)
+                         if (!error && uuid)
                              uuid(result[@"resource"]);
                          [self createResourceCompletionBlock:result
                                                        error:error
@@ -206,7 +206,7 @@ void delay(float delay, dispatch_block_t block) {
 - (void)listResources:(BMLResourceTypeIdentifier*)type
               filters:(NSDictionary*)filters
            completion:(void(^)(NSArray*, NSError*))completion {
-    
+    NSLog(@"LISTING RESOURCES OF TYPE: %@", type.stringValue);
     NSError* e = [self withUri:type.stringValue arguments:filters runBlock:^(NSURL* url) {
         
         [_connector getURL:url
