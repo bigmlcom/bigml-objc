@@ -15,8 +15,8 @@
 #import <Foundation/Foundation.h>
 #import "BMLEnums.h"
 
-typedef NSString BMLResourceUuid;
-typedef NSString BMLResourceFullUuid;
+@compatibility_alias BMLResourceUuid NSString;
+@compatibility_alias BMLResourceFullUuid NSString;
 
 @class BMLResourceTypeIdentifier;
 

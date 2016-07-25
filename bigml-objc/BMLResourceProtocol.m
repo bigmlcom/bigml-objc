@@ -22,9 +22,9 @@
     BMLResourceUuid* _uuid;
 }
 
-@synthesize jsonDefinition = _jsonDefinition;
-@synthesize status = _status;
-@synthesize progress = _progress;
+@synthesize jsonDefinition;
+@synthesize status;
+@synthesize progress;
 
 - (NSString*)name {
     return _name;
@@ -51,9 +51,9 @@
         _name = name;
         _typeIdentifier = type;
         _uuid = uuid;
-        _status = BMLResourceStatusUndefined;
-        _progress = 0.0;
-        _jsonDefinition = definition;
+        self.status = BMLResourceStatusUndefined;
+        self.progress = 0.0;
+        self.jsonDefinition = definition;
     }
     return self;
 }

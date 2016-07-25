@@ -56,7 +56,7 @@ typedef enum BMLMissingStrategy {
  **/
 typedef enum BMLResourceStatus {
     
-    BMLResourceStatusUndefined = 1000,
+    BMLResourceStatusUndefined = -1000,
     BMLResourceStatusWaiting = 0,
     BMLResourceStatusQueued,
     BMLResourceStatusStarted,

@@ -199,24 +199,8 @@ void delay(float delay, dispatch_block_t block) {
                   name:(NSString*)name
                options:(NSDictionary*)options
             completion:(void(^)(id<BMLResource>, NSError*))completion {
-    
-    NSError* e = [self withUri:type.stringValue arguments:@{} runBlock:^(NSURL* url){
-        
-        NSMutableDictionary* body = [options mutableCopy];
-        [body setObject:name forKey:@"name"];
-        
-        [_connector postURL:url
-                       body:body
-                 completion:^(NSDictionary* result, NSError* error) {
-                     
-                     [self createResourceCompletionBlock:result
-                                                   error:error
-                                              completion:completion];
-                 }];
-    }];
-    
-    if (e && completion)
-        completion(nil, e);
+
+    [self createResource:type name:name options:options from:nil completion:completion uuid:nil];
 }
 
 - (void)listResources:(BMLResourceTypeIdentifier*)type
