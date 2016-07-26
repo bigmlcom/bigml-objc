@@ -31,9 +31,6 @@
 /// the current status of the resource
 @property (nonatomic) BMLResourceStatus status;
 
-/// the resource progress, a float between 0 and 1
-@property (nonatomic) float progress;
-
 /// the resource name
 - (NSString*)name;
 

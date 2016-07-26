@@ -365,7 +365,6 @@ void delay(float delay, dispatch_block_t block) {
                                            delay(1.0, ^{[self trackResourceStatus:resource completion:completion];});
                                            if (resource.status != statusCode) {
                                                resource.status = statusCode;
-                                               resource.progress = [status[@"progress"] floatValue];
                                            }
                                        } else if (statusCode == BMLResourceStatusEnded) {
                                            resource.status = statusCode;

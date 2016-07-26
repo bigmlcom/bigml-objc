@@ -24,7 +24,6 @@
 
 @synthesize jsonDefinition;
 @synthesize status;
-@synthesize progress;
 
 - (NSString*)name {
     return _name;
@@ -52,7 +51,6 @@
         _typeIdentifier = type;
         _uuid = uuid;
         self.status = BMLResourceStatusUndefined;
-        self.progress = 0.0;
         self.jsonDefinition = definition;
     }
     return self;
