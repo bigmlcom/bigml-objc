@@ -96,6 +96,8 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
         return BMLResourceTypeDataset;
     if ([type isEqualToString:[BMLResourceTypeModel stringValue]])
         return BMLResourceTypeModel;
+    if ([type isEqualToString:[BMLResourceTypeEnsemble stringValue]])
+        return BMLResourceTypeModel;
     if ([type isEqualToString:[BMLResourceTypeCluster stringValue]])
         return BMLResourceTypeCluster;
     if ([type isEqualToString:[BMLResourceTypePrediction stringValue]])
@@ -103,6 +105,10 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
     if ([type isEqualToString:[BMLResourceTypeAnomaly stringValue]])
         return BMLResourceTypeAnomaly;
     if ([type isEqualToString:[BMLResourceTypeEvaluation stringValue]])
+        return BMLResourceTypeEvaluation;
+    if ([type isEqualToString:[BMLResourceTypeLogisticRegression stringValue]])
+        return BMLResourceTypeEvaluation;
+    if ([type isEqualToString:[BMLResourceTypeAssociation stringValue]])
         return BMLResourceTypeEvaluation;
     if ([type isEqualToString:[BMLResourceTypeWhizzmlScript stringValue]])
         return BMLResourceTypeWhizzmlScript;
