@@ -117,10 +117,11 @@
 
 - (void)dataWithRequest:(NSURLRequest*)request
              completion:(void(^)(NSData* data, NSError* error))completion {
-    
+
     [[self.session
       dataTaskWithRequest:request
                      completionHandler:^(NSData* data, NSURLResponse* resp, NSError* error) {
+                         
                          if (!error) {
                              if ([resp isKindOfClass:[NSHTTPURLResponse class]]) {
 
@@ -192,6 +193,27 @@
      JSONObjectWithData:data
      options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
      error:error];
+    
+    //-- workaround for associations, which contain p_value (double) values that cannot be represented
+    //-- (e.g., those < 1.0e-128)
+    if (!jsonObject) {
+    
+        NSString* json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"\"p_value\": ([0-9.e-]*),"
+                                                                               options:NSRegularExpressionCaseInsensitive
+                                                                                 error:error];
+        json = [regex stringByReplacingMatchesInString:json
+                                               options:0
+                                                 range:NSMakeRange(0, [json length])
+                                          withTemplate:@"\"p_value\": \"$1\","];
+        
+        NSData* d = [json dataUsingEncoding:NSUTF8StringEncoding];
+        jsonObject =
+        [NSJSONSerialization
+         JSONObjectWithData:d
+         options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
+         error:error];
+    }
     
     if (*error == nil) {
         

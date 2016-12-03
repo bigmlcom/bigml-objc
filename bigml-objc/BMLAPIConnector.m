@@ -206,7 +206,7 @@ void delay(float delay, dispatch_block_t block) {
 - (void)listResources:(BMLResourceTypeIdentifier*)type
               filters:(NSDictionary*)filters
            completion:(void(^)(NSArray*, NSError*))completion {
-    NSLog(@"LISTING RESOURCES OF TYPE: %@", type.stringValue);
+
     NSError* e = [self withUri:type.stringValue arguments:filters runBlock:^(NSURL* url) {
         
         [_connector getURL:url

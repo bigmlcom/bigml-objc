@@ -55,7 +55,7 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
         BML_ADD_TYPE(BMLResourceTypeAnomaly, @"anomaly");
         BML_ADD_TYPE(BMLResourceTypeEnsemble, @"ensemble");
         BML_ADD_TYPE(BMLResourceTypeLogisticRegression, @"logisticregression");
-        BML_ADD_TYPE(BMLResourceTypeAssociation, @"association2");
+        BML_ADD_TYPE(BMLResourceTypeAssociation, @"association");
         BML_ADD_TYPE(BMLResourceTypeEvaluation, @"evaluation");
         BML_ADD_TYPE(BMLResourceTypePrediction, @"prediction");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlScript, @"script");
