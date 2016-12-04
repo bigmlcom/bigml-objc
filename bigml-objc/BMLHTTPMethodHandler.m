@@ -196,8 +196,9 @@
     
     //-- workaround for associations, which contain p_value (double) values that cannot be represented
     //-- (e.g., those < 1.0e-128)
-    if (!jsonObject) {
+    if (!jsonObject || *error) {
     
+        *error = nil;
         NSString* json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"\"p_value\": ([0-9.e-]*),"
                                                                                options:NSRegularExpressionCaseInsensitive
