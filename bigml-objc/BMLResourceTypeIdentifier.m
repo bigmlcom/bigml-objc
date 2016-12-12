@@ -32,6 +32,11 @@ BMLResourceTypeIdentifier* BMLResourceTypeLogisticRegression = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeAssociation = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeEvaluation = nil;
 BMLResourceTypeIdentifier* BMLResourceTypePrediction = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeCentroid = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeBatchPrediction = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeAnomalyScore = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeTopicDistribution = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeTopicModel = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlScript = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlExecution = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlLibrary = nil;
@@ -58,11 +63,16 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
         BML_ADD_TYPE(BMLResourceTypeAssociation, @"association");
         BML_ADD_TYPE(BMLResourceTypeEvaluation, @"evaluation");
         BML_ADD_TYPE(BMLResourceTypePrediction, @"prediction");
+        BML_ADD_TYPE(BMLResourceTypeCentroid, @"centroid");
+        BML_ADD_TYPE(BMLResourceTypeBatchPrediction, @"batchprediction");
+        BML_ADD_TYPE(BMLResourceTypeAnomalyScore, @"anomalyscore");
+        BML_ADD_TYPE(BMLResourceTypeTopicDistribution, @"topicdistribution");
+        BML_ADD_TYPE(BMLResourceTypeTopicModel, @"topicmodel");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlScript, @"script");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlExecution, @"execution");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlSource, @"sourcecode");
-        BML_ADD_TYPE(BMLResourceTypeNotAResource, @"invalid");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlLibrary, @"library");
+        BML_ADD_TYPE(BMLResourceTypeNotAResource, @"invalid");
     }
 }
 
@@ -86,41 +96,20 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
 
 + (BMLResourceTypeIdentifier*)typeFromTypeString:(NSString*)type {
     
-    if ([type isEqualToString:[BMLResourceTypeFile stringValue]])
-        return BMLResourceTypeFile;
-    if ([type isEqualToString:[BMLResourceTypeResource stringValue]])
-        return BMLResourceTypeResource;
-    if ([type isEqualToString:[BMLResourceTypeSource stringValue]])
-        return BMLResourceTypeSource;
-    if ([type isEqualToString:[BMLResourceTypeDataset stringValue]])
-        return BMLResourceTypeDataset;
-    if ([type isEqualToString:[BMLResourceTypeModel stringValue]])
-        return BMLResourceTypeModel;
-    if ([type isEqualToString:[BMLResourceTypeEnsemble stringValue]])
-        return BMLResourceTypeEnsemble;
-    if ([type isEqualToString:[BMLResourceTypeCluster stringValue]])
-        return BMLResourceTypeCluster;
-    if ([type isEqualToString:[BMLResourceTypePrediction stringValue]])
-        return BMLResourceTypePrediction;
-    if ([type isEqualToString:[BMLResourceTypeAnomaly stringValue]])
-        return BMLResourceTypeAnomaly;
-    if ([type isEqualToString:[BMLResourceTypeEvaluation stringValue]])
-        return BMLResourceTypeEvaluation;
-    if ([type isEqualToString:[BMLResourceTypeLogisticRegression stringValue]])
-        return BMLResourceTypeLogisticRegression;
-    if ([type isEqualToString:[BMLResourceTypeAssociation stringValue]])
-        return BMLResourceTypeAssociation;
-    if ([type isEqualToString:[BMLResourceTypeWhizzmlScript stringValue]])
-        return BMLResourceTypeWhizzmlScript;
-    if ([type isEqualToString:[BMLResourceTypeWhizzmlSource stringValue]])
-        return BMLResourceTypeWhizzmlSource;
-    if ([type isEqualToString:[BMLResourceTypeWhizzmlExecution stringValue]])
-        return BMLResourceTypeWhizzmlExecution;
-    if ([type isEqualToString:[BMLResourceTypeWhizzmlLibrary stringValue]])
-        return BMLResourceTypeWhizzmlLibrary;
-    if ([type isEqualToString:[BMLResourceTypeProject stringValue]])
-        return BMLResourceTypeProject;
-//    NSLog(@"Type Id: Should not be here! (%@)", type);
+    for (id resourceType in @[BMLResourceTypeFile, BMLResourceTypeResource, BMLResourceTypeSource,
+                              BMLResourceTypeDataset, BMLResourceTypeModel, BMLResourceTypeEnsemble,
+                              BMLResourceTypeCluster, BMLResourceTypePrediction,
+                              BMLResourceTypeAnomaly, BMLResourceTypeAnomalyScore,
+                              BMLResourceTypeEvaluation, BMLResourceTypeLogisticRegression,
+                              BMLResourceTypeAssociation, BMLResourceTypeCentroid,
+                              BMLResourceTypeBatchPrediction, BMLResourceTypeTopicDistribution,
+                              BMLResourceTypeTopicModel, BMLResourceTypeWhizzmlScript,
+                              BMLResourceTypeWhizzmlSource, BMLResourceTypeWhizzmlExecution,
+                              BMLResourceTypeWhizzmlLibrary, BMLResourceTypeProject]) {
+        
+        if ([type isEqualToString:[resourceType stringValue]])
+            return resourceType;
+    }
     return nil;
 }
 
