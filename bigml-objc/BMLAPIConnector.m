@@ -378,7 +378,7 @@ void delay(float delay, dispatch_block_t block) {
                                }
                                if (error) {
                                    resource.status = BMLResourceStatusFailed;
-                                   completion(nil, error);
+                                   completion(resource, error);
                                }
                            }];
     }
