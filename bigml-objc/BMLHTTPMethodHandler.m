@@ -194,19 +194,20 @@
      options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
      error:error];
     
-    //-- workaround for associations, which contain p_value (double) values that cannot be represented
-    //-- (e.g., those < 1.0e-128)
+    //-- workaround for JSONObjectWithData failing with numbers formatted in scientific notation
+    //-- (e.g., 1.0e-128)
     if (!jsonObject || *error) {
     
         *error = nil;
         NSString* json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"\"p_value\": ([0-9.e-]*),"
-                                                                               options:NSRegularExpressionCaseInsensitive
-                                                                                 error:error];
+        NSRegularExpression* regex = [NSRegularExpression
+                                      regularExpressionWithPattern:@"(-?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+))"
+                                      options:NSRegularExpressionCaseInsensitive
+                                      error:error];
         json = [regex stringByReplacingMatchesInString:json
                                                options:0
                                                  range:NSMakeRange(0, [json length])
-                                          withTemplate:@"\"p_value\": \"$1\","];
+                                          withTemplate:@"\"$0\""];
         
         NSData* d = [json dataUsingEncoding:NSUTF8StringEncoding];
         jsonObject =
@@ -239,6 +240,7 @@
         }
         
     } else {
+        
         *error = [NSError errorWithInfo:@"Bad response format" code:-10001];
     }
     return jsonDict;
