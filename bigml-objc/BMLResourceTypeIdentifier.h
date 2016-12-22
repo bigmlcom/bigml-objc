@@ -30,7 +30,13 @@
  * You do not actually need to instantiate this class since you
  * can use the global identifiers defined below for recognized resources.
  */
-@interface BMLResourceTypeIdentifier : NSObject
+@interface BMLResourceTypeIdentifier : NSObject <NSCopying>
+
+/**
+ * Returns an array with all existing resource type identifiers.
+ * @return an array with all existing resource type identifiers.
+ */
++ (NSArray<BMLResourceTypeIdentifier*>*)resourceTypes;
 
 /**
  * Returns YES if the passed string is a valid full resource identifier.

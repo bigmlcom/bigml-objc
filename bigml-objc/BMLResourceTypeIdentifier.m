@@ -18,7 +18,6 @@
 NAME = \
 [[BMLResourceTypeIdentifier alloc] initWithStringLiteral:(VALUE)]
 
-
 BMLResourceTypeIdentifier* BMLResourceTypeProject = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeFile = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeResource = nil;
@@ -49,6 +48,7 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
 }
 
 + (void)load {
+    
     if (self == [BMLResourceTypeIdentifier class]) {
         BML_ADD_TYPE(BMLResourceTypeProject, @"project");
         BML_ADD_TYPE(BMLResourceTypeFile, @"file");
@@ -76,12 +76,51 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
     }
 }
 
++ (NSArray*)resourceTypes {
+    
+    return @[BMLResourceTypeFile,
+             BMLResourceTypeSource,
+             BMLResourceTypeDataset,
+             BMLResourceTypeModel,
+             BMLResourceTypeEnsemble,
+             BMLResourceTypeLogisticRegression,
+             BMLResourceTypeEvaluation,
+             BMLResourceTypeCluster,
+             BMLResourceTypeAnomaly,
+             BMLResourceTypeAssociation,
+             BMLResourceTypePrediction,
+             BMLResourceTypeAnomaly,
+             BMLResourceTypeCentroid,
+             BMLResourceTypeBatchPrediction,
+             BMLResourceTypeTopicModel,
+             BMLResourceTypeTopicDistribution,
+             BMLResourceTypeWhizzmlScript,
+             BMLResourceTypeWhizzmlExecution,
+             BMLResourceTypeWhizzmlLibrary,
+             BMLResourceTypeProject];
+}
+
 - (instancetype)initWithStringLiteral:(NSString*)value {
     
     if (self = [super init]) {
         _typeIdentifier = value;
     }
     return self;
+}
+
+- (id)copyWithZone:(NSZone*)zone {
+    
+    return [[BMLResourceTypeIdentifier allocWithZone:zone] initWithStringLiteral:self.stringValue];
+}
+
+- (BOOL)isEqualTo:(id)object {
+    
+    if ([object isKindOfClass:[BMLResourceTypeIdentifier class]]) {
+        return [self.stringValue isEqualToString:[(BMLResourceTypeIdentifier*)object stringValue]];
+    } else if ([object isKindOfClass:[NSString class]]) {
+        return [self.stringValue isEqualToString:object];
+    }
+    return NO;
 }
 
 - (NSString*)stringValue {
@@ -96,16 +135,7 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
 
 + (BMLResourceTypeIdentifier*)typeFromTypeString:(NSString*)type {
     
-    for (id resourceType in @[BMLResourceTypeFile, BMLResourceTypeResource, BMLResourceTypeSource,
-                              BMLResourceTypeDataset, BMLResourceTypeModel, BMLResourceTypeEnsemble,
-                              BMLResourceTypeCluster, BMLResourceTypePrediction,
-                              BMLResourceTypeAnomaly, BMLResourceTypeAnomalyScore,
-                              BMLResourceTypeEvaluation, BMLResourceTypeLogisticRegression,
-                              BMLResourceTypeAssociation, BMLResourceTypeCentroid,
-                              BMLResourceTypeBatchPrediction, BMLResourceTypeTopicDistribution,
-                              BMLResourceTypeTopicModel, BMLResourceTypeWhizzmlScript,
-                              BMLResourceTypeWhizzmlSource, BMLResourceTypeWhizzmlExecution,
-                              BMLResourceTypeWhizzmlLibrary, BMLResourceTypeProject]) {
+    for (id resourceType in [BMLResourceTypeIdentifier resourceTypes]) {
         
         if ([type isEqualToString:[resourceType stringValue]])
             return resourceType;
