@@ -195,13 +195,14 @@
      error:error];
     
     //-- workaround for JSONObjectWithData failing with numbers formatted in scientific notation
-    //-- (e.g., 1.0e-128)
+    //-- (e.g., 1.0e-128). The regex below is tuned for probabilities. Beware of the risk of a
+    //-- resource UUID matching some exponential number (e.g., ..0e12..)
     if (!jsonObject || *error) {
-    
+        
         *error = nil;
         NSString* json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSRegularExpression* regex = [NSRegularExpression
-                                      regularExpressionWithPattern:@"(-?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+))"
+                                      regularExpressionWithPattern:@"(-?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE]-\\d+))"
                                       options:NSRegularExpressionCaseInsensitive
                                       error:error];
         json = [regex stringByReplacingMatchesInString:json
@@ -215,6 +216,12 @@
          JSONObjectWithData:d
          options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
          error:error];
+        
+#ifdef DEBUG
+        if (!jsonObject) {
+            NSLog(@"FAILED TO DECODE RESOURCE JSON: %@", json);
+        }
+#endif
     }
     
     if (*error == nil) {
