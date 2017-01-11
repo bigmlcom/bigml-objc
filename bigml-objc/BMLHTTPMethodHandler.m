@@ -107,8 +107,6 @@
     NSString* result = @"";
     for (NSString* value in options.allValues) {
         if ([value length] > 0) {
-            //            NSString* trimmedOption =
-            //            [value substringWithRange:NSMakeRange()
             result = [NSString stringWithFormat:@"%@, %@", result, value];
         }
     }
@@ -187,43 +185,7 @@
                                 error:(NSError**)error {
     
     NSDictionary* jsonDict = nil;
-    
-    id jsonObject =
-    [NSJSONSerialization
-     JSONObjectWithData:data
-     options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
-     error:error];
-    
-    //-- workaround for JSONObjectWithData failing with numbers formatted in scientific notation
-    //-- (e.g., 1.0e-128). The regex below is tuned for probabilities. Beware of the risk of a
-    //-- resource UUID matching some exponential number (e.g., ..0e12..)
-    if (!jsonObject || *error) {
-        
-        *error = nil;
-        NSString* json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSRegularExpression* regex = [NSRegularExpression
-                                      regularExpressionWithPattern:@"(-?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE]-\\d+))"
-                                      options:NSRegularExpressionCaseInsensitive
-                                      error:error];
-        json = [regex stringByReplacingMatchesInString:json
-                                               options:0
-                                                 range:NSMakeRange(0, [json length])
-                                          withTemplate:@"\"$0\""];
-        
-        NSData* d = [json dataUsingEncoding:NSUTF8StringEncoding];
-        jsonObject =
-        [NSJSONSerialization
-         JSONObjectWithData:d
-         options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
-         error:error];
-        
-#ifdef DEBUG
-        if (!jsonObject) {
-            NSLog(@"FAILED TO DECODE RESOURCE JSON: %@", json);
-        }
-#endif
-    }
-    
+    id jsonObject = [self JSONObjectWithData:data error:error];
     if (*error == nil) {
         
         if ([jsonObject isKindOfClass:[NSDictionary class]]) {
@@ -251,6 +213,85 @@
         *error = [NSError errorWithInfo:@"Bad response format" code:-10001];
     }
     return jsonDict;
+}
+#pragma mark JSONObjectWithData workaround
+
+//-- workaround for JSONObjectWithData failing with double-precision numbers in scientific notation
+//-- (e.g., 1.0e-128). The regex below is tuned for probabilities. Beware of the risk of a
+//-- resource UUID matching some exponential number (e.g., ..0e12..): the leading [^\\w/] in
+//-- the regex below rules out this possibility.
+//-- Important: the bug seems not to exist for large double precision number, e.g., 1e225.
+//-- Therefore the following regex is only considering negative-signed exponentials.
+
+- (id)JSONObjectWithData:(NSData*)data error:(NSError**)error {
+    
+    id jsonObject =
+    [NSJSONSerialization
+     JSONObjectWithData:data
+     options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
+     error:error];
+    
+    if (!jsonObject || *error) {
+        
+        *error = nil;
+        NSString* json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSRegularExpression* regex = [NSRegularExpression
+                                      regularExpressionWithPattern:@"(-?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE]-\\d+))"
+                                      options:NSRegularExpressionCaseInsensitive
+                                      error:error];
+        json = [regex stringByReplacingMatchesInString:json
+                                               options:0
+                                                 range:NSMakeRange(0, [json length])
+                                          withTemplate:@"\"$0\""];
+        
+        NSData* d = [json dataUsingEncoding:NSUTF8StringEncoding];
+        jsonObject =
+        [NSJSONSerialization
+         JSONObjectWithData:d
+         options:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers
+         error:error];
+      
+        jsonObject = [self jsonObjectByNormalizingDoubles:jsonObject];
+        
+#ifdef DEBUG
+        if (!jsonObject) {
+            NSLog(@"FAILED TO DECODE RESOURCE JSON: %@", json);
+        }
+#endif
+    }
+    return jsonObject;
+}
+
+- (id)numberFromString:(NSString*)string {
+    
+    if (![string isKindOfClass:[NSString class]])
+        return string;
+    
+    NSNumber* result = nil;
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    double doubleVal;
+    if ([scan scanDouble:&doubleVal] && [scan isAtEnd]) {
+        result = @([string doubleValue]);
+    }
+    return result ?: string;
+}
+
+- (id)jsonObjectByNormalizingDoubles:(id)jsonObject {
+    
+    if ([jsonObject isKindOfClass:[NSMutableArray class]]) {
+        NSMutableArray* array = jsonObject;
+        for (int i = 0; i < array.count; ++i) {
+            [array setObject:[self jsonObjectByNormalizingDoubles:array[i]] atIndexedSubscript:i];
+        }
+    } else if ([jsonObject isKindOfClass:[NSMutableDictionary class]]) {
+        NSMutableDictionary* dict = jsonObject;
+        for (NSString* key in dict.allKeys) {
+            [dict setObject:[self jsonObjectByNormalizingDoubles:dict[key]] forKey:key];
+        }
+    } else if ([jsonObject isKindOfClass:[NSString class]]) {
+        return [self numberFromString:jsonObject];
+    }
+    return jsonObject;
 }
 
 @end
