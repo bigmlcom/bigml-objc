@@ -53,7 +53,7 @@
                                    data:(NSDictionary*)inputData
                                 options:(NSDictionary*)options;
 
-- (double)localLRPredictionForLRId:(BMLResourceUuid*)LRId
+- (NSDictionary*)localLRPredictionForLRId:(BMLResourceUuid*)LRId
                               data:(NSDictionary*)inputData
                            options:(NSDictionary*)options;
 

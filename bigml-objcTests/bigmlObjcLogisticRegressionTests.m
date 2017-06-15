@@ -67,15 +67,13 @@
     NSString* lrId = [self.apiLibrary createAndWaitLRFromDatasetId:self.apiLibrary.datasetId];
     
     
-    id score1 = [self.apiLibrary
-                 localLRPredictionWithJSONLRSync:lrId
-                 arguments:@{ @"sepal width": @4.1,
-                              @"petal length": @0.96,
-                              @"petal width": @2.52,
-                              @"sepal length": @6.02,
-                              @"species": @"Iris-setosa"}
-                 options:@{ @"byName": @YES }];
-    
+    NSDictionary* prediction = [self.apiLibrary
+                                localLRPredictionForLRId:lrId
+                                data:@{ @"sepal length": @(6.02),
+                                             @"sepal width": @(3.15),
+                                             @"petal width": @(1.51),
+                                             @"petal length": @(4.07) }
+                                options:@{ @"byName" : @YES }];
 
     /*
     double score2 = [self.apiLibrary localAnomalyScoreForAnomalyId:anomalyId

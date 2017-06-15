@@ -307,7 +307,7 @@
     return NAN;
 }
 
-- (double)localLRPredictionForLRId:(BMLResourceUuid*)LRId
+- (NSDictionary*)localLRPredictionForLRId:(BMLResourceUuid*)LRId
                                    data:(NSDictionary*)inputData
                                 options:(NSDictionary*)options {
     
@@ -320,9 +320,9 @@
                                                  arguments:inputData
                                                    options:options];
         NSLog(@"LR: %@", [lr description]);
-        return 0.0;
+        return lr;
     }
-    return NAN;
+    return @{};
 }
 
 
