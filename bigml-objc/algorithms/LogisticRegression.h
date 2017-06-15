@@ -11,4 +11,6 @@
 
 @interface LogisticRegression : FieldResource
 
+- (instancetype)initWithLogisticRegression:(NSDictionary*)logisticRegression;
+
 @end

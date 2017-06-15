@@ -1,5 +1,5 @@
 //
-//  bigmlObjcAnomalyScoreTests.m
+//  bigmlObjcLogisticRegressionTests.m
 //  bigml-objc
 //
 //  Created by sergio on 17/11/15.
@@ -12,13 +12,14 @@
 #import "BMLLocalPredictions.h"
 #import "bigmlObjcTestCase.h"
 
-@interface bigmlObjcAnomalyScoreTests : bigmlObjcTestCase
+@interface bigmlObjcLogisticRegressionTests : bigmlObjcTestCase
 
 @end
 
-@implementation bigmlObjcAnomalyScoreTests
+@implementation bigmlObjcLogisticRegressionTests
 
-- (void)testStoredAnomaly {
+/*
+- (void)testLR {
     
     NSBundle* bundle = [NSBundle bundleForClass:[self class]];
     NSString* path = [bundle pathForResource:@"testAnomaly" ofType:@"json"];
@@ -41,7 +42,7 @@
     XCTAssert([self.apiLibrary compareFloat:score float:0.699]);
 }
 
-- (void)testWinesAnomalyScore {
+- (void)testWinesLR {
     
     self.apiLibrary.csvFileName = @"wines.csv";
     NSString* anomalyId = [self.apiLibrary createAndWaitAnomalyFromDatasetId:self.apiLibrary.datasetId];
@@ -59,22 +60,24 @@
     //-- score from web
     XCTAssert([self.apiLibrary compareFloat:score float:0.6018]);
 }
-
-- (void)testIrisAnomalyScore {
+*/
+- (void)testIrisLR {
     
     self.apiLibrary.csvFileName = @"iris.csv";
-    NSString* anomalyId = [self.apiLibrary createAndWaitAnomalyFromDatasetId:self.apiLibrary.datasetId];
+    NSString* lrId = [self.apiLibrary createAndWaitLRFromDatasetId:self.apiLibrary.datasetId];
     
-    double score1 = [self.apiLibrary localAnomalyScoreForAnomalyId:anomalyId
-                                                             data:@{ @"sepal width": @4.1,
-                                                                     @"petal length": @0.96,
-                                                                     @"petal width": @2.52,
-                                                                     @"sepal length": @6.02,
-                                                                     @"species": @"Iris-setosa"}
-                                                          options:@{ @"byName": @YES }];
+    
+    id score1 = [self.apiLibrary
+                 localLRPredictionWithJSONLRSync:lrId
+                 arguments:@{ @"sepal width": @4.1,
+                              @"petal length": @0.96,
+                              @"petal width": @2.52,
+                              @"sepal length": @6.02,
+                              @"species": @"Iris-setosa"}
+                 options:@{ @"byName": @YES }];
     
 
-    
+    /*
     double score2 = [self.apiLibrary localAnomalyScoreForAnomalyId:anomalyId
                                                       data:@{ @"sepal width": @4.1,
                                                               @"petal length": @0.96,
@@ -86,6 +89,7 @@
 
     XCTAssert([self.apiLibrary compareFloat:score1 float:0.6383]);
     XCTAssert([self.apiLibrary compareFloat:score2 float:0.7755]);
+     */
 }
 
 @end

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4903E0A81CAAC15F00F6499D /* BMLLocalPredictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */; };
-		4903E0AF1CAAC63000F6499D /* bigmlObjcAnomalyScoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */; };
+		4903E0AF1CAAC63000F6499D /* bigmlObjcLogisticRegressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0A91CAAC61900F6499D /* bigmlObjcLogisticRegressionTests.m */; };
 		4903E0B01CAAC63400F6499D /* bigmlObjcClusterPredictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */; };
 		4903E0B11CAAC63900F6499D /* bigmlObjcModelPredictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903E0AB1CAAC61900F6499D /* bigmlObjcModelPredictionTests.m */; };
 		4903E0B41CAAC69600F6499D /* bigmlObjcTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4903E0B21CAAC69600F6499D /* bigmlObjcTestCase.h */; };
@@ -97,6 +97,7 @@
 		497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */; };
 		49B6D7C91EF299DA00CCA9CF /* LogisticRegression.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B6D7C71EF299DA00CCA9CF /* LogisticRegression.h */; };
 		49B6D7CA1EF299DA00CCA9CF /* LogisticRegression.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7C81EF299DA00CCA9CF /* LogisticRegression.m */; };
+		49B6D7D41EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,7 +124,7 @@
 
 /* Begin PBXFileReference section */
 		4903E0A71CAAC15F00F6499D /* BMLLocalPredictions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLLocalPredictions.m; sourceTree = "<group>"; };
-		4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAnomalyScoreTests.m; sourceTree = "<group>"; };
+		4903E0A91CAAC61900F6499D /* bigmlObjcLogisticRegressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcLogisticRegressionTests.m; sourceTree = "<group>"; };
 		4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcClusterPredictionTests.m; sourceTree = "<group>"; };
 		4903E0AB1CAAC61900F6499D /* bigmlObjcModelPredictionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcModelPredictionTests.m; sourceTree = "<group>"; };
 		4903E0B21CAAC69600F6499D /* bigmlObjcTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bigmlObjcTestCase.h; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 		497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAPITests.m; sourceTree = "<group>"; };
 		49B6D7C71EF299DA00CCA9CF /* LogisticRegression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogisticRegression.h; path = algorithms/LogisticRegression.h; sourceTree = "<group>"; };
 		49B6D7C81EF299DA00CCA9CF /* LogisticRegression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogisticRegression.m; path = algorithms/LogisticRegression.m; sourceTree = "<group>"; };
+		49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAnomalyScoreTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,7 +273,8 @@
 				497C6AF71C56482A00FCB6F5 /* bigmlObjcBaseTests.h */,
 				4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */,
 				497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */,
-				4903E0A91CAAC61900F6499D /* bigmlObjcAnomalyScoreTests.m */,
+				49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */,
+				4903E0A91CAAC61900F6499D /* bigmlObjcLogisticRegressionTests.m */,
 				4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */,
 				4903E0AB1CAAC61900F6499D /* bigmlObjcModelPredictionTests.m */,
 				4910F6191BFDD7750087E85A /* Info.plist */,
@@ -597,7 +600,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4903E0B11CAAC63900F6499D /* bigmlObjcModelPredictionTests.m in Sources */,
-				4903E0AF1CAAC63000F6499D /* bigmlObjcAnomalyScoreTests.m in Sources */,
+				4903E0AF1CAAC63000F6499D /* bigmlObjcLogisticRegressionTests.m in Sources */,
+				49B6D7D41EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m in Sources */,
 				4903E0B01CAAC63400F6499D /* bigmlObjcClusterPredictionTests.m in Sources */,
 				497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */,
 				4903E0BE1CAACA1D00F6499D /* bigmlObjcTestCredentials.m in Sources */,

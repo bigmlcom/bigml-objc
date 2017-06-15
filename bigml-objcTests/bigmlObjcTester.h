@@ -26,6 +26,8 @@
 - (BMLResourceUuid*)createAndWaitClusterFromDatasetId:(BMLResourceUuid*)dataSetId;
 - (BMLResourceUuid*)createAndWaitEnsembleFromDatasetId:(BMLResourceUuid*)dataSetId;
 - (BMLResourceUuid*)createAndWaitAnomalyFromDatasetId:(BMLResourceUuid*)dataSetId;
+- (BMLResourceUuid*)createAndWaitLRFromDatasetId:(BMLResourceUuid*)dataSetId;
+
 //- (BMLResourceUuid*)createAndWaitPredictionFromId:(BMLResourceUuid*)modelId
 //                                     resourceType:(BMLResourceUuid*)resourceTyp
 //                                        inputData:(NSDictionary*)inputData;
@@ -50,6 +52,10 @@
 - (double)localAnomalyScoreForAnomalyId:(BMLResourceUuid*)anomalyId
                                    data:(NSDictionary*)inputData
                                 options:(NSDictionary*)options;
+
+- (double)localLRPredictionForLRId:(BMLResourceUuid*)LRId
+                              data:(NSDictionary*)inputData
+                           options:(NSDictionary*)options;
 
 - (BOOL)deleteSourceWithIdSync:(NSString*)sourceId;
 - (BOOL)deleteDatasetWithIdSync:(NSString*)datasetId;

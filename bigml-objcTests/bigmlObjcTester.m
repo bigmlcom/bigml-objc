@@ -31,6 +31,7 @@
     if (self = [super initWithUsername:[bigmlObjcTestCredentials username]
                                 apiKey:[bigmlObjcTestCredentials apiKey]
                                   mode:BMLModeDevelopment
+                                server:nil
                                version:nil]) {
     }
     return self;
@@ -198,6 +199,13 @@
                                         type:BMLResourceTypeDataset];
 }
 
+- (BMLResourceUuid*)createAndWaitLRFromDatasetId:(BMLResourceUuid*)dataSetId {
+    
+    return [self createAndWaitResourceOfType:BMLResourceTypeLogisticRegression
+                                        from:dataSetId
+                                        type:BMLResourceTypeDataset];
+}
+
 //- (BMLResourceUuid*)createAndWaitPredictionFromId:(BMLResourceUuid*)resourceId
 //                              resourceType:(BMLResourceTypeIdentifier*)resourceType
 //                                 inputData:(NSDictionary*)inputData {
@@ -298,6 +306,25 @@
     }
     return NAN;
 }
+
+- (double)localLRPredictionForLRId:(BMLResourceUuid*)LRId
+                                   data:(NSDictionary*)inputData
+                                options:(NSDictionary*)options {
+    
+    if ([LRId length] > 0) {
+        
+        NSDictionary* LR = [self getResourceOfType:BMLResourceTypeLogisticRegression
+                                              uuid:LRId];
+        id lr =
+        [BMLLocalPredictions localLRPredictionWithJSONLRSync:LR
+                                                 arguments:inputData
+                                                   options:options];
+        NSLog(@"LR: %@", [lr description]);
+        return 0.0;
+    }
+    return NAN;
+}
+
 
 #pragma mark - Prediction Result Check Helpers
 
