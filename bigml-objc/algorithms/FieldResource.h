@@ -29,4 +29,6 @@
 
 - (NSDictionary*)filteredInputData:(NSDictionary*)inputData byName:(BOOL)byName;
 
++ (NSString*)objectiveField:(id)objectiveField;
+
 @end

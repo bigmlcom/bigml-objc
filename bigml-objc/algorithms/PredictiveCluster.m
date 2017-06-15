@@ -116,7 +116,7 @@ to generate centroid predictions locally.
 - (NSMutableArray*)uniqueTermsIn:(NSArray*)terms
                        termForms:(NSDictionary*)termForms
                           filter:(NSArray*)filter {
- 
+    
     NSMutableDictionary* extendForms = [NSMutableDictionary dictionary];
     NSMutableArray* termSet = [NSMutableArray array];
     NSMutableArray* tagTerms = [NSMutableArray array];

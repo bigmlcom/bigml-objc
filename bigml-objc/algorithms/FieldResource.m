@@ -139,4 +139,11 @@
         }
     }
 }
+
++ (NSString*)objectiveField:(id)objectiveField {
+    if ([objectiveField isKindOfClass:[NSArray class]])
+        return [objectiveField firstObject];
+    return objectiveField;
+}
+
 @end

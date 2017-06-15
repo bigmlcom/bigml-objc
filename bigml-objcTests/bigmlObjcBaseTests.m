@@ -45,6 +45,7 @@ static dispatch_once_t _dispatchToken = 0;
     self.connector = [BMLAPIConnector connectorWithUsername:[bigmlObjcTestCredentials username]
                                                      apiKey:[bigmlObjcTestCredentials apiKey]
                                                        mode:BMLModeProduction
+                                                     server:nil
                                                     version:nil];
     
     dispatch_once(&_dispatchToken, ^{

@@ -95,6 +95,8 @@
 		497C69541C5137C900FCB6F5 /* BMLAPIConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C69521C5137C900FCB6F5 /* BMLAPIConnector.m */; };
 		497C69651C522D1400FCB6F5 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 497C69641C522D1400FCB6F5 /* credentials.plist */; };
 		497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */; };
+		49B6D7C91EF299DA00CCA9CF /* LogisticRegression.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B6D7C71EF299DA00CCA9CF /* LogisticRegression.h */; };
+		49B6D7CA1EF299DA00CCA9CF /* LogisticRegression.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7C81EF299DA00CCA9CF /* LogisticRegression.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +197,8 @@
 		497C69641C522D1400FCB6F5 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		497C6AF71C56482A00FCB6F5 /* bigmlObjcBaseTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bigmlObjcBaseTests.h; sourceTree = "<group>"; };
 		497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAPITests.m; sourceTree = "<group>"; };
+		49B6D7C71EF299DA00CCA9CF /* LogisticRegression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogisticRegression.h; path = algorithms/LogisticRegression.h; sourceTree = "<group>"; };
+		49B6D7C81EF299DA00CCA9CF /* LogisticRegression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogisticRegression.m; path = algorithms/LogisticRegression.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +288,8 @@
 				491701261C66457700D5D389 /* Anomaly.m */,
 				491701271C66457700D5D389 /* FieldResource.h */,
 				491701281C66457700D5D389 /* FieldResource.m */,
+				49B6D7C71EF299DA00CCA9CF /* LogisticRegression.h */,
+				49B6D7C81EF299DA00CCA9CF /* LogisticRegression.m */,
 				491701291C66457700D5D389 /* MultiModel.h */,
 				4917012A1C66457700D5D389 /* MultiModel.m */,
 				4917012B1C66457700D5D389 /* MultiVote.h */,
@@ -384,6 +390,7 @@
 				497C69451C4FBA1A00FCB6F5 /* NSError+BMLError.h in Headers */,
 				497C69491C4FFA4F00FCB6F5 /* NSMutableData+BMLData.h in Headers */,
 				4903E0B41CAAC69600F6499D /* bigmlObjcTestCase.h in Headers */,
+				49B6D7C91EF299DA00CCA9CF /* LogisticRegression.h in Headers */,
 				491701571C68996B00D5D389 /* BMLUtils.h in Headers */,
 				4917015A1C68999900D5D389 /* BMLLocalPredictions.h in Headers */,
 				497C69391C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.h in Headers */,
@@ -580,6 +587,7 @@
 				491701421C66457700D5D389 /* MultiVote.m in Sources */,
 				491701501C66457700D5D389 /* TreePrediction.m in Sources */,
 				491701581C68996B00D5D389 /* BMLUtils.m in Sources */,
+				49B6D7CA1EF299DA00CCA9CF /* LogisticRegression.m in Sources */,
 				4917014A1C66457700D5D389 /* PredictiveCluster.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
