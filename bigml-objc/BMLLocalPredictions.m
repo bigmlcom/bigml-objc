@@ -17,6 +17,7 @@
 #import "PredictiveCluster.h"
 #import "PredictiveEnsemble.h"
 #import "Anomaly.h"
+#import "LogisticRegression.h"
 
 @implementation BMLLocalPredictions
 
@@ -36,6 +37,17 @@
                                                 args:args
                                              options:options
                                        distributions:distributions];
+}
+
++ (NSDictionary*)localLRPredictionWithJSONLRSync:(NSDictionary*)jsonLR
+                                       arguments:(NSDictionary*)args
+                                         options:(NSDictionary*)options {
+    
+    return (id)[[LogisticRegression alloc] initWithLogisticRegression:jsonLR];
+//    return [LogisticRegression predictWithJSONModels:models
+//                                                args:args
+//                                             options:options
+//                                       distributions:distributions];
 }
 
 + (NSDictionary*)localCentroidsWithJSONClusterSync:(NSDictionary*)jsonCluster
