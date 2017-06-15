@@ -27,19 +27,29 @@
 
 @end
 
+NSArray* getFirstFromTupleArray(NSArray* tuples) {
+    
+    NSMutableArray* result = [NSMutableArray array];
+    for (NSArray* tuple in tuples) {
+        [result addObject:tuple.firstObject];
+    }
+    return result;
+}
+
 @implementation LogisticRegression
 
 - (instancetype)initWithLogisticRegression:(NSDictionary*)logisticRegression {
     
-    NSAssert(logisticRegression && [logisticRegression[@"fields"] count] > 0,
+    NSDictionary* logisticRegressionInfo = logisticRegression[@"logistic_regression"];
+    NSDictionary* fields = logisticRegressionInfo[@"fields"];
+
+    NSAssert(fields && [fields count] > 0,
              @"LR constructor's contract unfulfilled: no fields");
     NSAssert([logisticRegression[@"dataset_field_types"] count] > 0,
              @"LR constructor's contract unfulfilled: no dataset_field_types");
     NSAssert([logisticRegression[@"status"][@"code"] intValue] == 5,
              @"LR constructor's contract unfulfilled: anomaly did not finish processing");
     
-    NSDictionary* logisticRegressionInfo = logisticRegression[@"logisticRegression"];
-    NSDictionary* fields = logisticRegressionInfo[@"fields"];
     id objectiveField = logisticRegression[@"objective_fields"];
     NSString* objectiveId = [FieldResource objectiveField:objectiveField];
 
@@ -50,31 +60,28 @@
         
         self.dataset_field_types = logisticRegression[@"dataset_field_types"];
         self.coefficients = logisticRegressionInfo[@"coefficients"];
-        self.bias = [logisticRegressionInfo[@"bias"] intValue];
+        self.bias = [logisticRegressionInfo[@"bias"] boolValue];
         self.c = logisticRegressionInfo[@"c"];
         self.eps = logisticRegressionInfo[@"eps"];
         self.lrNormalize = logisticRegressionInfo[@"normalize"];
         self.regularization = logisticRegressionInfo[@"regularization"];
 
-        for (id fieldDescr in fields) {
-            NSDictionary* field = fieldDescr[1];
-            NSString* field_id = fieldDescr[0];
+        for (id fieldId in [fields allKeys]) {
+            NSDictionary* field = fields[fieldId];
             if ([field[@"optype"] isEqualToString:@"text"]) {
                 
-                self.termForms[field_id] = @{};
-                self.termForms[field_id] = field[@"summary"][@"term_forms"];
+                self.termForms[fieldId] = @{};
+                self.termForms[fieldId] = field[@"summary"][@"term_forms"];
                 
                 //-- TODO: iterate ovet the tag_cloud and get its first elements
-                self.tagClouds[field_id] = field[@"summary"][@"tag_cloud"];
-                self.termAnalysis[field_id] = field[@"term_analysis"];
+                self.tagClouds[fieldId] = getFirstFromTupleArray(field[@"summary"][@"tag_cloud"]);
+                self.termAnalysis[fieldId] = field[@"term_analysis"];
                 
             } else if ([field[@"optype"] isEqualToString:@"categorical"]) {
                 //-- TODO: iterate ovet the tag_cloud and get its first elements
-                self.categories[field_id] =  field[@"summary"][@"categories"];
+                self.categories[fieldId] =  getFirstFromTupleArray(field[@"summary"][@"categories"]);
             }
-
         }
-        
     }
     return self;
 }
