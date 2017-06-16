@@ -15,7 +15,6 @@
 @property (nonatomic, strong) NSArray* optionalFields;
 @property (nonatomic, strong) NSDictionary* expansionAttributes;
 
-@property (nonatomic, strong) NSDictionary* fields;
 @property (nonatomic, strong) NSMutableDictionary* termForms;
 @property (nonatomic, strong) NSMutableDictionary* tagClouds;
 @property (nonatomic, strong) NSMutableDictionary* termAnalysis;
@@ -112,14 +111,23 @@ NSArray* distributionFromArray(NSArray* tuples) {
     return self;
 }
 
-- (NSDictionary*)predict:(NSDictionary*)input options:(NSDictionary*)options {
++ (NSDictionary*)predictWithJSONLogisticRegression:(NSDictionary*)logisticRegression
+                                  args:(NSDictionary*)inputData
+                               options:(NSDictionary*)options {
+    
+    return [[[self alloc] initWithLogisticRegression:logisticRegression]
+            predictWithData:inputData
+            options:options];
+}
+
+- (NSDictionary*)predictWithData:(NSDictionary*)input options:(NSDictionary*)options {
     
     NSDictionary* inputData = [self filteredInputData:input byName:[options[@"byName"] boolValue]];
     for (id fieldId in [self.fields allKeys]) {
         NSDictionary* field = self.fields[fieldId];
         if ([self.optionalFields indexOfObject:field[@"optype"]] == NSNotFound &&
             [inputData.allKeys indexOfObject:fieldId] == NSNotFound) {
-            NSAssert(NO, @"All input fields should be provided to calculate a centroid");
+            NSAssert(NO, @"All input fields should be provided.");
         }
     }
     
@@ -133,9 +141,9 @@ NSArray* distributionFromArray(NSArray* tuples) {
     for (id category in self.categories[self.objectiveFieldId]) {
         
         NSArray* coefficients = self.coefficients[category];
-        probabilities[category] = [self categoryProbability:inputData
+        probabilities[category] = @([self categoryProbability:inputData
                                                 uniqueTerms:uniqueTerms
-                                               coefficients:coefficients];
+                                               coefficients:coefficients]);
         total += [probabilities[category] intValue];
     }
     for (NSString* category in probabilities.allKeys) {
@@ -213,7 +221,7 @@ NSArray* distributionFromArray(NSArray* tuples) {
                 NSString* tokenMode = self.termAnalysis[fieldId][@"token_mode"] ?: @"all";
                 NSMutableArray* terms = [NSMutableArray array];
                 if (![tokenMode isEqualToString:TM_FULL_TERMS]) {
-                    terms = [self parseTerms:inputDataField caseSensitive:caseSensitive];
+                    terms = [[self parseTerms:inputDataField caseSensitive:caseSensitive] mutableCopy];
                 }
                 if (![tokenMode isEqualToString:TM_TOKENS]) {
                     [terms addObject:caseSensitive ? inputDataField :

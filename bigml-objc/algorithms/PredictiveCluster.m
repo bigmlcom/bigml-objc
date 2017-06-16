@@ -14,6 +14,7 @@
 
 #import "PredictiveCluster.h"
 #import "PredictionCentroid.h"
+#import "BMLEnums.h"
 
 @interface PredictiveCluster ()
 
@@ -147,7 +148,7 @@ to generate centroid predictions locally.
         BOOL isCaseSensitive = [self.termAnalysis[fieldId][@"case_sensitive"] boolValue];
         NSString* tokenMode = self.termAnalysis[fieldId][@"tokenMode"];
         NSString* inputDataField = inputData[fieldId];
-        if (![tokenMode isEqualToString:TM_FULL_TERM]) {
+        if (![tokenMode isEqualToString:TM_FULL_TERMS]) {
             terms = [self parsePhrase:inputDataField isCaseSensitive:isCaseSensitive];
         } else {
             terms = [NSMutableArray array];

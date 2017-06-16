@@ -317,8 +317,8 @@
                                               uuid:LRId];
         id lr =
         [BMLLocalPredictions localLRPredictionWithJSONLRSync:LR
-                                                 arguments:inputData
-                                                   options:options];
+                                                   arguments:inputData
+                                                     options:options];
         NSLog(@"LR: %@", [lr description]);
         return lr;
     }

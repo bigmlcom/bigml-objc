@@ -13,4 +13,10 @@
 
 - (instancetype)initWithLogisticRegression:(NSDictionary*)logisticRegression;
 
+- (NSDictionary*)predictWithData:(NSDictionary*)input options:(NSDictionary*)options;
+
++ (NSDictionary*)predictWithJSONLogisticRegression:(NSDictionary*)logisticRegression
+                                              args:(NSDictionary*)inputData
+                                           options:(NSDictionary*)options;
+
 @end

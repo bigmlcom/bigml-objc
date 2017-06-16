@@ -280,7 +280,6 @@
         id value = inputData[fieldId];
         NSDictionary* field = fields[fieldId];
         NSString* opType = field[@"optype"];
-        
         if ([opType isEqualToString:@"numeric"] && [value isKindOfClass:[NSString class]]) {
             value = [self stripAffixesFromValue:value field:field];
         }

@@ -43,11 +43,9 @@
                                        arguments:(NSDictionary*)args
                                          options:(NSDictionary*)options {
     
-    return (id)[[LogisticRegression alloc] initWithLogisticRegression:jsonLR];
-//    return [LogisticRegression predictWithJSONModels:models
-//                                                args:args
-//                                             options:options
-//                                       distributions:distributions];
+    return [LogisticRegression predictWithJSONLogisticRegression:jsonLR
+                                                args:args
+                                             options:options];
 }
 
 + (NSDictionary*)localCentroidsWithJSONClusterSync:(NSDictionary*)jsonCluster

@@ -13,6 +13,7 @@
 // under the License.
 
 #import "Predicates.h"
+#import "BMLEnums.h"
 
 NSString* plural(NSString* string, int multiplicity) {
     
