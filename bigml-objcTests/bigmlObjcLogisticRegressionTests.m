@@ -65,8 +65,6 @@
     
     self.apiLibrary.csvFileName = @"iris.csv";
     NSString* lrId = [self.apiLibrary createAndWaitLRFromDatasetId:self.apiLibrary.datasetId];
-    
-    
     NSDictionary* prediction = [self.apiLibrary
                                 localLRPredictionForLRId:lrId
                                 data:@{ @"sepal length": @(6.02),
@@ -76,16 +74,6 @@
                                 options:@{ @"byName" : @YES }];
 
     /*
-    double score2 = [self.apiLibrary localAnomalyScoreForAnomalyId:anomalyId
-                                                      data:@{ @"sepal width": @4.1,
-                                                              @"petal length": @0.96,
-                                                              @"petal width": @2.52,
-                                                              @"species": @"Iris-setosa"}
-                                                   options:@{ @"byName": @YES }];
-
-    [self.apiLibrary deleteAnomalyWithIdSync:anomalyId];
-
-    XCTAssert([self.apiLibrary compareFloat:score1 float:0.6383]);
     XCTAssert([self.apiLibrary compareFloat:score2 float:0.7755]);
      */
 }

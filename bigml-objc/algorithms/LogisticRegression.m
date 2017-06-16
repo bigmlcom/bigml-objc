@@ -24,7 +24,6 @@
 
 @property (nonatomic, strong) NSMutableDictionary* categories;
 @property (nonatomic, strong) NSMutableDictionary* coefficients;
-@property (nonatomic, strong) NSDictionary* scales;
 @property (nonatomic, strong) NSDictionary* dataset_field_types;
 
 @property (nonatomic, strong) NSString* c;
@@ -80,6 +79,16 @@ NSArray* distributionFromArray(NSArray* tuples) {
         self.expansionAttributes = @{ @"categorical" : @"categories",
                                       @"text" : @"tag_cloud",
                                        @"items" : @"items" };
+        
+        self.categories = [NSMutableDictionary dictionary];
+        self.tagClouds = [NSMutableDictionary dictionary];
+        self.termForms = [NSMutableDictionary dictionary];
+        self.termAnalysis = [NSMutableDictionary dictionary];
+        self.items = [NSMutableDictionary dictionary];
+        self.itemAnalysis = [NSMutableDictionary dictionary];
+        self.coefficients = [NSMutableDictionary dictionary];
+
+
         self.missingCoefficients = true;
         self.dataset_field_types = logisticRegression[@"dataset_field_types"];
         self.coefficients = logisticRegressionInfo[@"coefficients"];
@@ -98,11 +107,13 @@ NSArray* distributionFromArray(NSArray* tuples) {
                 self.tagClouds[fieldId] = getFirstFromTupleArray(field[@"summary"][@"tag_cloud"]);
                 self.termAnalysis[fieldId] = field[@"term_analysis"];
                 
-            } else if ([field[@"optype"] isEqualToString:@"items"]) {
+            }
+            if ([field[@"optype"] isEqualToString:@"items"]) {
                 
                 self.items[fieldId] = getFirstFromTupleArray(field[@"summary"][@"items"]);
                 self.itemAnalysis[fieldId] = field[@"item_analysis"];
-            } else if ([field[@"optype"] isEqualToString:@"categorical"]) {
+            }
+            if ([field[@"optype"] isEqualToString:@"categorical"]) {
                 self.categories[fieldId] =  getFirstFromTupleArray(field[@"summary"][@"categories"]);
             }
         }
@@ -132,7 +143,7 @@ NSArray* distributionFromArray(NSArray* tuples) {
     }
     
     inputData = [BMLUtils cast:[self filteredInputData:inputData
-                                                byName:[options[@"byName"] boolValue]]
+                                                byName:NO]
                         fields:self.fields];
 
     NSDictionary* uniqueTerms = [self uniqueTerms:inputData];
