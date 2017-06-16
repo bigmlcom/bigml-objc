@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSDictionary* fields;
 @property (nonatomic, readonly) NSDictionary* fieldIdByName;
 @property (nonatomic, readonly) NSDictionary* fieldNameById;
+@property (nonatomic, strong) NSString* objectiveFieldId;
 
 - (instancetype)initWithFields:(NSDictionary*)fields;
 

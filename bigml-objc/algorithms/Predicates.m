@@ -54,12 +54,6 @@ NSString* plural(NSString* string, int multiplicity) {
 
 @end
 
-
-#define TM_TOKENS @"tokens_only"
-#define TM_FULL_TERMS @"full_terms_only"
-#define TM_ALL @"all"
-#define FULL_TERM_PATTERN @"^.+\\b.+$"
-
 @implementation Predicate {
 
     NSString* _op;

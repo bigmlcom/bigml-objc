@@ -15,6 +15,11 @@
 #ifndef BMLEnums_h
 #define BMLEnums_h
 
+#define TM_TOKENS @"tokens_only"
+#define TM_FULL_TERMS @"full_terms_only"
+#define TM_ALL @"all"
+#define FULL_TERM_PATTERN @"^.+\\b.+$"
+
 /**
  * Combination methods used in ensemble classifications/regressions:
  *

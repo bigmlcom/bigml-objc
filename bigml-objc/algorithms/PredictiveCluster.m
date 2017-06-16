@@ -15,9 +15,6 @@
 #import "PredictiveCluster.h"
 #import "PredictionCentroid.h"
 
-#define TM_TOKENS @"tokens_only"
-#define TM_FULL_TERM @"full_terms_only"
-
 @interface PredictiveCluster ()
 
 @property (nonatomic, strong) NSDictionary* fields;

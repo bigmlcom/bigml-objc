@@ -23,7 +23,6 @@
 
 @interface FieldResource ()
 
-@property (nonatomic, strong) NSString* objectiveFieldId;
 @property (nonatomic, strong) NSString* objectiveFieldName;
 @property (nonatomic, strong) NSMutableArray* fieldNames;
 @property (nonatomic, strong) NSMutableArray* fieldIds;

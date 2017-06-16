@@ -7,15 +7,24 @@
 //
 
 #import "LogisticRegression.h"
+#import "BMLUtils.h"
+#import "BMLEnums.h"
 
 @interface LogisticRegression ()
+
+@property (nonatomic, strong) NSArray* optionalFields;
+@property (nonatomic, strong) NSDictionary* expansionAttributes;
 
 @property (nonatomic, strong) NSDictionary* fields;
 @property (nonatomic, strong) NSMutableDictionary* termForms;
 @property (nonatomic, strong) NSMutableDictionary* tagClouds;
 @property (nonatomic, strong) NSMutableDictionary* termAnalysis;
+@property (nonatomic, strong) NSMutableDictionary* items;
+@property (nonatomic, strong) NSMutableDictionary* itemAnalysis;
+
+
 @property (nonatomic, strong) NSMutableDictionary* categories;
-@property (nonatomic, strong) NSMutableArray* coefficients;
+@property (nonatomic, strong) NSMutableDictionary* coefficients;
 @property (nonatomic, strong) NSDictionary* scales;
 @property (nonatomic, strong) NSDictionary* dataset_field_types;
 
@@ -23,6 +32,7 @@
 @property (nonatomic, strong) NSString* eps;
 @property (nonatomic, strong) NSString* lrNormalize;
 @property (nonatomic, strong) NSString* regularization;
+@property (nonatomic) BOOL missingCoefficients;
 @property (nonatomic) NSInteger bias;
 
 @end
@@ -32,6 +42,15 @@ NSArray* getFirstFromTupleArray(NSArray* tuples) {
     NSMutableArray* result = [NSMutableArray array];
     for (NSArray* tuple in tuples) {
         [result addObject:tuple.firstObject];
+    }
+    return result;
+}
+
+NSArray* distributionFromArray(NSArray* tuples) {
+    
+    NSMutableArray* result = [NSMutableArray array];
+    for (NSArray* tuple in tuples) {
+        [result addObject:@{ @"category": tuple.firstObject, @"probability" : tuple.lastObject }];
     }
     return result;
 }
@@ -58,6 +77,11 @@ NSArray* getFirstFromTupleArray(NSArray* tuples) {
                               locale:nil
                        missingTokens:nil]) {
         
+        self.optionalFields = @[@"categorical", @"text", @"items"];
+        self.expansionAttributes = @{ @"categorical" : @"categories",
+                                      @"text" : @"tag_cloud",
+                                       @"items" : @"items" };
+        self.missingCoefficients = true;
         self.dataset_field_types = logisticRegression[@"dataset_field_types"];
         self.coefficients = logisticRegressionInfo[@"coefficients"];
         self.bias = [logisticRegressionInfo[@"bias"] boolValue];
@@ -72,18 +96,182 @@ NSArray* getFirstFromTupleArray(NSArray* tuples) {
                 
                 self.termForms[fieldId] = @{};
                 self.termForms[fieldId] = field[@"summary"][@"term_forms"];
-                
-                //-- TODO: iterate ovet the tag_cloud and get its first elements
                 self.tagClouds[fieldId] = getFirstFromTupleArray(field[@"summary"][@"tag_cloud"]);
                 self.termAnalysis[fieldId] = field[@"term_analysis"];
                 
+            } else if ([field[@"optype"] isEqualToString:@"items"]) {
+                
+                self.items[fieldId] = getFirstFromTupleArray(field[@"summary"][@"items"]);
+                self.itemAnalysis[fieldId] = field[@"item_analysis"];
             } else if ([field[@"optype"] isEqualToString:@"categorical"]) {
-                //-- TODO: iterate ovet the tag_cloud and get its first elements
                 self.categories[fieldId] =  getFirstFromTupleArray(field[@"summary"][@"categories"]);
             }
         }
+        [self mapCoefficients];
     }
     return self;
+}
+
+- (NSDictionary*)predict:(NSDictionary*)input options:(NSDictionary*)options {
+    
+    NSDictionary* inputData = [self filteredInputData:input byName:[options[@"byName"] boolValue]];
+    for (id fieldId in [self.fields allKeys]) {
+        NSDictionary* field = self.fields[fieldId];
+        if ([self.optionalFields indexOfObject:field[@"optype"]] == NSNotFound &&
+            [inputData.allKeys indexOfObject:fieldId] == NSNotFound) {
+            NSAssert(NO, @"All input fields should be provided to calculate a centroid");
+        }
+    }
+    
+    inputData = [BMLUtils cast:[self filteredInputData:inputData
+                                                byName:[options[@"byName"] boolValue]]
+                        fields:self.fields];
+
+    NSDictionary* uniqueTerms = [self uniqueTerms:inputData];
+    NSMutableDictionary* probabilities = [NSMutableDictionary dictionary];
+    NSInteger total = 0;
+    for (id category in self.categories[self.objectiveFieldId]) {
+        
+        NSArray* coefficients = self.coefficients[category];
+        probabilities[category] = [self categoryProbability:inputData
+                                                uniqueTerms:uniqueTerms
+                                               coefficients:coefficients];
+        total += [probabilities[category] intValue];
+    }
+    for (NSString* category in probabilities.allKeys) {
+        probabilities[category] = @([probabilities[category] intValue] / total);
+    }
+    NSArray* predictions = [probabilities.allValues
+                            sortedArrayUsingComparator:^NSComparisonResult(NSArray* a, NSArray* b) {
+                                return [b.firstObject compare:a.firstObject];
+                            }];
+
+    return @{ @"prediction" : [predictions.firstObject firstObject],
+              @"probability" : [predictions.firstObject lastObject],
+              @"distribution" : distributionFromArray(predictions)};
+}
+
+- (double)categoryProbability:(NSDictionary*)inputData
+                  uniqueTerms:(NSDictionary*)uniqueTerms
+                 coefficients:(NSArray*)coefficients {
+    
+    double probability = 0.0;
+    for (NSString* fieldId in inputData.allKeys) {
+        NSNumber* shift = self.fields[fieldId][@"coefficients_shift"];
+        probability += [coefficients[shift.intValue] doubleValue] * [inputData[fieldId] doubleValue];
+    }
+    for (NSString* fieldId in uniqueTerms) {
+        NSInteger ocurrences = [uniqueTerms[fieldId] intValue];
+        NSNumber* shift = self.fields[fieldId][@"coefficients_shift"];
+        NSInteger index = 0;
+        for (NSString* term in [uniqueTerms[fieldId] allKeys]) {
+            if ([self.tagClouds.allKeys containsObject:fieldId]) {
+                index = [self.tagClouds[fieldId] indexOfObject:term];
+            } else if ([self.items.allKeys containsObject:fieldId]) {
+                index = [self.items[fieldId] indexOfObject:term];
+            } else if ([self.categories.allKeys containsObject:fieldId]) {
+                index = [[self.categories[fieldId] allKeys] containsObject:term];
+            }
+            probability += [coefficients[shift.intValue] doubleValue] * ocurrences;
+        }
+    }
+    if (self.missingCoefficients) {
+        for (NSString* fieldId in self.tagClouds.allKeys) {
+            if (![uniqueTerms.allKeys containsObject:fieldId] ||
+                !uniqueTerms[fieldId]) {
+                NSNumber* shift = self.fields[fieldId][@"coefficients_shift"];
+                probability += [coefficients[shift.intValue + [self.tagClouds[fieldId] count]] doubleValue];
+            }
+        }
+        for (NSString* fieldId in self.items.allKeys) {
+            if (![uniqueTerms.allKeys containsObject:fieldId] ||
+                !uniqueTerms[fieldId]) {
+                NSNumber* shift = self.fields[fieldId][@"coefficients_shift"];
+                probability += [coefficients[shift.intValue + [self.items[fieldId] count]] doubleValue];
+            }
+        }
+        for (NSString* fieldId in self.categories.allKeys) {
+            if (self.objectiveFieldId != fieldId && ![uniqueTerms.allKeys containsObject:fieldId]) {
+                NSNumber* shift = self.fields[fieldId][@"coefficients_shift"];
+                probability += [coefficients[shift.intValue + [self.categories[fieldId] count]] doubleValue];
+            }
+        }
+    }
+    probability += [coefficients.lastObject doubleValue];
+    probability = 1 / (1 + exp(-probability));
+    return probability;
+}
+
+- (NSDictionary*)uniqueTerms:(NSDictionary*)inputData {
+    
+    NSMutableDictionary* uniqueTerms = [NSMutableDictionary dictionary];
+    for (NSString* fieldId in self.termForms.allKeys) {
+        if ([inputData.allKeys containsObject:fieldId]) {
+            id inputDataField = inputData[fieldId] ?: @"";
+            if ([inputDataField isKindOfClass:[NSString class]]) {
+                BOOL caseSensitive = [self.termAnalysis[fieldId][@"case_sensitive"] boolValue];
+                NSString* tokenMode = self.termAnalysis[fieldId][@"token_mode"] ?: @"all";
+                NSMutableArray* terms = [NSMutableArray array];
+                if (![tokenMode isEqualToString:TM_FULL_TERMS]) {
+                    terms = [self parseTerms:inputDataField caseSensitive:caseSensitive];
+                }
+                if (![tokenMode isEqualToString:TM_TOKENS]) {
+                    [terms addObject:caseSensitive ? inputDataField :
+                     [inputDataField lowercaseString]];
+                }
+                uniqueTerms[fieldId] = [self uniqueTermsIn:terms
+                                                 termForms:self.termForms[fieldId]
+                                                 tagClound:self.tagClouds[fieldId]];
+            } else {
+                uniqueTerms[fieldId] = @[@[inputDataField, @1]];
+            }
+            //-- REMOVING FIELD_ID ITEM FROM INPUT_DATA???
+        }
+    }
+    for (NSString* fieldId in self.itemAnalysis.allKeys) {
+        if ([inputData.allKeys containsObject:fieldId]) {
+            id inputDataField = inputData[fieldId] ?: @"";
+            if ([inputDataField isKindOfClass:[NSString class]]) {
+                NSString* separator = self.itemAnalysis[fieldId][@"separator"] ?: @" ";
+                NSString* regexp = self.itemAnalysis[fieldId][@"separator_regexp"] ?: separator;
+                NSArray* terms = [self parseItems:inputDataField regexp:regexp];
+                uniqueTerms[fieldId] = [self uniqueTermsIn:terms
+                                                 termForms:@{}
+                                                 tagClound:self.items[fieldId] ?: @{}];
+            } else {
+                uniqueTerms[fieldId] = @[@[inputDataField, @1]];
+            }
+            //-- REMOVING FIELD_ID ITEM FROM INPUT_DATA???
+        }
+    }
+    for (NSString* fieldId in self.itemAnalysis.allKeys) {
+        if ([inputData.allKeys containsObject:fieldId]) {
+            id inputDataField = inputData[fieldId] ?: @"";
+            uniqueTerms[fieldId] = @[@[inputDataField, @1]];
+            //-- REMOVING FIELD_ID ITEM FROM INPUT_DATA???
+        }
+    }
+    return uniqueTerms;
+}
+
+- (void)mapCoefficients {
+    
+    //-- TODO: Compare with logistic.py, which uses sorting
+    NSMutableArray* fieldIds = [NSMutableArray array];
+    NSInteger shift = 0;
+    NSInteger length = 0;
+    for (NSString* fieldId in fieldIds) {
+        NSString* optype = self.fields[fieldId][@"optype"];
+        if ([self.expansionAttributes.allKeys containsObject:optype]) {
+            length = [self.fields[fieldId][@"summary"][self.expansionAttributes[optype]] count];
+            if (self.missingCoefficients)
+                length++;
+        } else {
+            length = 1;
+        }
+        self.fields[fieldId][@"coefficient_shift"] = @(shift);
+        shift += length;
+    }
 }
 
 - (NSArray*)parseTerms:(NSString*)text caseSensitive:(BOOL)caseSensitive {
@@ -109,14 +297,15 @@ NSArray* getFirstFromTupleArray(NSArray* tuples) {
                     matchText = [matchText lowercaseString];
                 }
                 [matches addObject:matchText];
-//                NSRange group1 = [match rangeAtIndex:1];
-//                NSRange group2 = [match rangeAtIndex:2];
-//                [text substringWithRange:group1]);
-//                NSLog(@"group2: %@", [searchedString substringWithRange:group2]);
             }
         }
     }
     return matches;
+}
+
+- (NSArray*)parseItems:(NSString*)text regexp:(NSString*)regexp {
+
+    return text ? [text componentsSeparatedByString:regexp] : @[];
 }
 
 - (NSMutableDictionary*)uniqueTermsIn:(NSArray*)terms
