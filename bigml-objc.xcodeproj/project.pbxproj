@@ -98,6 +98,8 @@
 		49B6D7C91EF299DA00CCA9CF /* LogisticRegression.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B6D7C71EF299DA00CCA9CF /* LogisticRegression.h */; };
 		49B6D7CA1EF299DA00CCA9CF /* LogisticRegression.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7C81EF299DA00CCA9CF /* LogisticRegression.m */; };
 		49B6D7D41EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */; };
+		49B6D7DB1EF4262100CCA9CF /* TopicModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B6D7D91EF4262100CCA9CF /* TopicModel.h */; };
+		49B6D7DC1EF4262100CCA9CF /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7DA1EF4262100CCA9CF /* TopicModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +203,8 @@
 		49B6D7C71EF299DA00CCA9CF /* LogisticRegression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogisticRegression.h; path = algorithms/LogisticRegression.h; sourceTree = "<group>"; };
 		49B6D7C81EF299DA00CCA9CF /* LogisticRegression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogisticRegression.m; path = algorithms/LogisticRegression.m; sourceTree = "<group>"; };
 		49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAnomalyScoreTests.m; sourceTree = "<group>"; };
+		49B6D7D91EF4262100CCA9CF /* TopicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopicModel.h; path = algorithms/TopicModel.h; sourceTree = "<group>"; };
+		49B6D7DA1EF4262100CCA9CF /* TopicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopicModel.m; path = algorithms/TopicModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +313,8 @@
 				491701361C66457700D5D389 /* PredictiveEnsemble.m */,
 				491701371C66457700D5D389 /* PredictiveModel.h */,
 				491701381C66457700D5D389 /* PredictiveModel.m */,
+				49B6D7D91EF4262100CCA9CF /* TopicModel.h */,
+				49B6D7DA1EF4262100CCA9CF /* TopicModel.m */,
 				491701391C66457700D5D389 /* TreePrediction.h */,
 				4917013A1C66457700D5D389 /* TreePrediction.m */,
 			);
@@ -404,6 +410,7 @@
 				491701491C66457700D5D389 /* PredictiveCluster.h in Headers */,
 				491701471C66457700D5D389 /* PredictionTree.h in Headers */,
 				4917014F1C66457700D5D389 /* TreePrediction.h in Headers */,
+				49B6D7DB1EF4262100CCA9CF /* TopicModel.h in Headers */,
 				497C69531C5137C900FCB6F5 /* BMLAPIConnector.h in Headers */,
 				491701431C66457700D5D389 /* Predicates.h in Headers */,
 				491701411C66457700D5D389 /* MultiVote.h in Headers */,
@@ -578,6 +585,7 @@
 				497C69541C5137C900FCB6F5 /* BMLAPIConnector.m in Sources */,
 				497C693A1C4FA98A00FCB6F5 /* BMLResourceTypeIdentifier.m in Sources */,
 				491701401C66457700D5D389 /* MultiModel.m in Sources */,
+				49B6D7DC1EF4262100CCA9CF /* TopicModel.m in Sources */,
 				4917013C1C66457700D5D389 /* Anomaly.m in Sources */,
 				491701461C66457700D5D389 /* PredictionCentroid.m in Sources */,
 				491701441C66457700D5D389 /* Predicates.m in Sources */,
