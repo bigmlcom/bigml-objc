@@ -9,6 +9,9 @@
 #import "TopicModel.h"
 
 #define MAXIMUM_TERM_LENGTH 30
+#define MIN_UPDATES 16
+#define MAX_UPDATES 512
+#define SAMPLES_PER_TOPIC 128
 
 @interface TopicModel ()
 
@@ -126,6 +129,7 @@
         [result addObject:@{ @"name" : self.topics[i][@"name"],
                              @"probability" : probability }];
     }
+    return result;
 }
 
 - (NSString*)stem:(NSString*)term {
@@ -207,15 +211,100 @@
             }
         }
     }
+    [self appendBigram:outTerms before:termBefore last:lastTerm];
+    return outTerms;
+}
+
+- (NSArray*)sampleUniform:(NSArray*)document
+                 updates:(NSInteger)updates
+                     rng:(double)rng {
+    
+    NSMutableArray* counts = [NSMutableArray array];
+    for (int i = 0 ; i < self.ntopics; ++i) {
+        counts[i] = @0;
+    }
+    for (int i = 0 ; i < updates; ++i) {
+        for (NSString* term in document) {
+            for (int k = 0; k < self.ntopics; ++k) {
+                self.temp[k] = self.phi[k][term];
+            }
+            for (int k = 0 ; k < self.ntopics; ++k) {
+                self.temp[k] = @([self.temp[k] doubleValue] + [self.temp[k-1] doubleValue]);
+            }
+            double randomValue = rng * [self.temp.lastObject doubleValue];
+            NSInteger topic = 0;
+            while ([self.temp[topic] doubleValue] < randomValue && topic < self.ntopics) {
+                ++topic;
+            }
+            counts[topic] = @([counts[topic] intValue] + 1);
+        }
+    }
+    return counts;
 }
 
 - (NSArray*)sampleTopics:(NSArray*)document
              assignments:(NSArray*)assignments
-              normalizer:(id)normalizer
-                 updates:(id)updates
-                     rng:(id)rng {
+              normalizer:(NSInteger)normalizer
+                 updates:(NSInteger)updates
+                     rng:(double)rng {
     
+    NSMutableArray* counts = [NSMutableArray array];
+    for (int i = 0 ; i < self.ntopics; ++i) {
+        counts[i] = @0;
+    }
+    for (int i = 0 ; i < updates; ++i) {
+        for (NSString* term in document) {
+            for (int k = 0 ; k < self.ntopics; ++k) {
+                NSInteger topicTerm = self.phi[k][term];
+                double topicDocument = ([assignments[k] doubleValue] + self.alpha) / normalizer;
+                self.temp[k] = @(topicTerm * topicDocument);
+            }
+            for (int k = 0 ; k < self.ntopics; ++k) {
+                self.temp[k] = @([self.temp[k] doubleValue] + [self.temp[k-1] doubleValue]);
+            }
+            double randomValue = rng * [self.temp.lastObject doubleValue];
+            NSInteger topic = 0;
+            while ([self.temp[topic] doubleValue] < randomValue && topic < self.ntopics) {
+                ++topic;
+            }
+            counts[topic] = @([counts[topic] intValue] + 1);
+        }
+    }
+    return counts;
+}
+
+- (NSArray*)infer:(NSArray*)indices {
     
+    //-- TODO: doc should be sorted!!
+    NSArray* doc = indices;
+    NSInteger updates = 0;
+    
+    if ([doc count] > 0) {
+        updates = SAMPLES_PER_TOPIC * self.ntopics / [doc count];
+        updates = MIN(MAX_UPDATES, MAX(MIN_UPDATES, updates));
+    }
+    
+    srand(self.seed);
+    double rng = rand();
+    NSInteger normalizer = ([doc count] * updates) * self.ktimesalpha;
+    
+    NSArray* uniformCounts = [self sampleUniform:doc updates:updates rng:rng];
+    NSArray* burnCounts = [self sampleTopics:doc
+                                 assignments:uniformCounts
+                                  normalizer:normalizer
+                                     updates:updates
+                                         rng:rng];
+    NSArray* sampleCounts = [self sampleTopics:doc
+                                 assignments:burnCounts
+                                  normalizer:normalizer
+                                     updates:updates
+                                         rng:rng];
+    
+    NSMutableArray* result = [NSMutableArray array];
+    for (int i = 0 ; i < self.ntopics; ++i) {
+        [result addObject:@(([sampleCounts[i] intValue] + self.alpha) / normalizer)];
+    }
+    return result;
 }
 
 @end
