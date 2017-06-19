@@ -18,6 +18,7 @@
 #import "PredictiveEnsemble.h"
 #import "Anomaly.h"
 #import "LogisticRegression.h"
+#import "TopicModel.h"
 
 @implementation BMLLocalPredictions
 
@@ -64,6 +65,15 @@
     return [[[Anomaly alloc] initWithJSONAnomaly:jsonAnomaly]
             score:args
             options:options];
+}
+
++ (NSArray*)localTMPredictionWithJSONTMSync:(NSDictionary*)jsonTM
+                                  inputData:(NSString*)inputData
+                                    options:(NSDictionary*)options {
+    
+    return [TopicModel predictWithJSONTopicModel:jsonTM
+                                       inputData:inputData
+                                         options:options];
 }
 
 @end

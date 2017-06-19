@@ -100,6 +100,8 @@
 		49B6D7D41EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */; };
 		49B6D7DB1EF4262100CCA9CF /* TopicModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B6D7D91EF4262100CCA9CF /* TopicModel.h */; };
 		49B6D7DC1EF4262100CCA9CF /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7DA1EF4262100CCA9CF /* TopicModel.m */; };
+		49B6D7DE1EF7D07900CCA9CF /* bigmlObjcTopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7DD1EF7D07900CCA9CF /* bigmlObjcTopicModel.m */; };
+		49B6D7E01EF7D3EA00CCA9CF /* novel.txt in Resources */ = {isa = PBXBuildFile; fileRef = 49B6D7DF1EF7D3EA00CCA9CF /* novel.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +207,8 @@
 		49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcAnomalyScoreTests.m; sourceTree = "<group>"; };
 		49B6D7D91EF4262100CCA9CF /* TopicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopicModel.h; path = algorithms/TopicModel.h; sourceTree = "<group>"; };
 		49B6D7DA1EF4262100CCA9CF /* TopicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopicModel.m; path = algorithms/TopicModel.m; sourceTree = "<group>"; };
+		49B6D7DD1EF7D07900CCA9CF /* bigmlObjcTopicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTopicModel.m; sourceTree = "<group>"; };
+		49B6D7DF1EF7D3EA00CCA9CF /* novel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = novel.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +281,7 @@
 				497C6AF71C56482A00FCB6F5 /* bigmlObjcBaseTests.h */,
 				4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */,
 				497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */,
+				49B6D7DD1EF7D07900CCA9CF /* bigmlObjcTopicModel.m */,
 				49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */,
 				4903E0A91CAAC61900F6499D /* bigmlObjcLogisticRegressionTests.m */,
 				4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */,
@@ -325,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				4917015C1C689B5300D5D389 /* baseball.ensemble */,
+				49B6D7DF1EF7D3EA00CCA9CF /* novel.txt */,
 				4917015D1C689B5300D5D389 /* diab.csv */,
 				4917015E1C689B5300D5D389 /* iris.csv */,
 				4917015F1C689B5300D5D389 /* iris.ensemble */,
@@ -532,6 +538,7 @@
 				491701731C689B5300D5D389 /* spam-text.cluster in Resources */,
 				491701711C689B5300D5D389 /* pythonTests.py in Resources */,
 				4917016D1C689B5300D5D389 /* iris.csv in Resources */,
+				49B6D7E01EF7D3EA00CCA9CF /* novel.txt in Resources */,
 				491701751C689B5300D5D389 /* spam.model in Resources */,
 				4917016E1C689B5300D5D389 /* iris.ensemble in Resources */,
 				491701791C689B5400D5D389 /* wines.csv in Resources */,
@@ -612,6 +619,7 @@
 				49B6D7D41EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m in Sources */,
 				4903E0B01CAAC63400F6499D /* bigmlObjcClusterPredictionTests.m in Sources */,
 				497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */,
+				49B6D7DE1EF7D07900CCA9CF /* bigmlObjcTopicModel.m in Sources */,
 				4903E0BE1CAACA1D00F6499D /* bigmlObjcTestCredentials.m in Sources */,
 				4903E0BB1CAAC73700F6499D /* bigmlObjcTester.m in Sources */,
 				4910F6181BFDD7750087E85A /* bigmlObjcBaseTests.m in Sources */,

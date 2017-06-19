@@ -140,6 +140,7 @@
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     return result;
 }
+
 - (BMLResourceUuid*)createAndWaitResourceOfType:(BMLResourceTypeIdentifier*)targetType
                                            from:(BMLResourceUuid*)originId
                                            type:(BMLResourceTypeIdentifier*)originType {
@@ -202,6 +203,13 @@
 - (BMLResourceUuid*)createAndWaitLRFromDatasetId:(BMLResourceUuid*)dataSetId {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeLogisticRegression
+                                        from:dataSetId
+                                        type:BMLResourceTypeDataset];
+}
+
+- (BMLResourceUuid*)createAndWaitTopicModelFromDatasetId:(BMLResourceUuid*)dataSetId {
+
+    return [self createAndWaitResourceOfType:BMLResourceTypeTopicModel
                                         from:dataSetId
                                         type:BMLResourceTypeDataset];
 }
@@ -308,8 +316,8 @@
 }
 
 - (NSDictionary*)localLRPredictionForLRId:(BMLResourceUuid*)LRId
-                                   data:(NSDictionary*)inputData
-                                options:(NSDictionary*)options {
+                                     data:(NSDictionary*)inputData
+                                  options:(NSDictionary*)options {
     
     if ([LRId length] > 0) {
         
@@ -325,6 +333,23 @@
     return @{};
 }
 
+- (NSDictionary*)localTMPredictionForTMId:(BMLResourceUuid*)TMId
+                                     data:(NSString*)inputData
+                                  options:(NSDictionary*)options {
+    
+    if ([TMId length] > 0) {
+        
+        NSDictionary* TM = [self getResourceOfType:BMLResourceTypeTopicModel
+                                              uuid:TMId];
+        id tm =
+        [BMLLocalPredictions localTMPredictionWithJSONTMSync:TM
+                                                   inputData:inputData
+                                                     options:options];
+        NSLog(@"TM: %@", [tm description]);
+        return tm;
+    }
+    return @{};
+}
 
 #pragma mark - Prediction Result Check Helpers
 

@@ -11,4 +11,8 @@
 
 @interface TopicModel : FieldResource
 
++ (NSArray*)predictWithJSONTopicModel:(NSDictionary*)topicModel
+                            inputData:(NSString*)inputData
+                              options:(NSDictionary*)options;
+
 @end

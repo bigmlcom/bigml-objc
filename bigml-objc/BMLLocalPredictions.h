@@ -77,10 +77,10 @@
                                 options:(NSDictionary*)options;
 
 /**
- * Computes local LR prediction using the anomaly and args passed as parameters
- * @param jsonAnomaly The anomaly to use to calculate the score
- * @param args The arguments to create the score
- * @param options A dictionary of options that will affect the scoring.
+ * Computes local LR prediction using the LR and args passed as parameters
+ * @param jsonLR The LR to use to calculate the prediction
+ * @param args The arguments to create the prediction
+ * @param options A dictionary of options that will affect the prediction.
  This is a list of allowed options:
  - byName: set to YES when specifying arguments by their names
  (vs. field IDs)
@@ -90,5 +90,18 @@
                                        arguments:(NSDictionary*)args
                                          options:(NSDictionary*)options;
 
+/**
+ * Computes local Topic Model prediction using the TM and args passed as parameters
+ * @param jsonTM The TM to use to calculate the prediction
+ * @param args The arguments to create the prediction
+ * @param options A dictionary of options that will affect the prediction.
+ This is a list of allowed options:
+ - byName: set to YES when specifying arguments by their names
+ (vs. field IDs)
+ * @return The prediction
+ */
++ (NSArray*)localTMPredictionWithJSONTMSync:(NSDictionary*)jsonTM
+                                  inputData:(NSString*)inputData
+                                    options:(NSDictionary*)options;
 
 @end

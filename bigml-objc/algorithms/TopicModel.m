@@ -35,6 +35,14 @@
 
 @implementation TopicModel
 
++ (NSArray*)predictWithJSONTopicModel:(NSDictionary*)topicModel
+                                 inputData:(NSString*)inputData
+                                   options:(NSDictionary*)options {
+    
+    return [[[self alloc] initWithTopicModel:topicModel]
+            distributionForText:inputData];
+}
+
 - (instancetype)initWithTopicModel:(NSDictionary*)topicModel {
 
     self.CodeName= @{ @"da" : @"danish",
