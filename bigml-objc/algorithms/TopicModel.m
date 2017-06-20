@@ -263,7 +263,7 @@
     for (int i = 0 ; i < updates; ++i) {
         for (NSString* term in document) {
             for (int k = 0 ; k < self.ntopics; ++k) {
-                NSInteger topicTerm = self.phi[k][term];
+                NSInteger topicTerm = [self.phi[k][term] intValue];
                 double topicDocument = ([assignments[k] doubleValue] + self.alpha) / normalizer;
                 self.temp[k] = @(topicTerm * topicDocument);
             }
@@ -292,7 +292,7 @@
         updates = MIN(MAX_UPDATES, MAX(MIN_UPDATES, updates));
     }
     
-    srand(self.seed);
+    srand((unsigned int)self.seed);
     double rng = rand();
     NSInteger normalizer = ([doc count] * updates) * self.ktimesalpha;
     
