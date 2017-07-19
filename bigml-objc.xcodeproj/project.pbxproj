@@ -104,6 +104,8 @@
 		49B6D7E01EF7D3EA00CCA9CF /* novel.txt in Resources */ = {isa = PBXBuildFile; fileRef = 49B6D7DF1EF7D3EA00CCA9CF /* novel.txt */; };
 		49DAA6321F1F8B11007854F7 /* monthly-milk.csv in Resources */ = {isa = PBXBuildFile; fileRef = 49DAA6311F1F8B11007854F7 /* monthly-milk.csv */; };
 		49DAA6341F1F8C40007854F7 /* bigmlObjcTimeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DAA6331F1F8C40007854F7 /* bigmlObjcTimeSeries.m */; };
+		49DAA6371F1F8EAC007854F7 /* TimeSeries.h in Headers */ = {isa = PBXBuildFile; fileRef = 49DAA6351F1F8EAC007854F7 /* TimeSeries.h */; };
+		49DAA6381F1F8EAC007854F7 /* TimeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DAA6361F1F8EAC007854F7 /* TimeSeries.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +215,8 @@
 		49B6D7DF1EF7D3EA00CCA9CF /* novel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = novel.txt; sourceTree = "<group>"; };
 		49DAA6311F1F8B11007854F7 /* monthly-milk.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "monthly-milk.csv"; sourceTree = "<group>"; };
 		49DAA6331F1F8C40007854F7 /* bigmlObjcTimeSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTimeSeries.m; sourceTree = "<group>"; };
+		49DAA6351F1F8EAC007854F7 /* TimeSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeSeries.h; sourceTree = "<group>"; };
+		49DAA6361F1F8EAC007854F7 /* TimeSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeSeries.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +331,8 @@
 				49B6D7DA1EF4262100CCA9CF /* TopicModel.m */,
 				491701391C66457700D5D389 /* TreePrediction.h */,
 				4917013A1C66457700D5D389 /* TreePrediction.m */,
+				49DAA6351F1F8EAC007854F7 /* TimeSeries.h */,
+				49DAA6361F1F8EAC007854F7 /* TimeSeries.m */,
 			);
 			name = Algorithms;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 				491701491C66457700D5D389 /* PredictiveCluster.h in Headers */,
 				491701471C66457700D5D389 /* PredictionTree.h in Headers */,
 				4917014F1C66457700D5D389 /* TreePrediction.h in Headers */,
+				49DAA6371F1F8EAC007854F7 /* TimeSeries.h in Headers */,
 				49B6D7DB1EF4262100CCA9CF /* TopicModel.h in Headers */,
 				497C69531C5137C900FCB6F5 /* BMLAPIConnector.h in Headers */,
 				491701431C66457700D5D389 /* Predicates.h in Headers */,
@@ -602,6 +609,7 @@
 				49B6D7DC1EF4262100CCA9CF /* TopicModel.m in Sources */,
 				4917013C1C66457700D5D389 /* Anomaly.m in Sources */,
 				491701461C66457700D5D389 /* PredictionCentroid.m in Sources */,
+				49DAA6381F1F8EAC007854F7 /* TimeSeries.m in Sources */,
 				491701441C66457700D5D389 /* Predicates.m in Sources */,
 				4903E0A81CAAC15F00F6499D /* BMLLocalPredictions.m in Sources */,
 				4917014C1C66457700D5D389 /* PredictiveEnsemble.m in Sources */,
