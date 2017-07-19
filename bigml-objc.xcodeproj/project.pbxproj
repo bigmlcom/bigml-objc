@@ -102,6 +102,8 @@
 		49B6D7DC1EF4262100CCA9CF /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7DA1EF4262100CCA9CF /* TopicModel.m */; };
 		49B6D7DE1EF7D07900CCA9CF /* bigmlObjcTopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B6D7DD1EF7D07900CCA9CF /* bigmlObjcTopicModel.m */; };
 		49B6D7E01EF7D3EA00CCA9CF /* novel.txt in Resources */ = {isa = PBXBuildFile; fileRef = 49B6D7DF1EF7D3EA00CCA9CF /* novel.txt */; };
+		49DAA6321F1F8B11007854F7 /* monthly-milk.csv in Resources */ = {isa = PBXBuildFile; fileRef = 49DAA6311F1F8B11007854F7 /* monthly-milk.csv */; };
+		49DAA6341F1F8C40007854F7 /* bigmlObjcTimeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DAA6331F1F8C40007854F7 /* bigmlObjcTimeSeries.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,6 +211,8 @@
 		49B6D7DA1EF4262100CCA9CF /* TopicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopicModel.m; path = algorithms/TopicModel.m; sourceTree = "<group>"; };
 		49B6D7DD1EF7D07900CCA9CF /* bigmlObjcTopicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTopicModel.m; sourceTree = "<group>"; };
 		49B6D7DF1EF7D3EA00CCA9CF /* novel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = novel.txt; sourceTree = "<group>"; };
+		49DAA6311F1F8B11007854F7 /* monthly-milk.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "monthly-milk.csv"; sourceTree = "<group>"; };
+		49DAA6331F1F8C40007854F7 /* bigmlObjcTimeSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bigmlObjcTimeSeries.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +286,7 @@
 				4910F6171BFDD7750087E85A /* bigmlObjcBaseTests.m */,
 				497C6AF81C564B6B00FCB6F5 /* bigmlObjcAPITests.m */,
 				49B6D7DD1EF7D07900CCA9CF /* bigmlObjcTopicModel.m */,
+				49DAA6331F1F8C40007854F7 /* bigmlObjcTimeSeries.m */,
 				49B6D7D31EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m */,
 				4903E0A91CAAC61900F6499D /* bigmlObjcLogisticRegressionTests.m */,
 				4903E0AA1CAAC61900F6499D /* bigmlObjcClusterPredictionTests.m */,
@@ -331,6 +336,7 @@
 			children = (
 				4917015C1C689B5300D5D389 /* baseball.ensemble */,
 				49B6D7DF1EF7D3EA00CCA9CF /* novel.txt */,
+				49DAA6311F1F8B11007854F7 /* monthly-milk.csv */,
 				4917015D1C689B5300D5D389 /* diab.csv */,
 				4917015E1C689B5300D5D389 /* iris.csv */,
 				4917015F1C689B5300D5D389 /* iris.ensemble */,
@@ -546,6 +552,7 @@
 				497C69651C522D1400FCB6F5 /* credentials.plist in Resources */,
 				491701721C689B5300D5D389 /* salaries.csv in Resources */,
 				4917016F1C689B5300D5D389 /* iris.model in Resources */,
+				49DAA6321F1F8B11007854F7 /* monthly-milk.csv in Resources */,
 				4917016C1C689B5300D5D389 /* diab.csv in Resources */,
 				491701781C689B5400D5D389 /* testCluster.json in Resources */,
 			);
@@ -619,6 +626,7 @@
 				49B6D7D41EF2C77500CCA9CF /* bigmlObjcAnomalyScoreTests.m in Sources */,
 				4903E0B01CAAC63400F6499D /* bigmlObjcClusterPredictionTests.m in Sources */,
 				497C6AF91C564B6B00FCB6F5 /* bigmlObjcAPITests.m in Sources */,
+				49DAA6341F1F8C40007854F7 /* bigmlObjcTimeSeries.m in Sources */,
 				49B6D7DE1EF7D07900CCA9CF /* bigmlObjcTopicModel.m in Sources */,
 				4903E0BE1CAACA1D00F6499D /* bigmlObjcTestCredentials.m in Sources */,
 				4903E0BB1CAAC73700F6499D /* bigmlObjcTester.m in Sources */,

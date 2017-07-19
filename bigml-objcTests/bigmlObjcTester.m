@@ -208,8 +208,15 @@
 }
 
 - (BMLResourceUuid*)createAndWaitTopicModelFromDatasetId:(BMLResourceUuid*)dataSetId {
-
+    
     return [self createAndWaitResourceOfType:BMLResourceTypeTopicModel
+                                        from:dataSetId
+                                        type:BMLResourceTypeDataset];
+}
+
+- (BMLResourceUuid*)createAndWaitTimeSeriesFromDatasetId:(BMLResourceUuid*)dataSetId {
+    
+    return [self createAndWaitResourceOfType:BMLResourceTypeTimeSeries
                                         from:dataSetId
                                         type:BMLResourceTypeDataset];
 }

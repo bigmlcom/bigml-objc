@@ -28,6 +28,7 @@
 - (BMLResourceUuid*)createAndWaitAnomalyFromDatasetId:(BMLResourceUuid*)dataSetId;
 - (BMLResourceUuid*)createAndWaitLRFromDatasetId:(BMLResourceUuid*)dataSetId;
 - (BMLResourceUuid*)createAndWaitTopicModelFromDatasetId:(BMLResourceUuid*)dataSetId;
+- (BMLResourceUuid*)createAndWaitTimeSeriesFromDatasetId:(BMLResourceUuid*)dataSetId;
 
 //- (BMLResourceUuid*)createAndWaitPredictionFromId:(BMLResourceUuid*)modelId
 //                                     resourceType:(BMLResourceUuid*)resourceTyp
