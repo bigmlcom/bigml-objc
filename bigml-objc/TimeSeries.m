@@ -10,7 +10,88 @@
 
 NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
 
+@interface TimeSeries ()
+
+@property (nonatomic) BOOL allNumericObjectives;
+@property (nonatomic) NSInteger period;
+@property (nonatomic) NSMutableDictionary* submodels;
+@property (nonatomic) NSInteger dampedTrend;
+@property (nonatomic) NSInteger seasonality;
+@property (nonatomic) NSInteger trend;
+@property (nonatomic) NSDictionary* timeRange;
+@property (nonatomic) NSDictionary* fieldParameters;
+
+@property (nonatomic) NSDictionary* timeSeriesInfo;
+@property (nonatomic) NSMutableArray* inputFields;
+@property (nonatomic) NSString* objectiveField;
+@property (nonatomic) NSArray* objectiveFields;
+
+@end
+
+
 @implementation TimeSeries
+
+/**
+ * Auxiliary function to load the resource info in the Model structure.
+ *
+ * @param {object} error Error info
+ * @param {object} resource TimeSeries's resource info
+ */
+- (void)fillStructure:(NSDictionary*)resource error:(NSError*)error {
+
+    NSAssert(error == nil, @"Cannot create local TimeSeries.");
+    NSAssert([resource[@"resource"] isKindOfClass:[NSString class]],
+             @"TimeSeries: wrong resource id.");
+    NSAssert([resource[@"status"][@"code"] intValue] == 5,
+             @"TimeSeries: Resource not ready");
+    NSAssert(resource[@"objective_fields"], @"TimeSeries: objective fields not found.");
+    NSAssert(resource[@"time_series"], @"TimeSeries: time series not found.");
+    
+    NSMutableArray* fieldIds = [NSMutableArray new];
+    if (resource[@"input_fields"]) {
+        self.inputFields = resource[@"input_fields"]; //-- mutableCopy?
+    }
+    if (resource[@"objective_fields"]) {
+        self.objectiveFields = resource[@"objective_fields"];
+        self.objectiveField = resource[@"objective_field"];
+    }
+    if (resource[@"time_series"]) {
+        self.timeSeriesInfo = resource[@"time_series"];
+        if (self.timeSeriesInfo[@"fields"]) {
+            self.fields = self.timeSeriesInfo[@"fields"];
+            if (!self.inputFields) {
+                self.inputFields = [NSMutableArray new];
+                for (NSString* fieldId in self.fields) {
+                    if (self.objectiveFieldId != fieldId) {
+                        [fieldIds addObject:@[fieldId,
+                                              self.fields[fieldId][@"column_number"]]];
+                    }
+                }
+                fieldIds = [fieldIds
+                            sortedArrayUsingComparator:^NSComparisonResult(NSArray* a, NSArray* b) {
+                                a = a[1];
+                                b = b[1];
+                                return a < b ? -1 :(a > b ? 1 : 0);
+                            }];
+                for (NSString* fieldId in fieldIds) {
+                    [self.inputFields addObject:fieldId];
+                }
+            }
+            for (NSString* field in self.fields) {
+                
+            }
+        }
+    }
+}
+
+- (instancetype)initWithJSONTimeSeries:(NSDictionary*)timeseries {
+    
+    if ([super initWithFields:fields]) {
+        
+        self.period = 1;
+    }
+    return self;
+}
 
 /**
  * Computes the forecasts for each of the models in the submodels
@@ -129,9 +210,9 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
         }
         return submodels;
     };
-    
     return filter(fieldSubmodels, criterion, limit);
 }
+
 
 
 @end

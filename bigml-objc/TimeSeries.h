@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FieldResource.h"
 
-@interface TimeSeries : NSObject
+@interface TimeSeries : FieldResource
 
 + (NSArray*)forecastWithJSONTimeSeries:(NSDictionary*)topicModel
                              inputData:(NSString*)inputData
