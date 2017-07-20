@@ -21,6 +21,10 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
 @property (nonatomic) NSDictionary* timeRange;
 @property (nonatomic) NSDictionary* fieldParameters;
 
+@property (nonatomic) NSString* locale;
+@property (nonatomic) NSString* description;
+
+@property (nonatomic) NSDictionary* error;
 @property (nonatomic) NSDictionary* timeSeriesInfo;
 @property (nonatomic) NSMutableArray* inputFields;
 @property (nonatomic) NSString* objectiveField;
@@ -37,9 +41,8 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
  * @param {object} error Error info
  * @param {object} resource TimeSeries's resource info
  */
-- (void)fillStructure:(NSDictionary*)resource error:(NSError*)error {
+- (void)fillStructure:(NSDictionary*)resource {
 
-    NSAssert(error == nil, @"Cannot create local TimeSeries.");
     NSAssert([resource[@"resource"] isKindOfClass:[NSString class]],
              @"TimeSeries: wrong resource id.");
     NSAssert([resource[@"status"][@"code"] intValue] == 5,
@@ -77,21 +80,46 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
                     [self.inputFields addObject:fieldId];
                 }
             }
-            for (NSString* field in self.fields) {
-                
+            for (NSString* field in self.fields.allKeys) {
+                NSDictionary* fieldInfo = self.timeSeriesInfo[@"fields"][field];
+                self.fields[field][@"summary"] = fieldInfo[@"summary"];
+                self.fields[field][@"name"] = fieldInfo[@"name"];
             }
+        } else {
+            self.fields = self.timeSeriesInfo[@"fields"];
         }
+        //    self.invertedFields = utils.invertObject(fields);
+        self.allNumericObjectives = self.timeSeriesInfo[@"all_numeric_objectives"];
+        self.submodels = self.timeSeriesInfo[@"submodles"] ?: @{};
+        self.period = [(self.timeSeriesInfo[@"period"] ?: @1) intValue];
+        self.error = self.timeSeriesInfo[@"error"];
+        self.dampedTrend = self.timeSeriesInfo[@"damped_trend"];
+        self.seasonality = self.timeSeriesInfo[@"seasonality"];
+        self.trend = self.timeSeriesInfo[@"trend"];
+        self.timeRange = self.timeSeriesInfo[@"time_range"];
+        self.fieldParameters = self.timeSeriesInfo[@"field_parameters"];
+        self.description = resource[@"description"];
+        self.locale = resource[@"locale"] ?: @"";
     }
 }
 
 - (instancetype)initWithJSONTimeSeries:(NSDictionary*)timeseries {
     
-    if ([super initWithFields:fields]) {
+    if ([super initWithFields:@{}]) {
         
         self.period = 1;
+        [self fillStructure:timeseries];
     }
     return self;
 }
+
+- (NSArray*)forecastWith:(NSString*)inputData
+         addUnusedFields:(BOOL)addUnusedFields
+              completion:(void(^)(void))completion {
+    
+    
+}
+
 
 /**
  * Computes the forecasts for each of the models in the submodels
