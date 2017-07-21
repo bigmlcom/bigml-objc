@@ -28,7 +28,6 @@
 @property (nonatomic, strong) NSMutableArray* fieldIds;
 
 @property (nonatomic, strong) NSArray* missingTokens;
-@property (nonatomic, strong) NSDictionary* invertedFields;
 @property (nonatomic, strong) NSString* locale;
 
 @end

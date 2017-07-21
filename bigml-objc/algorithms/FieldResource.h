@@ -17,6 +17,8 @@
 @interface FieldResource : NSObject
 
 @property (nonatomic, strong) NSDictionary* fields;
+@property (nonatomic, strong) NSDictionary* invertedFields;
+
 @property (nonatomic, readonly) NSDictionary* fieldIdByName;
 @property (nonatomic, readonly) NSDictionary* fieldNameById;
 @property (nonatomic, strong) NSString* objectiveFieldId;

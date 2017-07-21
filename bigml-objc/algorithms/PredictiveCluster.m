@@ -25,7 +25,6 @@
 @property (nonatomic, strong) NSMutableArray* centroids;
 @property (nonatomic, strong) NSDictionary* scales;
 
-//@property (nonatomic, strong) NSDictionary* invertedFields;
 @property (nonatomic, strong) NSString* clusterDescription;
 @property (nonatomic, strong) NSString* locale;
 @property (nonatomic) BOOL ready;

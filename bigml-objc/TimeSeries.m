@@ -8,7 +8,61 @@
 
 #import "TimeSeries.h"
 
-NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
+#define REQUIRED_INPUT @"horizon"
+
+typedef NSArray*(*SubmodelFunc)(NSDictionary*, NSInteger, BOOL);
+
+NSString* gSubmodelKeys[] = {@"indices", @"names", @"criterion", @"limit"};
+
+NSDictionary* gDefaultSubmodel() {
+    
+    static NSDictionary* _gDefaultSubmodel = nil;
+    if (!_gDefaultSubmodel) {
+        _gDefaultSubmodel = @{@"criterion": @"aic", @"limit": @1};
+    }
+    return _gDefaultSubmodel;
+}
+
+/**
+ * Computing the forecast for the trivial models
+ *
+ * @param {object} available submodels
+ * @param {integer} number of points to compute
+ */
+NSArray* trivialForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasonality) {
+    
+    NSMutableArray* points = [NSMutableArray new];
+    NSArray* submodelPoints = submodel[@"value"];
+    NSInteger period = submodelPoints.count;
+    if (period > 1) {
+        for (NSInteger h = 0; h < horizon; ++h) {
+            [points addObject:submodel[@"value"][h % period]];
+        }
+    } else {
+        for (NSInteger h = 0; h < horizon; ++h) {
+            [points addObject:submodel[@"value"][0]];
+        }
+    }
+    return points;
+}
+
+
+NSDictionary* gSubmodels() {
+    
+    static NSDictionary* _submodels = nil;
+    if (!_submodels) {
+        _submodels = @{ @"naive" : [NSValue valueWithPointer:trivialForecast],
+                        @"mean" : [NSValue valueWithPointer:trivialForecast],
+                        @"drift" : [NSValue valueWithPointer:trivialForecast],
+                        @"N" : [NSValue valueWithPointer:trivialForecast],
+                        @"A" : [NSValue valueWithPointer:trivialForecast],
+                        @"Ad" : [NSValue valueWithPointer:trivialForecast],
+                        @"M" : [NSValue valueWithPointer:trivialForecast],
+                        @"Md" : [NSValue valueWithPointer:trivialForecast]};
+    }
+    return _submodels;
+}
+
 
 @interface TimeSeries ()
 
@@ -21,8 +75,9 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
 @property (nonatomic) NSDictionary* timeRange;
 @property (nonatomic) NSDictionary* fieldParameters;
 
+@property (nonatomic) NSDictionary* etsModels;
+
 @property (nonatomic) NSString* locale;
-@property (nonatomic) NSString* description;
 
 @property (nonatomic) NSDictionary* forecast;
 
@@ -36,6 +91,29 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
 
 
 @implementation TimeSeries
+
++ (NSDictionary*)forecastWithJSONTimeSeries:(NSDictionary*)timeSeries
+                                  inputData:(NSDictionary*)inputData
+                                    options:(NSDictionary*)options {
+    
+    TimeSeries* ts = [[TimeSeries alloc] initWithJSONTimeSeries:timeSeries];
+    return [ts forecastWith:inputData
+            addUnusedFields:NO
+                 completion:^NSDictionary *(NSDictionary *error, NSDictionary *data) {
+                     NSLog(@"TimeSeries Forecast Completed");
+                     return data;
+                 }];
+}
+
++ (double)seasonContribution:(NSArray*)submodel horizon:(NSInteger)horizon {
+    
+    if (submodel) {
+        NSInteger m = submodel.count;
+        NSInteger i = labs(1 - m + horizon % m);
+        return [submodel[i] doubleValue];
+    }
+    return 0;
+}
 
 /**
  * Auxiliary function to load the resource info in the Model structure.
@@ -78,6 +156,7 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
                                 b = b[1];
                                 return a < b ? -1 :(a > b ? 1 : 0);
                             }];
+                NSLog(@"FIELD IDS: %@", fieldIds);
                 for (NSString* fieldId in fieldIds) {
                     [self.inputFields addObject:fieldId];
                 }
@@ -91,16 +170,16 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
             self.fields = self.timeSeriesInfo[@"fields"];
         }
         //    self.invertedFields = utils.invertObject(fields);
-        self.allNumericObjectives = self.timeSeriesInfo[@"all_numeric_objectives"];
-        self.submodels = self.timeSeriesInfo[@"submodles"] ?: @{};
+        self.allNumericObjectives = [self.timeSeriesInfo[@"all_numeric_objectives"] boolValue];
+//        self.submodels = self.timeSeriesInfo[@"submodles"] ?: @{};
+        self.etsModels = self.timeSeriesInfo[@"ets_models"] ?: @{};
         self.period = [(self.timeSeriesInfo[@"period"] ?: @1) intValue];
         self.error = self.timeSeriesInfo[@"error"];
-        self.dampedTrend = self.timeSeriesInfo[@"damped_trend"];
-        self.seasonality = self.timeSeriesInfo[@"seasonality"];
-        self.trend = self.timeSeriesInfo[@"trend"];
+        self.dampedTrend = [self.timeSeriesInfo[@"damped_trend"] intValue];
+        self.seasonality = [self.timeSeriesInfo[@"seasonality"] boolValue];
+        self.trend = [self.timeSeriesInfo[@"trend"] intValue];
         self.timeRange = self.timeSeriesInfo[@"time_range"];
         self.fieldParameters = self.timeSeriesInfo[@"field_parameters"];
-        self.description = resource[@"description"];
         self.locale = resource[@"locale"] ?: @"";
     }
 }
@@ -121,15 +200,15 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
  * The input fields must be keyed by field name or field id.
  * @param {NSDictionary} inputData Input data to predict
  * @param {BOOL} inputData Input data to predict
- * @param {function} cb Callback
+ * @param {function} completion Callback
  */
 - (NSDictionary*)forecastWith:(NSDictionary*)inputData
          addUnusedFields:(BOOL)addUnusedFields
               completion:(NSDictionary*(^)(NSDictionary* error, NSDictionary* data))completion {
     
-    NSMutableDictionary* newInputData = [NSMutableDictionary new];
-    NSArray* (^localForecast)(NSDictionary* error, NSDictionary* data) =
-    ^NSArray*(NSDictionary* error, NSDictionary* data) {
+//    NSMutableDictionary* newInputData = [NSMutableDictionary new];
+    NSDictionary* (^localForecast)(NSDictionary* error, NSDictionary* data) =
+    ^NSDictionary*(NSDictionary* error, NSDictionary* data) {
         /**
          * Creates a local forecast using the model's tree info.
          *
@@ -149,19 +228,21 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
         return completion(nil, forecast);
     };
     
-    if (completion) {
+    if (!completion) {
         [self filterObjectives:inputData
                addUnusedFields:addUnusedFields
                     completion:localForecast];
     } else {
         NSDictionary* validatedInput = [self filterObjectives:inputData
-                                              addUnusedFields:addUnusedFields];
-        NSDictionary* forecast = [self tsForecast:validatedInput];
+                                              addUnusedFields:addUnusedFields
+                                                   completion: completion];
+        NSMutableDictionary* forecast = [self tsForecast:validatedInput];
         if (addUnusedFields) {
             forecast[@"unusedFields"] = validatedInput[@"unusedFields"];
         }
         return forecast;
     }
+    return nil;
 }
 
 /**
@@ -170,7 +251,7 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
  * The input fields must be keyed by field name or field id.
  * @param {object} inputData Input data to predict
  */
-- (NSDictionary*)tsForecast:(NSDictionary*)inputData {
+- (NSMutableDictionary*)tsForecast:(NSDictionary*)inputData {
     
     NSMutableDictionary* filteredSubmodels = [NSMutableDictionary new];
     NSMutableDictionary* forecasts = [NSMutableDictionary new];
@@ -185,8 +266,66 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
                 [forecasts[fieldId] addObject:localForecast];
             }
         }
+        return forecasts;
+    }
+    for (NSString* fieldId in inputData.allKeys) {
+        id fieldInput = inputData[fieldId];
+        NSDictionary* filterInfo = fieldInput[@"ets_models"] ?: gDefaultSubmodel();
+        filteredSubmodels[fieldId] = [self filteredSubmodels:self.etsModels[fieldId]
+                                                      filter:filterInfo];
+    }
+    for (NSString* fieldId in filteredSubmodels.allKeys) {
+        forecasts[fieldId] = [self forecasts:filteredSubmodels[fieldId]
+                                     horizon:[inputData[fieldId][@"horizon"] intValue]];
     }
     return forecasts;
+}
+
+/**
+ * Filters the keys given in input_data checking against the
+ * objective fields in the time-series model fields.
+ * If `add_unused_fields` is set to True, it also
+ * provides information about the ones that are not used.
+ * @param {object} inputData Input data to predict
+ * @param {boolean} addUnusedFields Causes the validation to return the
+ *                                  list of fields in inputData that are
+ *                                  not used
+ * @param {function} cb Callback
+ */
+- (NSDictionary*)filterObjectives:(NSDictionary*)inputData
+                  addUnusedFields:(BOOL)addUnusedFields
+                       completion:(NSDictionary*(^)(NSDictionary* error, NSDictionary* data))completion {
+
+
+    NSMutableDictionary* newInputData = [NSMutableDictionary new];
+    NSMutableArray* unusedFields = [NSMutableArray new];
+    for (NSString* fieldId in inputData.allKeys) {
+        NSDictionary* value = inputData[fieldId];
+/*        NSAssert(value[REQUIRED_INPUT] != nil,
+                 @"Each field in input data must contain at least a %@ attribute.",
+                 REQUIRED_INPUT);
+  ADD HERE CHECK FOR keys in submodel filter
+ */
+        if (!self.fields[fieldId] &&
+            !self.invertedFields[fieldId]) {
+            if (inputData[fieldId])
+                [unusedFields addObject:fieldId];
+        } else {
+            NSString* inputDataKey;
+            if (self.fields[fieldId]) {
+                inputDataKey = fieldId;
+            } else {
+                inputDataKey = self.invertedFields[fieldId];
+            }
+            newInputData[inputDataKey] = inputData[fieldId];
+        }
+    }
+    if (completion) {
+        return completion(nil, @{ @"inputData" : newInputData,
+                                  @"unusedFields" : unusedFields });
+    }
+    return @{ @"inputData" : newInputData,
+              @"unusedFields" : unusedFields };
 }
 
 /**
@@ -206,11 +345,14 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
         if ([name containsString:@","]) {
             NSArray* labels = [name componentsSeparatedByString:@"'"];
             NSError* error = labels[0];
+            NSAssert(!error, @"UNHANDLED ERROR");
             NSString* trend = labels[1];
             seasonality = labels[2];
-            pointForecast =  SUBMODELS[trend](submodel, horizon, seasonality);
+            SubmodelFunc f = (SubmodelFunc)[gSubmodels()[trend] pointerValue];
+            pointForecast = f(submodel, horizon, [seasonality boolValue]);
         } else {
-            pointForecast =  SUBMODELS[name](submodel, horizon);
+            SubmodelFunc f = (SubmodelFunc)[gSubmodels()[name] pointerValue];
+            pointForecast =  f(submodel, horizon, NO);
         }
         [forecasts addObject:@{ @"submodel" : name,
                                 @"pointForecast" : pointForecast }];

@@ -11,8 +11,8 @@
 
 @interface TimeSeries : FieldResource
 
-+ (NSArray*)forecastWithJSONTimeSeries:(NSDictionary*)timeSeries
-                             inputData:(NSString*)inputData
-                               options:(NSDictionary*)options;
++ (NSDictionary*)forecastWithJSONTimeSeries:(NSDictionary*)timeSeries
+                                  inputData:(NSDictionary*)inputData
+                                    options:(NSDictionary*)options;
 
 @end
