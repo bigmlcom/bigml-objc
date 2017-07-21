@@ -24,6 +24,8 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
 @property (nonatomic) NSString* locale;
 @property (nonatomic) NSString* description;
 
+@property (nonatomic) NSDictionary* forecast;
+
 @property (nonatomic) NSDictionary* error;
 @property (nonatomic) NSDictionary* timeSeriesInfo;
 @property (nonatomic) NSMutableArray* inputFields;
@@ -113,13 +115,79 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
     return self;
 }
 
-- (NSArray*)forecastWith:(NSString*)inputData
+/**
+ * Makes a forecast for a horizon based on the selected submodels
+ *
+ * The input fields must be keyed by field name or field id.
+ * @param {NSDictionary} inputData Input data to predict
+ * @param {BOOL} inputData Input data to predict
+ * @param {function} cb Callback
+ */
+- (NSDictionary*)forecastWith:(NSDictionary*)inputData
          addUnusedFields:(BOOL)addUnusedFields
-              completion:(void(^)(void))completion {
+              completion:(NSDictionary*(^)(NSDictionary* error, NSDictionary* data))completion {
     
+    NSMutableDictionary* newInputData = [NSMutableDictionary new];
+    NSArray* (^localForecast)(NSDictionary* error, NSDictionary* data) =
+    ^NSArray*(NSDictionary* error, NSDictionary* data) {
+        /**
+         * Creates a local forecast using the model's tree info.
+         *
+         * @param {object} error Error message
+         * @param {object} data Input data to predict from. If the addUnusedFields
+         *                      flag is set, it also includes the fields in
+         *                      inputData that were not used in the model
+         */
+        
+        if (error) {
+            return completion(error, nil);
+        }
+        NSMutableDictionary* forecast = [self tsForecast:data[@"inputData"]];
+        if (addUnusedFields) {
+            forecast[@"unusedFields"] = data[@"unusedFields"];
+        }
+        return completion(nil, forecast);
+    };
     
+    if (completion) {
+        [self filterObjectives:inputData
+               addUnusedFields:addUnusedFields
+                    completion:localForecast];
+    } else {
+        NSDictionary* validatedInput = [self filterObjectives:inputData
+                                              addUnusedFields:addUnusedFields];
+        NSDictionary* forecast = [self tsForecast:validatedInput];
+        if (addUnusedFields) {
+            forecast[@"unusedFields"] = validatedInput[@"unusedFields"];
+        }
+        return forecast;
+    }
 }
 
+/**
+ * Computes the forecast based on the models in the time-series
+ *
+ * The input fields must be keyed by field name or field id.
+ * @param {object} inputData Input data to predict
+ */
+- (NSDictionary*)tsForecast:(NSDictionary*)inputData {
+    
+    NSMutableDictionary* filteredSubmodels = [NSMutableDictionary new];
+    NSMutableDictionary* forecasts = [NSMutableDictionary new];
+    
+    if (inputData.allKeys.count == 0) {
+        for (NSString* fieldId in self.forecast.allKeys) {
+            forecasts[fieldId] = [NSMutableArray new];
+            for (NSDictionary* forecast in self.forecast[fieldId]) {
+                NSMutableDictionary* localForecast = [NSMutableDictionary new];
+                localForecast[@"pointForecast"] = forecast[@"point_forecast"];
+                localForecast[@"model"] = forecast[@"model"];
+                [forecasts[fieldId] addObject:localForecast];
+            }
+        }
+    }
+    return forecasts;
+}
 
 /**
  * Computes the forecasts for each of the models in the submodels
@@ -217,7 +285,7 @@ NSString* gSubmodelKeys[] = [@"indices", @"names", @"criterion", @"limit"];
     }
     
     NSArray* (^filter)(NSArray* submodels, id criterion, id limit) =
-    NSArray* ^(NSArray* submodels, id criterion, id limit) {
+    ^NSArray*(NSArray* submodels, id criterion, id limit) {
         
         if (criterion) {
             NSInteger c = [criterion intValue];
