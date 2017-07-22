@@ -236,7 +236,7 @@ NSDictionary* gSubmodels() {
         NSDictionary* validatedInput = [self filterObjectives:inputData
                                               addUnusedFields:addUnusedFields
                                                    completion: completion];
-        NSMutableDictionary* forecast = [self tsForecast:validatedInput];
+        NSMutableDictionary* forecast = [self tsForecast:validatedInput[@"inputData"]];
         if (addUnusedFields) {
             forecast[@"unusedFields"] = validatedInput[@"unusedFields"];
         }
