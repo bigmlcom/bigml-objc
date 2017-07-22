@@ -19,6 +19,7 @@
 #import "Anomaly.h"
 #import "LogisticRegression.h"
 #import "TopicModel.h"
+#import "TimeSeries.h"
 
 @implementation BMLLocalPredictions
 
@@ -75,5 +76,15 @@
                                        inputData:inputData
                                          options:options];
 }
+
++ (NSDictionary*)localForecastWithJSONTimeSeriesSync:(NSDictionary*)jsonTS
+                                           inputData:(NSDictionary*)inputData
+                                             options:(NSDictionary*)options {
+    
+    return [TimeSeries forecastWithJSONTimeSeries:jsonTS
+                                       inputData:inputData
+                                         options:options];
+}
+
 
 @end

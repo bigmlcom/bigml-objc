@@ -63,6 +63,10 @@
                                      data:(NSString*)inputData
                                   options:(NSDictionary*)options;
 
+- (NSDictionary*)localForecastForTimeSeriesId:(BMLResourceUuid*)TSId
+                                         data:(NSDictionary*)inputData
+                                      options:(NSDictionary*)options;
+
 - (BOOL)deleteSourceWithIdSync:(NSString*)sourceId;
 - (BOOL)deleteDatasetWithIdSync:(NSString*)datasetId;
 - (BOOL)deleteModelWithIdSync:(NSString*)modelId;

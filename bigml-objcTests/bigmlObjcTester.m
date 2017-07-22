@@ -358,6 +358,24 @@
     return @{};
 }
 
+- (NSDictionary*)localForecastForTimeSeriesId:(BMLResourceUuid*)TSId
+                                         data:(NSDictionary*)inputData
+                                      options:(NSDictionary*)options {
+    
+    if ([TSId length] > 0) {
+        
+        NSDictionary* TS = [self getResourceOfType:BMLResourceTypeTimeSeries
+                                              uuid:TSId];
+        id ts =
+        [BMLLocalPredictions localForecastWithJSONTimeSeriesSync:TS
+                                                   inputData:inputData
+                                                     options:options];
+        NSLog(@"TS: %@", [ts description]);
+        return ts;
+    }
+    return @{};
+}
+
 #pragma mark - Prediction Result Check Helpers
 
 - (BOOL)compareFloat:(double)f1 float:(float)f2 {

@@ -104,4 +104,18 @@
                                   inputData:(NSString*)inputData
                                     options:(NSDictionary*)options;
 
+/**
+ * Computes local forecast using the TimeSeries and args passed as parameters
+ * @param jsonTM The TimeSeries to use to calculate the forecast
+ * @param args The arguments to create the prediction
+ * @param options A dictionary of options that will affect the prediction.
+ This is a list of allowed options:
+ - byName: set to YES when specifying arguments by their names
+ (vs. field IDs)
+ * @return The prediction
+ */
++ (NSDictionary*)localForecastWithJSONTimeSeriesSync:(NSDictionary*)jsonTS
+                                           inputData:(NSDictionary*)inputData
+                                             options:(NSDictionary*)options;
+
 @end

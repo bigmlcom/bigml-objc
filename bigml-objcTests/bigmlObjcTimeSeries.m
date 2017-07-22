@@ -23,6 +23,15 @@
     self.apiLibrary.csvFileName = @"monthly-milk.csv";
     NSString* tsId = [self.apiLibrary createAndWaitTimeSeriesFromDatasetId:self.apiLibrary.datasetId];
     XCTAssert(tsId);
+    
+    NSDictionary* d = [self.apiLibrary
+                    localForecastForTimeSeriesId:tsId
+                    data:@{ @"sepal length": @(6.02),
+                                 @"sepal width": @(3.15),
+                                 @"petal width": @(1.51),
+                                 @"petal length": @(4.07) }
+                    options:@{ @"byName": @YES }];
+    NSLog(@"FORECAST: %@", d);
 }
 
 @end
