@@ -20,8 +20,13 @@ NSString* pathForResource(NSString* name) {
 @implementation bigmlObjcTestCredentials
 
 + (NSDictionary*)credentials {
-    return [[NSDictionary alloc]
+    NSDictionary* creds = [[NSDictionary alloc]
             initWithContentsOfFile:pathForResource(@"credentials.plist")];
+    
+    NSAssert(![creds[@"apiKey"] isEqualToString:@"your-api-key"] &&
+             ![creds[@"username"] isEqualToString:@"your-username"],
+             @"You shouldp provide your access credentials in credentials.plist");
+    return creds;
 }
 
 + (NSString*)username {
