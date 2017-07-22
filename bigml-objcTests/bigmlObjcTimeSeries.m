@@ -26,11 +26,17 @@
     
     NSDictionary* d = [self.apiLibrary
                     localForecastForTimeSeriesId:tsId
-                    data:@{ @"sepal length": @(6.02),
-                                 @"sepal width": @(3.15),
-                                 @"petal width": @(1.51),
-                                 @"petal length": @(4.07) }
-                    options:@{ @"byName": @YES }];
+                       data:@{ @"000001":@{
+                                       @"horizon":@30,
+                                       @"ets_models":@{
+                                               @"indices":@[@0,@1,@2],
+                                               @"names": @[@"A,A,N"],
+                                               @"criterion": @"bic",
+                                               @"limit":@2
+                                               }
+                                       }
+                               }
+                    options:@{ @"byName": @NO }];
     NSLog(@"FORECAST: %@", d);
 }
 

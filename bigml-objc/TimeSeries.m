@@ -301,13 +301,14 @@ NSDictionary* gSubmodels() {
     NSMutableArray* unusedFields = [NSMutableArray new];
     for (NSString* fieldId in inputData.allKeys) {
         NSDictionary* value = inputData[fieldId];
-/*        NSAssert(value[REQUIRED_INPUT] != nil,
+        NSAssert(value[REQUIRED_INPUT] != nil,
                  @"Each field in input data must contain at least a %@ attribute.",
                  REQUIRED_INPUT);
-  ADD HERE CHECK FOR keys in submodel filter
+/*
+ ADD HERE CHECK FOR keys in submodel filter
  */
-        if (!self.fields[fieldId] &&
-            !self.invertedFields[fieldId]) {
+        if (!self.fields[fieldId] /*&&
+            !self.invertedFields[fieldId] */) {
             if (inputData[fieldId])
                 [unusedFields addObject:fieldId];
         } else {
