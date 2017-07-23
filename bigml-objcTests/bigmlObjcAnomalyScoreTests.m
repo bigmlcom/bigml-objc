@@ -44,7 +44,8 @@
 - (void)testWinesAnomalyScore {
     
     self.apiLibrary.csvFileName = @"wines.csv";
-    NSString* anomalyId = [self.apiLibrary createAndWaitAnomalyFromDatasetId:self.apiLibrary.datasetId];
+    NSString* anomalyId = [self.apiLibrary createAndWaitAnomalyFromDatasetId:self.apiLibrary.datasetId
+                                                                     options:nil];
 
     double score = [self.apiLibrary localAnomalyScoreForAnomalyId:anomalyId
                                                              data:@{ @"Price": @5.8,
@@ -63,7 +64,8 @@
 - (void)testIrisAnomalyScore {
     
     self.apiLibrary.csvFileName = @"iris.csv";
-    NSString* anomalyId = [self.apiLibrary createAndWaitAnomalyFromDatasetId:self.apiLibrary.datasetId];
+    NSString* anomalyId = [self.apiLibrary createAndWaitAnomalyFromDatasetId:self.apiLibrary.datasetId
+                                                                     options:nil];
     
     double score1 = [self.apiLibrary localAnomalyScoreForAnomalyId:anomalyId
                                                              data:@{ @"sepal width": @4.1,

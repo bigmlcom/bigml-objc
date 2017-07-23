@@ -25,7 +25,8 @@
 
 - (void)testLocalClusterPredictionByName {
     
-    NSString* clusterId = [self.apiLibrary createAndWaitClusterFromDatasetId:self.apiLibrary.datasetId];
+    NSString* clusterId = [self.apiLibrary createAndWaitClusterFromDatasetId:self.apiLibrary.datasetId
+                                                                     options:nil];
     NSDictionary* prediction = [self.apiLibrary localPredictionForClusterId:clusterId
                                                             data:@{@"sepal length": @2,
                                                                    @"sepal width": @1,
@@ -39,7 +40,8 @@
 
 - (void)testLocalClusterPrediction {
     
-    NSString* clusterId = [self.apiLibrary createAndWaitClusterFromDatasetId:self.apiLibrary.datasetId];
+    NSString* clusterId = [self.apiLibrary createAndWaitClusterFromDatasetId:self.apiLibrary.datasetId
+                                                                     options:nil];
     NSDictionary* prediction = [self.apiLibrary localPredictionForClusterId:clusterId
                                                             data:@{@"000000": @2,
                                                                    @"000001": @1,

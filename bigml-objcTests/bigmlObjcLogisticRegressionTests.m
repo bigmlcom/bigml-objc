@@ -21,7 +21,8 @@
 - (void)testIrisLR {
     
     self.apiLibrary.csvFileName = @"iris.csv";
-    NSString* lrId = [self.apiLibrary createAndWaitLRFromDatasetId:self.apiLibrary.datasetId];
+    NSString* lrId = [self.apiLibrary createAndWaitLRFromDatasetId:self.apiLibrary.datasetId
+                                                           options:nil];
     NSDictionary* prediction = [self.apiLibrary
                                 localLRPredictionForLRId:lrId
                                 data:@{ @"sepal length": @(6.02),

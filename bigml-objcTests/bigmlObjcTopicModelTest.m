@@ -21,7 +21,8 @@
 - (void)testTopicModelDistribution {
     
     self.apiLibrary.csvFileName = @"novel.txt";
-    NSString* tmId = [self.apiLibrary createAndWaitTopicModelFromDatasetId:self.apiLibrary.datasetId];
+    NSString* tmId = [self.apiLibrary createAndWaitTopicModelFromDatasetId:self.apiLibrary.datasetId
+                                                                   options:nil];
     NSDictionary* prediction = [self.apiLibrary
                                 localTMPredictionForTMId:tmId
                                 data:@""

@@ -21,14 +21,22 @@
 @property (nonatomic, strong) NSString* csvFileName;
 
 - (BMLResourceUuid*)createAndWaitSourceFromCSV:(NSString*)path;
-- (BMLResourceUuid*)createAndWaitDatasetFromSourceId:(BMLResourceUuid*)srcId;
-- (BMLResourceUuid*)createAndWaitModelFromDatasetId:(BMLResourceUuid*)dataSetId;
-- (BMLResourceUuid*)createAndWaitClusterFromDatasetId:(BMLResourceUuid*)dataSetId;
-- (BMLResourceUuid*)createAndWaitEnsembleFromDatasetId:(BMLResourceUuid*)dataSetId;
-- (BMLResourceUuid*)createAndWaitAnomalyFromDatasetId:(BMLResourceUuid*)dataSetId;
-- (BMLResourceUuid*)createAndWaitLRFromDatasetId:(BMLResourceUuid*)dataSetId;
-- (BMLResourceUuid*)createAndWaitTopicModelFromDatasetId:(BMLResourceUuid*)dataSetId;
-- (BMLResourceUuid*)createAndWaitTimeSeriesFromDatasetId:(BMLResourceUuid*)dataSetId;
+- (BMLResourceUuid*)createAndWaitDatasetFromSourceId:(BMLResourceUuid*)srcId
+                                             options:(NSDictionary*)options;
+- (BMLResourceUuid*)createAndWaitModelFromDatasetId:(BMLResourceUuid*)dataSetId
+                                            options:(NSDictionary*)options;
+- (BMLResourceUuid*)createAndWaitClusterFromDatasetId:(BMLResourceUuid*)dataSetId
+                                              options:(NSDictionary*)options;
+- (BMLResourceUuid*)createAndWaitEnsembleFromDatasetId:(BMLResourceUuid*)dataSetId
+                                               options:(NSDictionary*)options;
+- (BMLResourceUuid*)createAndWaitAnomalyFromDatasetId:(BMLResourceUuid*)dataSetId
+                                              options:(NSDictionary*)options;
+- (BMLResourceUuid*)createAndWaitLRFromDatasetId:(BMLResourceUuid*)dataSetId
+                                         options:(NSDictionary*)options;
+- (BMLResourceUuid*)createAndWaitTopicModelFromDatasetId:(BMLResourceUuid*)dataSetId
+                                                 options:(NSDictionary*)options;
+- (BMLResourceUuid*)createAndWaitTimeSeriesFromDatasetId:(BMLResourceUuid*)dataSetId
+                                                 options:(NSDictionary*)options;
 
 //- (BMLResourceUuid*)createAndWaitPredictionFromId:(BMLResourceUuid*)modelId
 //                                     resourceType:(BMLResourceUuid*)resourceTyp

@@ -49,7 +49,8 @@
         if (_csvFileName) {
             NSString* sourceId = [self createAndWaitSourceFromCSV:_csvFileName];
             if (sourceId) {
-                _datasetId = [self createAndWaitDatasetFromSourceId:sourceId];
+                _datasetId = [self createAndWaitDatasetFromSourceId:sourceId
+                                                            options:nil];
                 [self deleteSourceWithIdSync:sourceId];
             }
         }
@@ -143,7 +144,8 @@
 
 - (BMLResourceUuid*)createAndWaitResourceOfType:(BMLResourceTypeIdentifier*)targetType
                                            from:(BMLResourceUuid*)originId
-                                           type:(BMLResourceTypeIdentifier*)originType {
+                                           type:(BMLResourceTypeIdentifier*)originType
+                                        options:(NSDictionary*)options {
     
     id<BMLResource> __block result = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
@@ -154,7 +156,7 @@
                                   definition:nil];
     [self createResource:targetType
                     name:@"testResource"
-                 options:nil
+                 options:options
                     from:resource
               completion:^(id<BMLResource> resource, NSError* error) {
                   
@@ -165,60 +167,76 @@
     return result.uuid;
 }
 
-- (BMLResourceUuid*)createAndWaitDatasetFromSourceId:(BMLResourceUuid*)srcId {
+- (BMLResourceUuid*)createAndWaitDatasetFromSourceId:(BMLResourceUuid*)srcId
+                                             options:(NSDictionary*)options {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeDataset
                                         from:srcId
-                                        type:BMLResourceTypeSource];
+                                        type:BMLResourceTypeSource
+                                     options:options];
 }
 
-- (BMLResourceUuid*)createAndWaitModelFromDatasetId:(BMLResourceUuid*)dataSetId {
+- (BMLResourceUuid*)createAndWaitModelFromDatasetId:(BMLResourceUuid*)dataSetId
+                                            options:(NSDictionary*)options {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeModel
                                         from:dataSetId
-                                        type:BMLResourceTypeDataset];
+                                        type:BMLResourceTypeDataset
+                                     options:options];
 }
 
-- (BMLResourceUuid*)createAndWaitClusterFromDatasetId:(BMLResourceUuid*)dataSetId {
+- (BMLResourceUuid*)createAndWaitClusterFromDatasetId:(BMLResourceUuid*)dataSetId
+                                              options:(NSDictionary*)options {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeCluster
                                         from:dataSetId
-                                        type:BMLResourceTypeDataset];
+                                        type:BMLResourceTypeDataset
+                                     options:options];
 }
 
-- (BMLResourceUuid*)createAndWaitEnsembleFromDatasetId:(BMLResourceUuid*)dataSetId {
+- (BMLResourceUuid*)createAndWaitEnsembleFromDatasetId:(BMLResourceUuid*)dataSetId
+                                               options:(NSDictionary*)options {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeEnsemble
                                         from:dataSetId
-                                        type:BMLResourceTypeDataset];
+                                        type:BMLResourceTypeDataset
+                                     options:options];
 }
 
-- (BMLResourceUuid*)createAndWaitAnomalyFromDatasetId:(BMLResourceUuid*)dataSetId {
+- (BMLResourceUuid*)createAndWaitAnomalyFromDatasetId:(BMLResourceUuid*)dataSetId
+                                              options:(NSDictionary*)options {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeAnomaly
                                         from:dataSetId
-                                        type:BMLResourceTypeDataset];
+                                        type:BMLResourceTypeDataset
+                                     options:options];
 }
 
-- (BMLResourceUuid*)createAndWaitLRFromDatasetId:(BMLResourceUuid*)dataSetId {
+- (BMLResourceUuid*)createAndWaitLRFromDatasetId:(BMLResourceUuid*)dataSetId
+                                         options:(NSDictionary*)options {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeLogisticRegression
                                         from:dataSetId
-                                        type:BMLResourceTypeDataset];
+                                        type:BMLResourceTypeDataset
+                                     options:options];
 }
 
-- (BMLResourceUuid*)createAndWaitTopicModelFromDatasetId:(BMLResourceUuid*)dataSetId {
+- (BMLResourceUuid*)createAndWaitTopicModelFromDatasetId:(BMLResourceUuid*)dataSetId
+                                                 options:(NSDictionary*)options {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeTopicModel
                                         from:dataSetId
-                                        type:BMLResourceTypeDataset];
+                                        type:BMLResourceTypeDataset
+                                     options:options];
 }
 
-- (BMLResourceUuid*)createAndWaitTimeSeriesFromDatasetId:(BMLResourceUuid*)dataSetId {
+- (BMLResourceUuid*)createAndWaitTimeSeriesFromDatasetId:(BMLResourceUuid*)dataSetId
+                                                 options:(NSDictionary*)options {
     
     return [self createAndWaitResourceOfType:BMLResourceTypeTimeSeries
                                         from:dataSetId
-                                        type:BMLResourceTypeDataset];
+                                        type:BMLResourceTypeDataset
+                                     options:options];
 }
 
 //- (BMLResourceUuid*)createAndWaitPredictionFromId:(BMLResourceUuid*)resourceId

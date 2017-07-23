@@ -71,7 +71,8 @@
 - (void)testLocalIrisPredictionAgainstRemote1 {
     
     self.apiLibrary.csvFileName = @"iris.csv";
-    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId];
+    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId
+                                                                 options:nil];
     NSDictionary* prediction1 = [self comparePredictionsWithModelId:modelId
                                                        arguments:@{@"000001": @3.15,
                                                                    @"000002": @4.07,
@@ -94,7 +95,8 @@
 - (void)testLocalIrisPredictionAgainstRemote2 {
     
     self.apiLibrary.csvFileName = @"iris.csv";
-    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId];
+    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId
+                                                                 options:nil];
     NSDictionary* prediction1 = [self comparePredictionsWithModelId:modelId
                                                        arguments:@{@"000001": @4.1,
                                                                    @"000002": @0.96,
@@ -117,7 +119,8 @@
 - (void)testLocalWinesPredictionAgainstRemote1 {
     
     self.apiLibrary.csvFileName = @"wines.csv";
-    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId];
+    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId
+                                                                 options:nil];
     NSDictionary* prediction1 = [self comparePredictionsWithModelId:modelId
                                                           arguments:@{@"000004": @32.0,
                                                                       @"000001": @"Cabernet Sauvignon",
@@ -142,7 +145,8 @@
 - (void)testLocalWinesPredictionAgainstRemote2 {
     
     self.apiLibrary.csvFileName = @"wines.csv";
-    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId];
+    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId
+                                                                 options:nil];
     NSDictionary* prediction1 = [self comparePredictionsWithModelId:modelId
                                                           arguments:@{@"000004": @5.8,
                                                                       @"000001": @"Pinot Grigio",
@@ -167,7 +171,8 @@
 - (void)testLocalSpamPredictionAgainstRemote1 {
     
     self.apiLibrary.csvFileName = @"spam.tsv";
-    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId];
+    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId
+                                                                 options:nil];
     NSDictionary* prediction1 = [self comparePredictionsWithModelId:modelId
                                                        arguments:@{ @"000001": @"Hey there!" }
                                                          options:@{ @"byName" : @(NO) }];
@@ -187,7 +192,8 @@
     
     NSString* spam = @"Congratulations! Thanks to a good friend U have WON the £2,000 Xmas prize. 2 claim is easy, just call 08718726971 NOW! Only 10p per minute. BT-national-rate.";
     self.apiLibrary.csvFileName = @"spam.tsv";
-    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId];
+    NSString* modelId = [self.apiLibrary createAndWaitModelFromDatasetId:self.apiLibrary.datasetId
+                                                                 options:nil];
     NSDictionary* prediction1 = [self comparePredictionsWithModelId:modelId
                                                        arguments:@{ @"000001": spam }
                                                          options:@{ @"byName" : @(NO) }];
