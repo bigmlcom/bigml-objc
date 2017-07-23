@@ -113,18 +113,138 @@ NSArray* NForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasonality) 
     return points;
 }
 
+/**
+ * Computing the forecast for the trend=A model
+ *
+ * ŷ_t+h|t = l_t + h * b_t
+ * ŷ_t+h|t = l_t + h * b_t + s_f(s, h) (if seasonality = "A")
+ * ŷ_t+h|t = (l_t + h * b_t) * s_f(s, h) (if seasonality = "M")
+ *
+ * @param {object} available submodels
+ * @param {integer} number of points to compute
+ */
+NSArray* AForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasonality) {
+    
+    NSMutableArray* points = [NSMutableArray new];
+    NSDictionary* finalState = submodel[@"final_state"] ?: @{};
+    double l = [finalState[@"l"] doubleValue];
+    double b = [finalState[@"b"] doubleValue];
+    NSArray* s = finalState[@"s"];
+    for (NSInteger h = 0; h < horizon; ++h) {
+        double sh = seasonContribution(s, h);
+        Predicate* p = [[Predicate alloc] initWithOperator:gOperators()[seasonality]
+                                                     field:@"ls"
+                                                     value:@(sh)
+                                                      term:nil];
+        [points addObject:@([p apply:@{ @"ls" : @(l + b * (h + 1)) } fields:nil])];
+    }
+    return points;
+}
+
+/**
+ * Computing the forecast for the trend=Ad model
+ *
+ * ŷ_t+h|t = l_t + phi_h * b_t
+ * ŷ_t+h|t = l_t + phi_h * b_t + s_f(s, h) (if seasonality = "A")
+ * ŷ_t+h|t = (l_t + phi_h * b_t) * s_f(s, h) (if seasonality = "M")
+ * with phi_h = phi + phi^2 + ... + phi^h
+ *
+ * @param {object} available submodels
+ * @param {integer} number of points to compute
+ */
+NSArray* AdForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasonality) {
+    
+    NSMutableArray* points = [NSMutableArray new];
+    NSDictionary* finalState = submodel[@"final_state"] ?: @{};
+    double l = [finalState[@"l"] doubleValue];
+    double b = [finalState[@"b"] doubleValue];
+    double phi = [submodel[@"phi"] doubleValue];
+    double phi_h = 0;
+    NSArray* s = finalState[@"s"];
+    for (NSInteger h = 0; h < horizon; ++h) {
+        double sh = seasonContribution(s, h);
+        phi_h += pow(phi, h + 1);
+        Predicate* p = [[Predicate alloc] initWithOperator:gOperators()[seasonality]
+                                                     field:@"ls"
+                                                     value:@(sh)
+                                                      term:nil];
+        [points addObject:@([p apply:@{ @"ls" : @(l + b * phi_h) } fields:nil])];
+    }
+    return points;
+}
+
+/**
+ * Computing the forecast for the trend=Ad model
+ *
+ ŷ_t+h|t = l_t * b_t^h
+ ŷ_t+h|t = l_t * b_t^h + s_f(s, h) (if seasonality = "A")
+ ŷ_t+h|t = (l_t * b_t^h) * s_f(s, h) (if seasonality = "M")
+ *
+ * @param {object} available submodels
+ * @param {integer} number of points to compute
+ */
+NSArray* MForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasonality) {
+    
+    NSMutableArray* points = [NSMutableArray new];
+    NSDictionary* finalState = submodel[@"final_state"] ?: @{};
+    double l = [finalState[@"l"] doubleValue];
+    double phi = [submodel[@"phi"] doubleValue];
+    NSArray* s = finalState[@"s"];
+    for (NSInteger h = 0; h < horizon; ++h) {
+        double sh = seasonContribution(s, h);
+        Predicate* p = [[Predicate alloc] initWithOperator:gOperators()[seasonality]
+                                                     field:@"ls"
+                                                     value:@(sh)
+                                                      term:nil];
+        [points addObject:@([p apply:@{ @"ls" : @(l * pow(phi, h + 1)) } fields:nil])];
+    }
+    return points;
+}
+
+/**
+ * Computing the forecast for the trend=Ad model
+ *
+ * ŷ_t+h|t = l_t + b_t^(phi_h)
+ * ŷ_t+h|t = l_t + b_t^(phi_h) + s_f(s, h) (if seasonality = "A")
+ * ŷ_t+h|t = (l_t + b_t^(phi_h)) * s_f(s, h) (if seasonality = "M")
+ * with phi_h = phi + phi^2 + ... + phi^h
+ *
+ * @param {object} available submodels
+ * @param {integer} number of points to compute
+ */
+NSArray* MdForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasonality) {
+    
+    NSMutableArray* points = [NSMutableArray new];
+    NSDictionary* finalState = submodel[@"final_state"] ?: @{};
+    double l = [finalState[@"l"] doubleValue];
+    double b = [finalState[@"b"] doubleValue];
+    double phi = [submodel[@"phi"] doubleValue];
+    double phi_h = 0;
+    NSArray* s = finalState[@"s"];
+    for (NSInteger h = 0; h < horizon; ++h) {
+        double sh = seasonContribution(s, h);
+        phi_h += pow(phi, h + 1);
+        Predicate* p = [[Predicate alloc] initWithOperator:gOperators()[seasonality]
+                                                     field:@"ls"
+                                                     value:@(sh)
+                                                      term:nil];
+        [points addObject:@([p apply:@{ @"ls" : @(l * pow(b, phi_h)) } fields:nil])];
+    }
+    return points;
+}
+
 NSDictionary* gSubmodels() {
     
     static NSDictionary* _submodels = nil;
     if (!_submodels) {
         _submodels = @{ @"naive" : [NSValue valueWithPointer:trivialForecast],
                         @"mean" : [NSValue valueWithPointer:trivialForecast],
-                        @"drift" : [NSValue valueWithPointer:trivialForecast],
-                        @"N" : [NSValue valueWithPointer:trivialForecast],
-                        @"A" : [NSValue valueWithPointer:trivialForecast],
-                        @"Ad" : [NSValue valueWithPointer:trivialForecast],
-                        @"M" : [NSValue valueWithPointer:trivialForecast],
-                        @"Md" : [NSValue valueWithPointer:trivialForecast]};
+                        @"drift" : [NSValue valueWithPointer:driftForecast],
+                        @"N" : [NSValue valueWithPointer:NForecast],
+                        @"A" : [NSValue valueWithPointer:AForecast],
+                        @"Ad" : [NSValue valueWithPointer:AdForecast],
+                        @"M" : [NSValue valueWithPointer:MForecast],
+                        @"Md" : [NSValue valueWithPointer:MdForecast]};
     }
     return _submodels;
 }
@@ -186,7 +306,17 @@ NSDictionary* gSubmodels() {
     NSAssert(resource[@"objective_fields"], @"TimeSeries: objective fields not found.");
     NSAssert(resource[@"time_series"], @"TimeSeries: time series not found.");
     
-    NSMutableArray* fieldIds = [NSMutableArray new];
+    NSArray* (^getFieldIds)(void) = ^NSArray* {
+        NSMutableArray* _fieldIds = [NSMutableArray new];
+        for (NSString* fieldId in self.fields) {
+            if (self.objectiveFieldId != fieldId) {
+                [_fieldIds addObject:@[fieldId,
+                                      self.fields[fieldId][@"column_number"]]];
+            }
+        }
+        return _fieldIds;
+    };
+    
     if (resource[@"input_fields"]) {
         self.inputFields = resource[@"input_fields"]; //-- mutableCopy?
     }
@@ -200,13 +330,7 @@ NSDictionary* gSubmodels() {
             self.fields = self.timeSeriesInfo[@"fields"];
             if (!self.inputFields) {
                 self.inputFields = [NSMutableArray new];
-                for (NSString* fieldId in self.fields) {
-                    if (self.objectiveFieldId != fieldId) {
-                        [fieldIds addObject:@[fieldId,
-                                              self.fields[fieldId][@"column_number"]]];
-                    }
-                }
-                fieldIds = [fieldIds
+                NSArray* fieldIds = [getFieldIds()
                             sortedArrayUsingComparator:^NSComparisonResult(NSArray* a, NSArray* b) {
                                 a = a[1];
                                 b = b[1];
@@ -227,7 +351,7 @@ NSDictionary* gSubmodels() {
         }
         //    self.invertedFields = utils.invertObject(fields);
         self.allNumericObjectives = [self.timeSeriesInfo[@"all_numeric_objectives"] boolValue];
-//        self.submodels = self.timeSeriesInfo[@"submodles"] ?: @{};
+//        self.submodels = self.timeSeriesInfo[@"submodels"] ?: @{};
         self.etsModels = self.timeSeriesInfo[@"ets_models"] ?: @{};
         self.period = [(self.timeSeriesInfo[@"period"] ?: @1) intValue];
         self.error = self.timeSeriesInfo[@"error"];
@@ -262,7 +386,6 @@ NSDictionary* gSubmodels() {
          addUnusedFields:(BOOL)addUnusedFields
               completion:(NSDictionary*(^)(NSDictionary* error, NSDictionary* data))completion {
     
-//    NSMutableDictionary* newInputData = [NSMutableDictionary new];
     NSDictionary* (^localForecast)(NSDictionary* error, NSDictionary* data) =
     ^NSDictionary*(NSDictionary* error, NSDictionary* data) {
         /**
@@ -401,7 +524,6 @@ NSDictionary* gSubmodels() {
         id pointForecast = nil;
         if ([name containsString:@","]) {
             NSArray* labels = [name componentsSeparatedByString:@","];
-//            NSError* error = labels[0];
             NSString* trend = labels[1];
             seasonality = labels[2];
             SubmodelFunc f = (SubmodelFunc)[gSubmodels()[trend] pointerValue];
