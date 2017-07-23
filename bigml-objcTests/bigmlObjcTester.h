@@ -20,6 +20,14 @@
 @property (nonatomic, strong) NSString* datasetId;
 @property (nonatomic, strong) NSString* csvFileName;
 
+- (BMLResourceUuid*)createAndWaitResourceOfType:(BMLResourceTypeIdentifier*)targetType
+                                           from:(BMLResourceUuid*)originId
+                                           type:(BMLResourceTypeIdentifier*)originType
+                                        options:(NSDictionary*)options;
+
+- (NSDictionary*)getResourceOfType:(BMLResourceTypeIdentifier*)targetType
+                              uuid:(BMLResourceUuid*)originId;
+
 - (BMLResourceUuid*)createAndWaitSourceFromCSV:(NSString*)path;
 - (BMLResourceUuid*)createAndWaitDatasetFromSourceId:(BMLResourceUuid*)srcId
                                              options:(NSDictionary*)options;
@@ -38,22 +46,9 @@
 - (BMLResourceUuid*)createAndWaitTimeSeriesFromDatasetId:(BMLResourceUuid*)dataSetId
                                                  options:(NSDictionary*)options;
 
-//- (BMLResourceUuid*)createAndWaitPredictionFromId:(BMLResourceUuid*)modelId
-//                                     resourceType:(BMLResourceUuid*)resourceTyp
-//                                        inputData:(NSDictionary*)inputData;
-
-//- (NSDictionary*)remotePredictionForId:(BMLResourceUuid*)resourceId
-//                          resourceType:(BMLResourceTypeIdentifier*)resourceType
-//                                  data:(NSDictionary*)inputData
-//                               options:(NSDictionary*)options;
-
 - (NSDictionary*)localPredictionForModelId:(BMLResourceUuid*)modelId
                                       data:(NSDictionary*)inputData
                                    options:(NSDictionary*)options;
-
-//- (NSDictionary*)localPredictionForEnsembleId:(BMLResourceUuid*)ensembleId
-//                                         data:(NSDictionary*)inputData
-//                                      options:(NSDictionary*)options;
 
 - (NSDictionary*)localPredictionForClusterId:(BMLResourceUuid*)clusterId
                                         data:(NSDictionary*)inputData

@@ -12,18 +12,58 @@
 #import "BMLLocalPredictions.h"
 #import "bigmlObjcTestCase.h"
 
+#import "BMLResourceTypeIdentifier.h"
+
 @interface bigmlObjcTimeSeriesTests : bigmlObjcTestCase
 
 @end
 
 @implementation bigmlObjcTimeSeriesTests
 
+- (void)checkForecast:(NSDictionary*)f reference:(NSDictionary*)rf {
+    
+    XCTAssert(f.allKeys.count == rf.allKeys.count);
+    for (NSString* fieldId in f.allKeys) {
+        NSDictionary* item = f[fieldId][0];
+        NSDictionary* rItem = rf[fieldId][0];
+        XCTAssert([item[@"submodel"] isEqualTo:rItem[@"submodel"]]);
+        XCTAssert([item[@"pointForecast"] isEqualTo:rItem[@"pointForecast"]]);
+        NSInteger len = [item[@"pointForecast"] count];
+        for (NSInteger i = 0; i < len; ++i) {
+            XCTAssert([item[@"pointForecast"][i] isEqualTo:rItem[@"pointForecast"]]);
+        }
+    }
+}
+
+- (BMLResourceFullUuid*)timeSeries1 {
+    
+    static BMLResourceFullUuid* _tsId1 = nil;
+    if (!_tsId1) {
+        self.apiLibrary.csvFileName = @"monthly-milk.csv";
+        _tsId1 = [self.apiLibrary
+                  createAndWaitTimeSeriesFromDatasetId:self.apiLibrary.datasetId
+                  options:nil];
+    }
+    return _tsId1;
+}
+
+- (NSDictionary*)referenceForecast1 {
+    
+    static NSDictionary* _rf1 = nil;
+    if (!_rf1) {
+        NSString* rfId = [self.apiLibrary createAndWaitResourceOfType:BMLResourceTypeForecast
+                                                       from:[self timeSeries1]
+                                                       type:BMLResourceTypeTimeSeries
+                                                    options:nil];
+        _rf1 = [self.apiLibrary getResourceOfType:BMLResourceTypeForecast
+                                             uuid:rfId];
+    }
+    return _rf1;
+}
+
 - (void)testTimeSeriesCreation1 {
     
-    self.apiLibrary.csvFileName = @"monthly-milk.csv";
-    NSString* tsId = [self.apiLibrary
-                      createAndWaitTimeSeriesFromDatasetId:self.apiLibrary.datasetId
-                      options:nil];
+    NSString* tsId = [self timeSeries1];
     XCTAssert(tsId);
     
     NSDictionary* d = [self.apiLibrary
@@ -39,6 +79,8 @@
                                        }
                                }
                        options:@{ @"byName": @NO }];
+    
+    [self checkForecast:d reference:[self referenceForecast1]];
     NSLog(@"FORECAST: %@", d);
 }
 

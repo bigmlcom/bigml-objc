@@ -102,6 +102,7 @@ extern BMLResourceTypeIdentifier* BMLResourceTypeBatchPrediction;
 extern BMLResourceTypeIdentifier* BMLResourceTypeTopicDistribution;
 extern BMLResourceTypeIdentifier* BMLResourceTypeTopicModel;
 extern BMLResourceTypeIdentifier* BMLResourceTypeTimeSeries;
+extern BMLResourceTypeIdentifier* BMLResourceTypeForecast;
 extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlScript;
 extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlExecution;
 extern BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlSource;

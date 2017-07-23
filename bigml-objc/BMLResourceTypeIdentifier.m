@@ -37,6 +37,7 @@ BMLResourceTypeIdentifier* BMLResourceTypeAnomalyScore = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeTopicDistribution = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeTopicModel = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeTimeSeries = nil;
+BMLResourceTypeIdentifier* BMLResourceTypeForecast = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlScript = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlExecution = nil;
 BMLResourceTypeIdentifier* BMLResourceTypeWhizzmlLibrary = nil;
@@ -70,6 +71,7 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
         BML_ADD_TYPE(BMLResourceTypeTopicDistribution, @"topicdistribution");
         BML_ADD_TYPE(BMLResourceTypeTopicModel, @"topicmodel");
         BML_ADD_TYPE(BMLResourceTypeTimeSeries, @"timeseries");
+        BML_ADD_TYPE(BMLResourceTypeForecast, @"forecast");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlScript, @"script");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlExecution, @"execution");
         BML_ADD_TYPE(BMLResourceTypeWhizzmlSource, @"sourcecode");
@@ -96,6 +98,7 @@ BMLResourceTypeIdentifier* BMLResourceTypeNotAResource = nil;
              BMLResourceTypeBatchPrediction,
              BMLResourceTypeTopicModel,
              BMLResourceTypeTimeSeries,
+             BMLResourceTypeForecast,
              BMLResourceTypeTopicDistribution,
              BMLResourceTypeWhizzmlScript,
              BMLResourceTypeWhizzmlExecution,
