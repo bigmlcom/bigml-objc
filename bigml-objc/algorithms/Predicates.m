@@ -198,7 +198,7 @@ NSString* plural(NSString* string, int multiplicity) {
 - (BOOL)evalPredicate:(NSString*)predicate args:(NSDictionary*)args {
     
     if ([predicate isEqualToString:@"ls  rs"])
-        NSLog(@"CONY");
+        NSLog(@"Wrong operator specified.");
     NSPredicate* p = [NSPredicate predicateWithFormat:predicate];
     return [p evaluateWithObject:args];
 }

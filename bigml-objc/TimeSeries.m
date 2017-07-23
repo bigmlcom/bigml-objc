@@ -7,6 +7,7 @@
 //
 
 #import "TimeSeries.h"
+#import "Predicates.h"
 
 #define REQUIRED_INPUT @"horizon"
 
@@ -21,6 +22,29 @@ NSDictionary* gDefaultSubmodel() {
         _gDefaultSubmodel = @{@"criterion": @"aic", @"limit": @1};
     }
     return _gDefaultSubmodel;
+}
+
+NSArray* gOperators() {
+
+    static NSArray* _gOperators = nil;
+    if (!_gOperators) {
+        _gOperators = @[@"=", @"!=", @"/=", @"<", @"<=", @">", @">=", @"in"];
+    }
+    return _gOperators;
+}
+
+/**
+ * Computing the contribution of each season component
+ *
+ */
+double seasonContribution(NSArray* submodel, NSInteger horizon) {
+    
+    if (submodel) {
+        NSInteger m = submodel.count;
+        NSInteger i = labs(1 - m + horizon % m);
+        return [submodel[i] doubleValue];
+    }
+    return 0;
 }
 
 /**
@@ -46,6 +70,48 @@ NSArray* trivialForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasona
     return points;
 }
 
+/**
+ * Computing the forecast for the mean model
+ *
+ * @param {object} available submodels
+ * @param {integer} number of points to compute
+ */
+NSArray* driftForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasonality) {
+
+    NSMutableArray* points = [NSMutableArray new];
+    for (NSInteger h = 0; h < horizon; ++h) {
+        [points addObject:@([submodel[@"value"] doubleValue] +
+         [submodel[@"slope"] doubleValue] * (h + 1))];
+    }
+    return points;
+}
+
+/**
+ * Computing the forecast for the trend=N model
+ *
+ * ŷ_t+h|t = l_t
+ * ŷ_t+h|t = l_t + s_f(s, h) (if seasonality = "A")
+ * ŷ_t+h|t = l_t * s_f(s, h) (if seasonality = "M")
+ *
+ * @param {object} available submodels
+ * @param {integer} number of points to compute
+ */
+NSArray* NForecast(NSDictionary* submodel, NSInteger horizon, BOOL seasonality) {
+
+    NSMutableArray* points = [NSMutableArray new];
+    NSDictionary* finalState = submodel[@"final_state"] ?: @{};
+    double l = [finalState[@"l"] doubleValue];
+    NSArray* s = finalState[@"s"];
+    for (NSInteger h = 0; h < horizon; ++h) {
+        double sh = seasonContribution(s, h);
+        Predicate* p = [[Predicate alloc] initWithOperator:gOperators()[seasonality]
+                                                     field:@"ls"
+                                                     value:@(sh)
+                                                      term:nil];
+        [points addObject:@([p apply:@{ @"ls" : @(l) } fields:nil])];
+    }
+    return points;
+}
 
 NSDictionary* gSubmodels() {
     
@@ -103,16 +169,6 @@ NSDictionary* gSubmodels() {
                      NSLog(@"TimeSeries Forecast Completed");
                      return data;
                  }];
-}
-
-+ (double)seasonContribution:(NSArray*)submodel horizon:(NSInteger)horizon {
-    
-    if (submodel) {
-        NSInteger m = submodel.count;
-        NSInteger i = labs(1 - m + horizon % m);
-        return [submodel[i] doubleValue];
-    }
-    return 0;
 }
 
 /**
@@ -344,9 +400,8 @@ NSDictionary* gSubmodels() {
         NSString* seasonality = nil;
         id pointForecast = nil;
         if ([name containsString:@","]) {
-            NSArray* labels = [name componentsSeparatedByString:@"'"];
-            NSError* error = labels[0];
-            NSAssert(!error, @"UNHANDLED ERROR");
+            NSArray* labels = [name componentsSeparatedByString:@","];
+//            NSError* error = labels[0];
             NSString* trend = labels[1];
             seasonality = labels[2];
             SubmodelFunc f = (SubmodelFunc)[gSubmodels()[trend] pointerValue];
@@ -405,7 +460,7 @@ NSDictionary* gSubmodels() {
     id criterion = filterInfo[gSubmodelKeys[2]];
     id limit = filterInfo[gSubmodelKeys[3]];
 
-    if (indices.count == names.count == 0) {
+    if (indices.count == 0 && names.count == 0) {
         return @[];
     }
     for (NSNumber* index in indices) {
@@ -431,12 +486,14 @@ NSDictionary* gSubmodels() {
     ^NSArray*(NSArray* submodels, id criterion, id limit) {
         
         if (criterion) {
-            NSInteger c = [criterion intValue];
             submodels = [submodels
-                         sortedArrayUsingComparator:^NSComparisonResult(NSArray* a, NSArray* b) {
-                             if (([a[c] intValue] || INFINITY) > ([b[c] intValue] || INFINITY)) {
+                         sortedArrayUsingComparator:^NSComparisonResult(NSDictionary* a, NSDictionary* b) {
+                             NSLog(@"EXTRACTING: %f -- %f", [a[criterion] doubleValue], [b[criterion] doubleValue]);
+                             if ([(a[criterion] ?: @(INFINITY)) doubleValue] >
+                                 [(b[criterion] ?: @(INFINITY)) doubleValue]) {
                                  return 1;
-                             } else if ((a[c] || INFINITY) < (b[c] || INFINITY)) {
+                             } else if ([(a[criterion] ?: @(INFINITY)) doubleValue] <
+                                        [(b[criterion] ?: @(INFINITY)) doubleValue]) {
                                  return -1;
                              } else {
                                  return 0;
