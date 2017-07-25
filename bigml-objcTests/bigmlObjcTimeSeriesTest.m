@@ -51,12 +51,30 @@
     
     static NSDictionary* _rf1 = nil;
     if (!_rf1) {
-        NSString* rfId = [self.apiLibrary createAndWaitResourceOfType:BMLResourceTypeForecast
-                                                       from:[self timeSeries1]
-                                                       type:BMLResourceTypeTimeSeries
-                                                    options:nil];
-        _rf1 = [self.apiLibrary getResourceOfType:BMLResourceTypeForecast
-                                             uuid:rfId];
+        NSString* rfId = [self.apiLibrary
+                          createAndWaitResourceOfType:BMLResourceTypeForecast
+                          from:[self timeSeries1]
+                          type:BMLResourceTypeTimeSeries
+                          options:@{ @"input_data": @{ @"000001":@{
+                                                               @"horizon":@30,
+                                                               @"ets_models":@{
+                                                                       @"indices":@[@0,@1,@2],
+                                                                       @"names": @[@"A,A,N"],
+                                                                       @"criterion": @"bic",
+                                                                       @"limit":@2
+                                                                    }
+                                                               }
+                                                       }
+                                     }];
+        NSDictionary* fr = [self.apiLibrary getResourceOfType:BMLResourceTypeForecast
+                                                         uuid:rfId];
+        fr = fr[@"forecast"][@"result"][@"000001"][0];
+        _rf1 = @{ @"000001" :
+                      @[ @{ @"pointForecast" : fr[@"point_forecast"],
+                            @"submodel" : fr[@"submodel"] ?: @{}
+                            }
+                         ]
+                  };
     }
     return _rf1;
 }
