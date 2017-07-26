@@ -30,7 +30,7 @@
         XCTAssert([item[@"pointForecast"] isEqualTo:rItem[@"pointForecast"]]);
         NSInteger len = [item[@"pointForecast"] count];
         for (NSInteger i = 0; i < len; ++i) {
-            XCTAssert([item[@"pointForecast"][i] isEqualTo:rItem[@"pointForecast"]]);
+            XCTAssert([item[@"pointForecast"][i] floatValue] == [rItem[@"pointForecast"][i] floatValue]);
         }
     }
 }
@@ -71,7 +71,7 @@
         fr = fr[@"forecast"][@"result"][@"000001"][0];
         _rf1 = @{ @"000001" :
                       @[ @{ @"pointForecast" : fr[@"point_forecast"],
-                            @"submodel" : fr[@"submodel"] ?: @{}
+                            @"submodel" : fr[@"model"] ?: @{}
                             }
                          ]
                   };
