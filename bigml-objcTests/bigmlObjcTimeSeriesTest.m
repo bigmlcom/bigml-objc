@@ -59,36 +59,65 @@
     return [self timeSeries:@"grades.csv" options:nil];
 }
 
-- (NSDictionary*)referenceForecast1 {
+- (NSDictionary*)referenceForecast:(BMLResourceUuid*)ts options:(NSDictionary*)options {
     
-    static NSDictionary* _rf1 = nil;
-    if (!_rf1) {
-        NSString* rfId = [self.apiLibrary
-                          createAndWaitResourceOfType:BMLResourceTypeForecast
-                          from:[self timeSeries1]
-                          type:BMLResourceTypeTimeSeries
-                          options:@{ @"input_data": @{ @"000001":@{
-                                                               @"horizon":@30,
-                                                               @"ets_models":@{
-                                                                       @"indices":@[@0,@1,@2],
-                                                                       @"names": @[@"A,A,N"],
-                                                                       @"criterion": @"bic",
-                                                                       @"limit":@2
-                                                                    }
-                                                               }
-                                                       }
-                                     }];
+    static NSMutableDictionary* _rfs = nil;
+    if (!_rfs) {
+        _rfs = [NSMutableDictionary new];
+    }
+    if (!_rfs[ts]) {
+
+        NSString* field = [[options[@"input_data"] allKeys] firstObject];
+        BMLResourceUuid* rfId = [self.apiLibrary
+                                 createAndWaitResourceOfType:BMLResourceTypeForecast
+                                 from:ts
+                                 type:BMLResourceTypeTimeSeries
+                                 options:options];
+        
         NSDictionary* fr = [self.apiLibrary getResourceOfType:BMLResourceTypeForecast
                                                          uuid:rfId];
-        fr = fr[@"forecast"][@"result"][@"000001"][0];
-        _rf1 = @{ @"000001" :
+        fr = fr[@"forecast"][@"result"][field][0];
+        _rfs[ts] = @{ field :
                       @[ @{ @"pointForecast" : fr[@"point_forecast"],
                             @"submodel" : fr[@"model"] ?: @{}
                             }
                          ]
                   };
     }
-    return _rf1;
+    return _rfs[ts];
+}
+
+- (NSDictionary*)options1 {
+    
+    return @{ @"000001":@{
+                      @"horizon":@30,
+                      @"ets_models":@{
+                              @"indices":@[@0,@1,@2],
+                              @"names": @[@"A,A,N"],
+                              @"criterion": @"bic",
+                              @"limit":@2
+                              }
+                      }
+              };
+}
+
+- (NSDictionary*)options2 {
+
+    return @{ @"000005": @{ @"horizon": @5 }};
+}
+
+- (NSDictionary*)referenceForecast1 {
+    
+    
+    return [self referenceForecast:[self timeSeries1]
+                           options:@{ @"input_data": [self options1]}];
+}
+
+- (NSDictionary*)referenceForecast2 {
+    
+    
+    return [self referenceForecast:[self timeSeries2]
+                           options:@{ @"input_data": [self options2]}];
 }
 
 - (void)testTimeSeriesCreation1 {
@@ -98,16 +127,20 @@
     
     NSDictionary* d = [self.apiLibrary
                        localForecastForTimeSeriesId:tsId
-                       data:@{ @"000001":@{
-                                       @"horizon":@30,
-                                       @"ets_models":@{
-                                               @"indices":@[@0,@1,@2],
-                                               @"names": @[@"A,A,N"],
-                                               @"criterion": @"bic",
-                                               @"limit":@2
-                                               }
-                                       }
-                               }
+                       data:[self options1]
+                       options:@{ @"byName": @NO }];
+    
+    [self checkForecast:d reference:[self referenceForecast1]];
+}
+
+- (void)testTimeSeriesCreation1b {
+    
+    NSString* tsId = [self timeSeries1];
+    XCTAssert(tsId);
+    
+    NSDictionary* d = [self.apiLibrary
+                       localForecastForTimeSeriesId:tsId
+                       data:[self options1]
                        options:@{ @"byName": @NO }];
     
     [self checkForecast:d reference:[self referenceForecast1]];
@@ -121,17 +154,9 @@
     
     NSDictionary* d = [self.apiLibrary
                        localForecastForTimeSeriesId:tsId
-                       data:@{ @"000001":@{
-                                       @"horizon":@30,
-                                       @"ets_models":@{
-                                               @"indices":@[@0,@1,@2],
-                                               @"names": @[@"A,A,N"],
-                                               @"criterion": @"bic",
-                                               @"limit":@2
-                                               }
-                                       }
-                               }
+                       data:[self options2]
                        options:@{ @"byName": @NO }];
+    [self checkForecast:d reference:[self referenceForecast2]];
     NSLog(@"FORECAST: %@", d);
 }
 

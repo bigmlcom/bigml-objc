@@ -162,6 +162,7 @@
                   
                   result = resource;
                   dispatch_semaphore_signal(semaphore);
+                  NSAssert(!error, @"Create error: %@", error);
               }];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     return result.uuid;

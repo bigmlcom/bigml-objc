@@ -20,7 +20,9 @@ NSDictionary* gDefaultSubmodel() {
     
     static NSDictionary* _gDefaultSubmodel = nil;
     if (!_gDefaultSubmodel) {
-        _gDefaultSubmodel = @{@"criterion": @"aic", @"limit": @1};
+        _gDefaultSubmodel = @{ @"criterion": @"aic",
+                               @"indices":@[@0,@1,@2],
+                               @"limit": @1 };
     }
     return _gDefaultSubmodel;
 }
@@ -341,7 +343,7 @@ NSDictionary* gSubmodels() {
         //    self.invertedFields = utils.invertObject(fields);
         self.allNumericObjectives = [self.timeSeriesInfo[@"all_numeric_objectives"] boolValue];
 //        self.submodels = self.timeSeriesInfo[@"submodels"] ?: @{};
-        self.etsModels = self.timeSeriesInfo[@"ets_models"] ?: @{};
+        self.etsModels = self.timeSeriesInfo[@"ets_models"] ?: gDefaultSubmodel();
         self.period = [(self.timeSeriesInfo[@"period"] ?: @1) intValue];
         self.error = self.timeSeriesInfo[@"error"];
         self.dampedTrend = [self.timeSeriesInfo[@"damped_trend"] intValue];
