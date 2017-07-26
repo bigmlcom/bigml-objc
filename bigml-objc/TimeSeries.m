@@ -21,7 +21,6 @@ NSDictionary* gDefaultSubmodel() {
     static NSDictionary* _gDefaultSubmodel = nil;
     if (!_gDefaultSubmodel) {
         _gDefaultSubmodel = @{ @"criterion": @"aic",
-                               @"indices":@[@0,@1,@2],
                                @"limit": @1 };
     }
     return _gDefaultSubmodel;
@@ -566,38 +565,38 @@ NSDictionary* gSubmodels() {
  */
 - (NSArray*)filteredSubmodels:(NSArray*)submodels filter:(NSDictionary*)filterInfo {
     
-    NSMutableArray* fieldSubmodels = [NSMutableArray new];
     NSMutableArray* submodelNames = [NSMutableArray new];
     NSArray* indices = filterInfo[gSubmodelKeys[0]] ?: @[];
     NSArray* names = filterInfo[gSubmodelKeys[1]] ?: @[];
     id criterion = filterInfo[gSubmodelKeys[2]];
     id limit = filterInfo[gSubmodelKeys[3]];
 
-    if (indices.count == 0 && names.count == 0) {
-        return @[];
-    }
-    for (NSNumber* index in indices) {
-        [fieldSubmodels addObject:submodels[index.intValue]];
-    }
-    for (id submodel in fieldSubmodels) {
-        [submodelNames addObject:submodel[@"name"]];
-    }
-    if (names.count > 0) {
-        NSString* pattern = [names componentsJoinedByString:@"|"];
-        for (id submodel in submodels) {
-            if (![submodelNames containsObject:submodel[@"name"]] &&
-                [self matches:submodel[@"name"]
-                      pattern:pattern
-                caseSensitive:NO].count > 0) {
-                    
-                    [fieldSubmodels addObject:submodel];
-                }
-        }
-    }
-    
-    NSArray* (^filter)(NSArray* submodels, id criterion, id limit) =
-    ^NSArray*(NSArray* submodels, id criterion, id limit) {
+    NSArray* (^getFieldSubmodels)() = ^NSArray*() {
         
+        NSMutableArray* fieldSubmodels = [NSMutableArray new];
+        for (NSNumber* index in indices) {
+            [fieldSubmodels addObject:submodels[index.intValue]];
+        }
+        if (names.count > 0) {
+            NSString* pattern = [names componentsJoinedByString:@"|"];
+            for (id submodel in fieldSubmodels) {
+                [submodelNames addObject:submodel[@"name"]];
+            }
+            for (id submodel in submodels) {
+                if (![submodelNames containsObject:submodel[@"name"]] &&
+                    [self matches:submodel[@"name"]
+                          pattern:pattern
+                    caseSensitive:NO].count > 0) {
+                        
+                        [fieldSubmodels addObject:submodel];
+                    }
+            }
+        }
+        return fieldSubmodels;
+    };
+    
+    NSArray* (^filter)(NSArray* submodels) = ^NSArray*(NSArray* submodels) {
+
         if (criterion) {
             submodels = [submodels
                          sortedArrayUsingComparator:^NSComparisonResult(NSDictionary* a, NSDictionary* b) {
@@ -619,7 +618,13 @@ NSDictionary* gSubmodels() {
         }
         return submodels;
     };
-    return filter(fieldSubmodels, criterion, limit);
+    
+    NSArray* fieldSubmodels = getFieldSubmodels();
+    if (indices.count == 0 && names.count == 0) {
+        fieldSubmodels = [fieldSubmodels arrayByAddingObjectsFromArray:submodels];
+    }
+
+    return filter(fieldSubmodels);
 }
 
 
