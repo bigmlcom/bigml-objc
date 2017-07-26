@@ -14,6 +14,35 @@
 
 #import "BMLResourceTypeIdentifier.h"
 
+#import <CommonCrypto/CommonDigest.h>
+
+NSString* md5Hash(NSDictionary* map) {
+
+    NSError* error = NULL;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:map
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if (error != nil) {
+        NSLog(@"Serialization Error: %@", error);
+        return nil;
+    }
+    
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    // Now create the MD5 hashs
+    const char* ptr = [jsonString UTF8String];
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    
+    CC_MD5(ptr, (unsigned int)strlen(ptr), md5Buffer);
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x",md5Buffer[i]];
+    
+    return output;
+}
+
+
 @interface bigmlObjcTimeSeriesTests : bigmlObjcTestCase
 
 @end
@@ -36,27 +65,57 @@
     }
 }
 
-- (BMLResourceFullUuid*)timeSeries:(NSString*)csv options:(NSDictionary*)options {
+- (NSDictionary*)inputs:(NSInteger)n {
+    
+    static NSArray* _inputs = nil;
+    if (!_inputs) {
+        _inputs = @[@{ @"000001" : @{
+                               @"horizon" : @30,
+                               @"ets_models" : @{
+                                       @"indices" : @[@0,@1,@2],
+                                       @"names" : @[@"A,A,N"],
+                                       @"criterion" : @"bic",
+                                       @"limit" : @2
+                                       }
+                               }
+                       },
+                    @{ @"000005": @{ @"horizon": @5 }},
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"limit" : @3
+                                       }
+                               }
+                       }
+                    ];
+    }
+    return _inputs[n];
+}
+
+- (BMLResourceFullUuid*)timeSeries:(NSInteger)n options:(NSDictionary*)options {
+    
+    static NSArray* _files = nil;
+    if (!_files) {
+        _files = @[@"monthly-milk.csv",
+                   @"grades.csv",
+                   @"grades.csv"];
+    }
+
+    NSString* csv = _files[n];
+    NSString* hash = md5Hash(@{ @"csv" : csv, @"options" : options ?: @{}});
     
     static NSMutableDictionary* _tss = nil;
     if (!_tss) {
         _tss = [NSMutableDictionary new];
     }
-    if (!_tss[csv]) {
+    if (!_tss[hash]) {
         self.apiLibrary.csvFileName = csv;
-        _tss[csv] = [self.apiLibrary
-                     createAndWaitTimeSeriesFromDatasetId:self.apiLibrary.datasetId
-                     options:options];
+        _tss[hash] = [self.apiLibrary
+                      createAndWaitTimeSeriesFromDatasetId:self.apiLibrary.datasetId
+                      options:options];
     }
-    return _tss[csv];
-}
-
-- (BMLResourceFullUuid*)timeSeries1 {
-    return [self timeSeries:@"monthly-milk.csv" options:nil];
-}
-
-- (BMLResourceFullUuid*)timeSeries2 {
-    return [self timeSeries:@"grades.csv" options:nil];
+    return _tss[hash];
 }
 
 - (NSDictionary*)referenceForecast:(BMLResourceUuid*)ts options:(NSDictionary*)options {
@@ -87,77 +146,36 @@
     return _rfs[ts];
 }
 
-- (NSDictionary*)options1 {
+- (NSDictionary*)referenceForecast:(NSInteger)n {
     
-    return @{ @"000001":@{
-                      @"horizon":@30,
-                      @"ets_models":@{
-                              @"indices":@[@0,@1,@2],
-                              @"names": @[@"A,A,N"],
-                              @"criterion": @"bic",
-                              @"limit":@2
-                              }
-                      }
-              };
+    return [self referenceForecast:[self timeSeries:n options:nil]
+                           options:@{ @"input_data": [self inputs:n]}];
 }
 
-- (NSDictionary*)options2 {
-
-    return @{ @"000005": @{ @"horizon": @5 }};
+- (void)runTest:(NSInteger)n {
+    
+    NSString* tsId = [self timeSeries:n options:nil];
+    XCTAssert(tsId);
+    
+    NSDictionary* d = [self.apiLibrary
+                       localForecastForTimeSeriesId:tsId
+                       data:[self inputs:n]
+                       options:@{ @"byName": @NO }];
+    
+    [self checkForecast:d reference:[self referenceForecast:n]];
 }
 
-- (NSDictionary*)referenceForecast1 {
-    
-    
-    return [self referenceForecast:[self timeSeries1]
-                           options:@{ @"input_data": [self options1]}];
-}
 
-- (NSDictionary*)referenceForecast2 {
-    
-    
-    return [self referenceForecast:[self timeSeries2]
-                           options:@{ @"input_data": [self options2]}];
+- (void)testTimeSeriesCreation0 {
+    [self runTest:0];
 }
 
 - (void)testTimeSeriesCreation1 {
-    
-    NSString* tsId = [self timeSeries1];
-    XCTAssert(tsId);
-    
-    NSDictionary* d = [self.apiLibrary
-                       localForecastForTimeSeriesId:tsId
-                       data:[self options1]
-                       options:@{ @"byName": @NO }];
-    
-    [self checkForecast:d reference:[self referenceForecast1]];
+    [self runTest:1];
 }
-
-- (void)testTimeSeriesCreation1b {
-    
-    NSString* tsId = [self timeSeries1];
-    XCTAssert(tsId);
-    
-    NSDictionary* d = [self.apiLibrary
-                       localForecastForTimeSeriesId:tsId
-                       data:[self options1]
-                       options:@{ @"byName": @NO }];
-    
-    [self checkForecast:d reference:[self referenceForecast1]];
-}
-
 
 - (void)testTimeSeriesCreation2 {
-    
-    NSString* tsId = [self timeSeries2];
-    XCTAssert(tsId);
-    
-    NSDictionary* d = [self.apiLibrary
-                       localForecastForTimeSeriesId:tsId
-                       data:[self options2]
-                       options:@{ @"byName": @NO }];
-    [self checkForecast:d reference:[self referenceForecast2]];
-    NSLog(@"FORECAST: %@", d);
+    [self runTest:2];
 }
 
 @end
