@@ -30,21 +30,33 @@
         XCTAssert([item[@"pointForecast"] isEqualTo:rItem[@"pointForecast"]]);
         NSInteger len = [item[@"pointForecast"] count];
         for (NSInteger i = 0; i < len; ++i) {
-            XCTAssert([item[@"pointForecast"][i] floatValue] == [rItem[@"pointForecast"][i] floatValue]);
+            XCTAssert(fabs([item[@"pointForecast"][i] floatValue] -
+                           [rItem[@"pointForecast"][i] floatValue]) < 0.001);
         }
     }
 }
 
-- (BMLResourceFullUuid*)timeSeries1 {
+- (BMLResourceFullUuid*)timeSeries:(NSString*)csv options:(NSDictionary*)options {
     
-    static BMLResourceFullUuid* _tsId1 = nil;
-    if (!_tsId1) {
-        self.apiLibrary.csvFileName = @"monthly-milk.csv";
-        _tsId1 = [self.apiLibrary
-                  createAndWaitTimeSeriesFromDatasetId:self.apiLibrary.datasetId
-                  options:nil];
+    static NSMutableDictionary* _tss = nil;
+    if (!_tss) {
+        _tss = [NSMutableDictionary new];
     }
-    return _tsId1;
+    if (!_tss[csv]) {
+        self.apiLibrary.csvFileName = csv;
+        _tss[csv] = [self.apiLibrary
+                     createAndWaitTimeSeriesFromDatasetId:self.apiLibrary.datasetId
+                     options:options];
+    }
+    return _tss[csv];
+}
+
+- (BMLResourceFullUuid*)timeSeries1 {
+    return [self timeSeries:@"monthly-milk.csv" options:nil];
+}
+
+- (BMLResourceFullUuid*)timeSeries2 {
+    return [self timeSeries:@"grades.csv" options:nil];
 }
 
 - (NSDictionary*)referenceForecast1 {
@@ -99,20 +111,16 @@
                        options:@{ @"byName": @NO }];
     
     [self checkForecast:d reference:[self referenceForecast1]];
-    NSLog(@"FORECAST: %@", d);
 }
 
 
 - (void)testTimeSeriesCreation2 {
     
-    self.apiLibrary.csvFileName = @"grades.csv";
-    NSString* tsId = [self.apiLibrary
-                      createAndWaitTimeSeriesFromDatasetId:self.apiLibrary.datasetId
-                      options:@{ @"objective_fields" : @[@"000001", @"000005"]}];
+    NSString* tsId = [self timeSeries2];
     XCTAssert(tsId);
     
     NSDictionary* d = [self.apiLibrary
-                    localForecastForTimeSeriesId:tsId
+                       localForecastForTimeSeriesId:tsId
                        data:@{ @"000001":@{
                                        @"horizon":@30,
                                        @"ets_models":@{
@@ -123,7 +131,7 @@
                                                }
                                        }
                                }
-                    options:@{ @"byName": @NO }];
+                       options:@{ @"byName": @NO }];
     NSLog(@"FORECAST: %@", d);
 }
 
