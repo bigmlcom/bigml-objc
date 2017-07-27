@@ -133,6 +133,60 @@ NSString* md5Hash(NSDictionary* map) {
                                        @"limit" : @3
                                        }
                                }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"M,N,M"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"M,A,M"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"M,Ad,M"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"M,M,M"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"A,A,N"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"M,Md,M"],
+                                       @"limit" : @3
+                                       }
+                               }
                        }
                     ];
     }
@@ -144,6 +198,11 @@ NSString* md5Hash(NSDictionary* map) {
     static NSArray* _files = nil;
     if (!_files) {
         _files = @[@"monthly-milk.csv",
+                   @"grades.csv",
+                   @"grades.csv",
+                   @"grades.csv",
+                   @"grades.csv",
+                   @"grades.csv",
                    @"grades.csv",
                    @"grades.csv",
                    @"grades.csv",
@@ -251,6 +310,30 @@ NSString* md5Hash(NSDictionary* map) {
 
 - (void)testTimeSeriesCreation7 {
     [self runTest:7];
+}
+
+- (void)testTimeSeriesCreation8 {
+    [self runTest:8];
+}
+
+- (void)testTimeSeriesCreation9 {
+    [self runTest:9];
+}
+
+- (void)testTimeSeriesCreation10 {
+    [self runTest:10];
+}
+
+- (void)testTimeSeriesCreation11 {
+    [self runTest:11];
+}
+
+- (void)testTimeSeriesCreation12 {
+    [self runTest:12];
+}
+
+- (void)testTimeSeriesCreation13 {
+    [self runTest:13];
 }
 
 @end
