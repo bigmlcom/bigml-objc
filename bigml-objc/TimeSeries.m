@@ -614,7 +614,8 @@ NSDictionary* gSubmodels() {
         }
         if (limit) {
             NSInteger l = [limit intValue];
-            submodels = [submodels subarrayWithRange:NSMakeRange(0, l)];
+            if (l <= submodels.count)
+                submodels = [submodels subarrayWithRange:NSMakeRange(0, l)];
         }
         return submodels;
     };

@@ -55,8 +55,8 @@ NSString* md5Hash(NSDictionary* map) {
     for (NSString* fieldId in f.allKeys) {
         NSDictionary* item = f[fieldId][0];
         NSDictionary* rItem = rf[fieldId][0];
-        XCTAssert([item[@"submodel"] isEqualTo:rItem[@"submodel"]]);
-        XCTAssert([item[@"pointForecast"] isEqualTo:rItem[@"pointForecast"]]);
+        XCTAssert([item[@"submodel"] isEqualToString:rItem[@"submodel"]]);
+        XCTAssert([item[@"pointForecast"] count]  == [rItem[@"pointForecast"] count]);
         NSInteger len = [item[@"pointForecast"] count];
         for (NSInteger i = 0; i < len; ++i) {
             XCTAssert(fabs([item[@"pointForecast"][i] floatValue] -
@@ -84,6 +84,52 @@ NSString* md5Hash(NSDictionary* map) {
                                @"horizon" : @5,
                                @"ets_models" : @{
                                        @"criterion" : @"aic",
+                                       @"names" : @[@"A,A,N"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"M,N,N"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"A,A,A"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"M,N,A"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"A,Ad,A"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"A,A,N"],
                                        @"limit" : @3
                                        }
                                }
@@ -98,6 +144,13 @@ NSString* md5Hash(NSDictionary* map) {
     static NSArray* _files = nil;
     if (!_files) {
         _files = @[@"monthly-milk.csv",
+                   @"grades.csv",
+                   @"grades.csv",
+                   @"grades.csv",
+                   @"grades.csv",
+                   @"grades.csv",
+                   @"grades.csv",
+                   @"grades.csv",
                    @"grades.csv",
                    @"grades.csv"];
     }
@@ -124,7 +177,9 @@ NSString* md5Hash(NSDictionary* map) {
     if (!_rfs) {
         _rfs = [NSMutableDictionary new];
     }
-    if (!_rfs[ts]) {
+    
+    NSString* hash = md5Hash(@{ @"ts" : ts, @"options" : options ?: @{}});
+    if (!_rfs[hash]) {
 
         NSString* field = [[options[@"input_data"] allKeys] firstObject];
         BMLResourceUuid* rfId = [self.apiLibrary
@@ -136,14 +191,14 @@ NSString* md5Hash(NSDictionary* map) {
         NSDictionary* fr = [self.apiLibrary getResourceOfType:BMLResourceTypeForecast
                                                          uuid:rfId];
         fr = fr[@"forecast"][@"result"][field][0];
-        _rfs[ts] = @{ field :
+        _rfs[hash] = @{ field :
                       @[ @{ @"pointForecast" : fr[@"point_forecast"],
                             @"submodel" : fr[@"model"] ?: @{}
                             }
                          ]
                   };
     }
-    return _rfs[ts];
+    return _rfs[hash];
 }
 
 - (NSDictionary*)referenceForecast:(NSInteger)n {
@@ -176,6 +231,26 @@ NSString* md5Hash(NSDictionary* map) {
 
 - (void)testTimeSeriesCreation2 {
     [self runTest:2];
+}
+
+- (void)testTimeSeriesCreation3 {
+    [self runTest:3];
+}
+
+- (void)testTimeSeriesCreation4 {
+    [self runTest:4];
+}
+
+- (void)testTimeSeriesCreation5 {
+    [self runTest:5];
+}
+
+- (void)testTimeSeriesCreation6 {
+    [self runTest:6];
+}
+
+- (void)testTimeSeriesCreation7 {
+    [self runTest:7];
 }
 
 @end
