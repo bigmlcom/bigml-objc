@@ -102,7 +102,7 @@ NSString* md5Hash(NSDictionary* map) {
                                @"horizon" : @5,
                                @"ets_models" : @{
                                        @"criterion" : @"aic",
-                                       @"names" : @[@"A,A,A"],
+                                       @"names" : @[@"A,A,A", @"A,A,N"],
                                        @"limit" : @3
                                        }
                                }
@@ -187,6 +187,42 @@ NSString* md5Hash(NSDictionary* map) {
                                        @"limit" : @3
                                        }
                                }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"A,N,N"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"M,N,N"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"A,A,N"],
+                                       @"limit" : @3
+                                       }
+                               }
+                       },
+                    @{ @"000005" : @{
+                               @"horizon" : @5,
+                               @"ets_models" : @{
+                                       @"criterion" : @"aic",
+                                       @"names" : @[@"A,Ad,N"],
+                                       @"limit" : @3
+                                       }
+                               }
                        }
                     ];
     }
@@ -197,7 +233,7 @@ NSString* md5Hash(NSDictionary* map) {
     
     static NSArray* _files = nil;
     if (!_files) {
-        _files = @[@"monthly-milk.csv",
+        _files = @[@"grades.csv",
                    @"grades.csv",
                    @"grades.csv",
                    @"grades.csv",
@@ -262,21 +298,27 @@ NSString* md5Hash(NSDictionary* map) {
 
 - (NSDictionary*)referenceForecast:(NSInteger)n {
     
-    return [self referenceForecast:[self timeSeries:n options:nil]
+    return [self referenceForecast:[self timeSeries:n options:@{ @"objective_fields" : @[ @"000001", @"000005" ],
+                                                                 @"period" : @(12)}]
                            options:@{ @"input_data": [self inputs:n]}];
 }
 
 - (void)runTest:(NSInteger)n {
     
-    NSString* tsId = [self timeSeries:n options:nil];
+    NSDictionary* options = @{ @"objective_fields" : @[ @"000001", @"000005" ],
+                               @"period" : @(12)};
+    NSString* tsId = [self timeSeries:n options:options];
     XCTAssert(tsId);
     
     NSDictionary* d = [self.apiLibrary
                        localForecastForTimeSeriesId:tsId
                        data:[self inputs:n]
-                       options:@{ @"byName": @NO }];
+                       options:nil];
     
-    [self checkForecast:d reference:[self referenceForecast:n]];
+    [self checkForecast:d
+              reference:[self referenceForecast:
+                         [self timeSeries:n options:options]
+                                        options:@{ @"input_data": [self inputs:n]}]];
 }
 
 
@@ -333,6 +375,22 @@ NSString* md5Hash(NSDictionary* map) {
 }
 
 - (void)testTimeSeriesCreation13 {
+    [self runTest:13];
+}
+
+- (void)testTimeSeriesCreation14 {
+    [self runTest:13];
+}
+
+- (void)testTimeSeriesCreation15 {
+    [self runTest:13];
+}
+
+- (void)testTimeSeriesCreation16 {
+    [self runTest:13];
+}
+
+- (void)testTimeSeriesCreation17 {
     [self runTest:13];
 }
 

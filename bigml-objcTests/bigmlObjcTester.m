@@ -160,6 +160,7 @@
                     from:resource
               completion:^(id<BMLResource> resource, NSError* error) {
                   
+                  NSLog(@"OPTIONS : %@", options);
                   result = resource;
                   dispatch_semaphore_signal(semaphore);
                   NSAssert(!error, @"Create error: %@", error);
